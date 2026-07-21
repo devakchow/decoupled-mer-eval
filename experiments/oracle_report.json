@@ -1,0 +1,270 @@
+{
+  "experiment_A": {
+    "A1_missed_as_extra": {
+      "ship": {
+        "missed": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "extra": {
+          "tp": 0,
+          "fp": 1,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "correct": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "_mean_f1": 0.0,
+        "_mean_error_f1": 0.0
+      },
+      "dec": {
+        "tau": 0.05,
+        "localization": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "confusion": {
+          "missed->extra": 1
+        },
+        "false_alarm_on_correct": 0,
+        "spurious": 0,
+        "miss_margin": 0,
+        "n_localized": 1,
+        "hm": 1.0,
+        "mass_conserved": true
+      }
+    },
+    "A2_wrong_as_extra": {
+      "ship": {
+        "missed": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 1,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "extra": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "correct": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "_mean_f1": 0.3333333333333333,
+        "_mean_error_f1": 0.5
+      },
+      "dec": {
+        "tau": 0.05,
+        "localization": {
+          "tp": 1,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "confusion": {
+          "wrong->extra": 1
+        },
+        "false_alarm_on_correct": 0,
+        "spurious": 0,
+        "miss_margin": 0,
+        "n_localized": 1,
+        "hm": 1.0,
+        "mass_conserved": true
+      }
+    }
+  },
+  "experiment_B": {
+    "system1": {
+      "ship": {
+        "missed": {
+          "tp": 4,
+          "fp": 2,
+          "fn": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666
+        },
+        "extra": {
+          "tp": 4,
+          "fp": 2,
+          "fn": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666
+        },
+        "correct": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "_mean_f1": 0.4444444444444444,
+        "_mean_error_f1": 0.6666666666666666
+      },
+      "dec": {
+        "tau": 0.05,
+        "localization": {
+          "tp": 12,
+          "fp": 0,
+          "fn": 0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        "confusion": {
+          "missed->missed": 4,
+          "extra->missed": 2,
+          "extra->extra": 4,
+          "missed->extra": 2
+        },
+        "false_alarm_on_correct": 0,
+        "spurious": 0,
+        "miss_margin": 0,
+        "n_localized": 12,
+        "hm": 0.3333333333333333,
+        "mass_conserved": true
+      }
+    },
+    "system2": {
+      "ship": {
+        "missed": {
+          "tp": 4,
+          "fp": 2,
+          "fn": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666
+        },
+        "extra": {
+          "tp": 4,
+          "fp": 2,
+          "fn": 2,
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666
+        },
+        "correct": {
+          "tp": 0,
+          "fp": 0,
+          "fn": 0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0
+        },
+        "_mean_f1": 0.4444444444444444,
+        "_mean_error_f1": 0.6666666666666666
+      },
+      "dec": {
+        "tau": 0.05,
+        "localization": {
+          "tp": 8,
+          "fp": 4,
+          "fn": 4,
+          "precision": 0.6666666666666666,
+          "recall": 0.6666666666666666,
+          "f1": 0.6666666666666666
+        },
+        "confusion": {
+          "missed->missed": 4,
+          "extra->extra": 4
+        },
+        "false_alarm_on_correct": 0,
+        "spurious": 4,
+        "miss_margin": 4,
+        "n_localized": 8,
+        "hm": 0.0,
+        "mass_conserved": true
+      }
+    }
+  },
+  "experiment_C": {
+    "planted_hm": 0.16666666666666666,
+    "sweep": [
+      {
+        "tau_ms": 50,
+        "localization_f1": 0.0,
+        "n_localized": 0,
+        "hm": null,
+        "shipped_mean_error_f1": 0.0,
+        "mass_conserved": true
+      },
+      {
+        "tau_ms": 75,
+        "localization_f1": 1.0,
+        "n_localized": 60,
+        "hm": 0.1667,
+        "shipped_mean_error_f1": 0.875,
+        "mass_conserved": true
+      },
+      {
+        "tau_ms": 100,
+        "localization_f1": 1.0,
+        "n_localized": 60,
+        "hm": 0.1667,
+        "shipped_mean_error_f1": 0.875,
+        "mass_conserved": true
+      },
+      {
+        "tau_ms": 150,
+        "localization_f1": 1.0,
+        "n_localized": 60,
+        "hm": 0.1667,
+        "shipped_mean_error_f1": 0.875,
+        "mass_conserved": true
+      },
+      {
+        "tau_ms": 200,
+        "localization_f1": 1.0,
+        "n_localized": 60,
+        "hm": 0.1667,
+        "shipped_mean_error_f1": 0.875,
+        "mass_conserved": true
+      },
+      {
+        "tau_ms": 500,
+        "localization_f1": 1.0,
+        "n_localized": 60,
+        "hm": 0.1667,
+        "shipped_mean_error_f1": 0.875,
+        "mass_conserved": true
+      }
+    ],
+    "confusion_500ms": {
+      "extra->extra": 15,
+      "wrong->wrong": 20,
+      "missed->missed": 15,
+      "extra->missed": 5,
+      "missed->extra": 5
+    }
+  }
+}
