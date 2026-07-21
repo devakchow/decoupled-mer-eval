@@ -1,0 +1,71 @@
+{
+ "C_polytune_coco": {
+  "unmatched_keys": 0,
+  "n": 4284,
+  "joint": {
+   "npred=1 gt=(0, 0, 1)": 942,
+   "npred=1 gt=(0, 1, 1)": 29,
+   "npred=1 gt=(1, 0, 1)": 90,
+   "npred=1 gt=(1, 1, 1)": 20,
+   "npred=2 gt=(0, 0, 1)": 53,
+   "npred=2 gt=(0, 1, 1)": 408,
+   "npred=2 gt=(1, 0, 1)": 622,
+   "npred=2 gt=(1, 1, 1)": 121,
+   "npred=3 gt=(0, 0, 1)": 15,
+   "npred=3 gt=(0, 1, 1)": 9,
+   "npred=3 gt=(1, 0, 1)": 264,
+   "npred=3 gt=(1, 1, 1)": 1711
+  },
+  "frontpad_ceiling": 3061,
+  "frontpad_ceiling_frac": 0.7145191409897292,
+  "under_n": 2285,
+  "under_frontpad_ceiling": 1350,
+  "under_frontpad_ceiling_frac": 0.5908096280087527
+ },
+ "D_laddersym_coco_prompted": {
+  "unmatched_keys": 0,
+  "n": 4284,
+  "joint": {
+   "npred=1 gt=(0, 0, 1)": 899,
+   "npred=1 gt=(0, 1, 1)": 33,
+   "npred=1 gt=(1, 0, 1)": 86,
+   "npred=1 gt=(1, 1, 1)": 18,
+   "npred=2 gt=(0, 0, 1)": 81,
+   "npred=2 gt=(0, 1, 1)": 394,
+   "npred=2 gt=(1, 0, 1)": 563,
+   "npred=2 gt=(1, 1, 1)": 118,
+   "npred=3 gt=(0, 0, 1)": 30,
+   "npred=3 gt=(0, 1, 1)": 19,
+   "npred=3 gt=(1, 0, 1)": 327,
+   "npred=3 gt=(1, 1, 1)": 1716
+  },
+  "frontpad_ceiling": 3009,
+  "frontpad_ceiling_frac": 0.7023809523809523,
+  "under_n": 2192,
+  "under_frontpad_ceiling": 1293,
+  "under_frontpad_ceiling_frac": 0.5898722627737226
+ },
+ "D_laddersym_coco_unprompted": {
+  "unmatched_keys": 0,
+  "n": 4284,
+  "joint": {
+   "npred=1 gt=(0, 0, 1)": 880,
+   "npred=1 gt=(0, 1, 1)": 27,
+   "npred=1 gt=(1, 0, 1)": 85,
+   "npred=1 gt=(1, 1, 1)": 24,
+   "npred=2 gt=(0, 0, 1)": 97,
+   "npred=2 gt=(0, 1, 1)": 390,
+   "npred=2 gt=(1, 0, 1)": 559,
+   "npred=2 gt=(1, 1, 1)": 108,
+   "npred=3 gt=(0, 0, 1)": 33,
+   "npred=3 gt=(0, 1, 1)": 29,
+   "npred=3 gt=(1, 0, 1)": 332,
+   "npred=3 gt=(1, 1, 1)": 1720
+  },
+  "frontpad_ceiling": 2990,
+  "frontpad_ceiling_frac": 0.6979458450046685,
+  "under_n": 2170,
+  "under_frontpad_ceiling": 1270,
+  "under_frontpad_ceiling_frac": 0.5852534562211982
+ }
+}

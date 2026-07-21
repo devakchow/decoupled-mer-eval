@@ -1,0 +1,20 @@
+{
+ "n_stems": 4284,
+ "present_pattern_counts": {
+  "(1, 1, 1)": 1852,
+  "(0, 0, 1)": 1010,
+  "(1, 0, 1)": 976,
+  "(0, 1, 1)": 446
+ },
+ "empty_per_class": {
+  "extra_notes": 1456,
+  "removed_notes": 1986
+ },
+ "empty_frac": {
+  "extra_notes": 0.33986928104575165,
+  "removed_notes": 0.4635854341736695,
+  "correct_notes": 0.0
+ },
+ "gt_prefix_compatible": 3308,
+ "gt_prefix_frac": 0.7721755368814193
+}

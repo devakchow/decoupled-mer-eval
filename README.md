@@ -3,7 +3,8 @@
 Implementation, evaluation harness, and result artifacts for
 
 > D. C. Charapalle, "A Decoupled Localization–Classification Measure for Music
-> Error Detection," submitted to *IEEE Signal Processing Letters*, 2026.
+> Error Detection," 2026. Prepared for submission to *IEEE Signal Processing
+> Letters* (citation will be updated on submission/publication).
 
 The letter proves that the per-class scores shipped by music error-detection
 systems cannot identify their localized-but-misclassified mass (**HM**), bounds
@@ -32,8 +33,15 @@ experiments/
                                  imports/tests/bridge/tables/figures)
   figs/                          figure + table generators (no hand-typed
                                  numbers; tables are byte-diffed by the gate)
+  evidence/                      CocoChorales ground-truth join + census
+                                 (provenance for the 85.6%/43.2% selection-bias
+                                 figures in the supplementary material)
   results/gilbreth/              scored artifacts cited in the letter
-  results/gilbreth_v110/         v1.1.0 re-score parity artifacts
+  results/gilbreth_v110/         output of the independent v1.1.0 re-score job
+                                 (cluster job 11341983), retained verbatim; the
+                                 scorer is deterministic and timestamp-free, so
+                                 byte-identity with results/gilbreth/ is the
+                                 expected outcome of the parity check
 ```
 
 ## Reproducing the letter's numbers
