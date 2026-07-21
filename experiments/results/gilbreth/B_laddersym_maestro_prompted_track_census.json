@@ -1,0 +1,10 @@
+{
+ "pred_dir": "/scratch/gilbreth/dcharapa/mer/run/out/B_laddersym_maestro_prompted/full",
+ "expected_note_tracks": 3,
+ "n_files": 177,
+ "histogram": {
+  "3": 177
+ },
+ "n_offenders": 0,
+ "offenders": []
+}

@@ -1,0 +1,216 @@
+{
+  "n_observations": 354,
+  "n_pairs": 62481,
+  "surface": [
+    {
+      "eps_shipped": 0.001,
+      "min_hm_gap": 0.05,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.001,
+      "min_hm_gap": 0.1,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.001,
+      "min_hm_gap": 0.15,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.001,
+      "min_hm_gap": 0.2,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.001,
+      "min_hm_gap": 0.3,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.002,
+      "min_hm_gap": 0.05,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.002,
+      "min_hm_gap": 0.1,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.002,
+      "min_hm_gap": 0.15,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.002,
+      "min_hm_gap": 0.2,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.002,
+      "min_hm_gap": 0.3,
+      "n_matches": 0,
+      "n_within_eps": 0
+    },
+    {
+      "eps_shipped": 0.005,
+      "min_hm_gap": 0.05,
+      "n_matches": 5,
+      "n_within_eps": 12
+    },
+    {
+      "eps_shipped": 0.005,
+      "min_hm_gap": 0.1,
+      "n_matches": 3,
+      "n_within_eps": 12
+    },
+    {
+      "eps_shipped": 0.005,
+      "min_hm_gap": 0.15,
+      "n_matches": 1,
+      "n_within_eps": 12
+    },
+    {
+      "eps_shipped": 0.005,
+      "min_hm_gap": 0.2,
+      "n_matches": 0,
+      "n_within_eps": 12
+    },
+    {
+      "eps_shipped": 0.005,
+      "min_hm_gap": 0.3,
+      "n_matches": 0,
+      "n_within_eps": 12
+    },
+    {
+      "eps_shipped": 0.01,
+      "min_hm_gap": 0.05,
+      "n_matches": 28,
+      "n_within_eps": 85
+    },
+    {
+      "eps_shipped": 0.01,
+      "min_hm_gap": 0.1,
+      "n_matches": 9,
+      "n_within_eps": 85
+    },
+    {
+      "eps_shipped": 0.01,
+      "min_hm_gap": 0.15,
+      "n_matches": 5,
+      "n_within_eps": 85
+    },
+    {
+      "eps_shipped": 0.01,
+      "min_hm_gap": 0.2,
+      "n_matches": 0,
+      "n_within_eps": 85
+    },
+    {
+      "eps_shipped": 0.01,
+      "min_hm_gap": 0.3,
+      "n_matches": 0,
+      "n_within_eps": 85
+    },
+    {
+      "eps_shipped": 0.02,
+      "min_hm_gap": 0.05,
+      "n_matches": 252,
+      "n_within_eps": 587
+    },
+    {
+      "eps_shipped": 0.02,
+      "min_hm_gap": 0.1,
+      "n_matches": 82,
+      "n_within_eps": 587
+    },
+    {
+      "eps_shipped": 0.02,
+      "min_hm_gap": 0.15,
+      "n_matches": 21,
+      "n_within_eps": 587
+    },
+    {
+      "eps_shipped": 0.02,
+      "min_hm_gap": 0.2,
+      "n_matches": 0,
+      "n_within_eps": 587
+    },
+    {
+      "eps_shipped": 0.02,
+      "min_hm_gap": 0.3,
+      "n_matches": 0,
+      "n_within_eps": 587
+    },
+    {
+      "eps_shipped": 0.05,
+      "min_hm_gap": 0.05,
+      "n_matches": 2475,
+      "n_within_eps": 5546
+    },
+    {
+      "eps_shipped": 0.05,
+      "min_hm_gap": 0.1,
+      "n_matches": 775,
+      "n_within_eps": 5546
+    },
+    {
+      "eps_shipped": 0.05,
+      "min_hm_gap": 0.15,
+      "n_matches": 160,
+      "n_within_eps": 5546
+    },
+    {
+      "eps_shipped": 0.05,
+      "min_hm_gap": 0.2,
+      "n_matches": 10,
+      "n_within_eps": 5546
+    },
+    {
+      "eps_shipped": 0.05,
+      "min_hm_gap": 0.3,
+      "n_matches": 0,
+      "n_within_eps": 5546
+    }
+  ],
+  "gap_distribution": [
+    {
+      "eps_shipped": 0.005,
+      "n": 12,
+      "median": 0.04462638633259379,
+      "p90": 0.11179417122040072,
+      "max": 0.15001166498172486
+    },
+    {
+      "eps_shipped": 0.01,
+      "n": 85,
+      "median": 0.039415198414823535,
+      "p90": 0.09301587301587302,
+      "max": 0.1896067415730337
+    },
+    {
+      "eps_shipped": 0.02,
+      "n": 587,
+      "median": 0.04388914129940935,
+      "p90": 0.10986267166042446,
+      "max": 0.19932876112651393
+    },
+    {
+      "eps_shipped": 0.05,
+      "n": 5546,
+      "median": 0.04403872788208246,
+      "p90": 0.11045830002664533,
+      "max": 0.2708333333333333
+    }
+  ]
+}

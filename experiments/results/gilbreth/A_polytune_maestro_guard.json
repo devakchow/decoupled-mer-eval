@@ -1,0 +1,5813 @@
+{
+  "config": {
+    "guard_version": "1.0.0",
+    "pred_dir": "/scratch/gilbreth/dcharapa/mer/run/preds/A_polytune_maestro",
+    "gt_meta": "/scratch/gilbreth/dcharapa/mer/run/gt_meta_maestro.json",
+    "onset_tolerance_s": 0.05,
+    "pitch_tolerance": "mir_eval default (50 cents; exact semitone for integer MIDI)",
+    "offset_ratio": null,
+    "row_order": [
+      "Extra",
+      "Removed",
+      "Correct"
+    ],
+    "col_order": [
+      "extra_notes_midi",
+      "removed_notes_midi",
+      "correct_notes_midi"
+    ]
+  },
+  "per_piece": {
+    "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_01_R1_2014_wav--1": {
+      "matrix": [
+        [
+          90,
+          0,
+          53
+        ],
+        [
+          0,
+          19,
+          15
+        ],
+        [
+          9,
+          3,
+          1196
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 144,
+        "Removed": 86,
+        "Correct": 1210
+      },
+      "gt_counts": {
+        "extra_notes_midi": 100,
+        "removed_notes_midi": 55,
+        "correct_notes_midi": 1321
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_01_R1_2014_wav--2": {
+      "matrix": [
+        [
+          31,
+          0,
+          4
+        ],
+        [
+          0,
+          14,
+          1
+        ],
+        [
+          4,
+          1,
+          461
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 35,
+        "Removed": 22,
+        "Correct": 465
+      },
+      "gt_counts": {
+        "extra_notes_midi": 35,
+        "removed_notes_midi": 32,
+        "correct_notes_midi": 473
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_02_R1_2014_wav--4": {
+      "matrix": [
+        [
+          157,
+          0,
+          78
+        ],
+        [
+          0,
+          51,
+          17
+        ],
+        [
+          16,
+          3,
+          4547
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 238,
+        "Removed": 151,
+        "Correct": 4610
+      },
+      "gt_counts": {
+        "extra_notes_midi": 179,
+        "removed_notes_midi": 117,
+        "correct_notes_midi": 5618
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_03_R1_2014_wav--4": {
+      "matrix": [
+        [
+          94,
+          0,
+          60
+        ],
+        [
+          0,
+          24,
+          10
+        ],
+        [
+          14,
+          1,
+          2143
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 155,
+        "Removed": 102,
+        "Correct": 2163
+      },
+      "gt_counts": {
+        "extra_notes_midi": 108,
+        "removed_notes_midi": 73,
+        "correct_notes_midi": 2328
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_04-05_R1_2014_MID--AUDIO_04_R1_2014_wav--2": {
+      "matrix": [
+        [
+          221,
+          1,
+          106
+        ],
+        [
+          1,
+          70,
+          32
+        ],
+        [
+          29,
+          7,
+          9924
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 329,
+        "Removed": 216,
+        "Correct": 9999
+      },
+      "gt_counts": {
+        "extra_notes_midi": 254,
+        "removed_notes_midi": 181,
+        "correct_notes_midi": 11025
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_04-05_R1_2014_MID--AUDIO_04_R1_2014_wav--5": {
+      "matrix": [
+        [
+          68,
+          0,
+          62
+        ],
+        [
+          0,
+          20,
+          23
+        ],
+        [
+          20,
+          1,
+          2429
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 138,
+        "Removed": 99,
+        "Correct": 2493
+      },
+      "gt_counts": {
+        "extra_notes_midi": 99,
+        "removed_notes_midi": 73,
+        "correct_notes_midi": 2983
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 23 exceeds diagonal 20 (warn-only)"
+      ]
+    },
+    "MIDI-UNPROCESSED_09-10_R1_2014_MID--AUDIO_09_R1_2014_wav--4": {
+      "matrix": [
+        [
+          714,
+          1,
+          274
+        ],
+        [
+          5,
+          180,
+          67
+        ],
+        [
+          91,
+          19,
+          6236
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 1008,
+        "Removed": 589,
+        "Correct": 6375
+      },
+      "gt_counts": {
+        "extra_notes_midi": 851,
+        "removed_notes_midi": 556,
+        "correct_notes_midi": 7176
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_11_R1_2014_wav--1": {
+      "matrix": [
+        [
+          25,
+          0,
+          3
+        ],
+        [
+          0,
+          9,
+          2
+        ],
+        [
+          3,
+          3,
+          1610
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 27,
+        "Removed": 18,
+        "Correct": 1614
+      },
+      "gt_counts": {
+        "extra_notes_midi": 29,
+        "removed_notes_midi": 24,
+        "correct_notes_midi": 1677
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_13_R1_2014_wav--4": {
+      "matrix": [
+        [
+          659,
+          7,
+          658
+        ],
+        [
+          20,
+          134,
+          172
+        ],
+        [
+          205,
+          48,
+          5979
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 1335,
+        "Removed": 894,
+        "Correct": 6235
+      },
+      "gt_counts": {
+        "extra_notes_midi": 931,
+        "removed_notes_midi": 643,
+        "correct_notes_midi": 7623
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 172 exceeds diagonal 134 (warn-only)"
+      ]
+    },
+    "MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_13_R1_2014_wav--6": {
+      "matrix": [
+        [
+          358,
+          3,
+          572
+        ],
+        [
+          6,
+          80,
+          130
+        ],
+        [
+          117,
+          13,
+          11680
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 987,
+        "Removed": 690,
+        "Correct": 12085
+      },
+      "gt_counts": {
+        "extra_notes_midi": 542,
+        "removed_notes_midi": 366,
+        "correct_notes_midi": 15197
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 572 exceeds diagonal 358 (warn-only)",
+        "Removed row: Correct-column count 130 exceeds diagonal 80 (warn-only)"
+      ]
+    },
+    "MIDI-UNPROCESSED_14-15_R1_2014_MID--AUDIO_15_R1_2014_wav--2": {
+      "matrix": [
+        [
+          195,
+          0,
+          102
+        ],
+        [
+          2,
+          62,
+          55
+        ],
+        [
+          37,
+          10,
+          4547
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 305,
+        "Removed": 222,
+        "Correct": 4627
+      },
+      "gt_counts": {
+        "extra_notes_midi": 244,
+        "removed_notes_midi": 159,
+        "correct_notes_midi": 5476
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_19-20-21_R2_2014_MID--AUDIO_20_R2_2014_wav": {
+      "matrix": [
+        [
+          708,
+          1,
+          177
+        ],
+        [
+          2,
+          179,
+          65
+        ],
+        [
+          71,
+          29,
+          9304
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 899,
+        "Removed": 551,
+        "Correct": 9417
+      },
+      "gt_counts": {
+        "extra_notes_midi": 809,
+        "removed_notes_midi": 506,
+        "correct_notes_midi": 10367
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-UNPROCESSED_19-20_R1_2014_MID--AUDIO_19_R1_2014_wav--8": {
+      "matrix": [
+        [
+          252,
+          0,
+          236
+        ],
+        [
+          4,
+          52,
+          80
+        ],
+        [
+          64,
+          10,
+          4731
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 501,
+        "Removed": 341,
+        "Correct": 4827
+      },
+      "gt_counts": {
+        "extra_notes_midi": 336,
+        "removed_notes_midi": 207,
+        "correct_notes_midi": 5966
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 80 exceeds diagonal 52 (warn-only)"
+      ]
+    },
+    "MIDI-UNPROCESSED_19-21_R3_2014_MID--AUDIO_21_R3_2014_wav--1": {
+      "matrix": [
+        [
+          74,
+          0,
+          15
+        ],
+        [
+          0,
+          25,
+          14
+        ],
+        [
+          6,
+          8,
+          1710
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 89,
+        "Removed": 59,
+        "Correct": 1718
+      },
+      "gt_counts": {
+        "extra_notes_midi": 84,
+        "removed_notes_midi": 62,
+        "correct_notes_midi": 1802
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_01_R1_2006_01-09_ORIG_MID--AUDIO_01_R1_2006_02_Track02_wav": {
+      "matrix": [
+        [
+          46,
+          0,
+          17
+        ],
+        [
+          0,
+          15,
+          9
+        ],
+        [
+          8,
+          1,
+          3904
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 65,
+        "Removed": 39,
+        "Correct": 3918
+      },
+      "gt_counts": {
+        "extra_notes_midi": 55,
+        "removed_notes_midi": 35,
+        "correct_notes_midi": 4119
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_01_R1_2006_01-09_ORIG_MID--AUDIO_01_R1_2006_04_Track04_wav": {
+      "matrix": [
+        [
+          223,
+          2,
+          192
+        ],
+        [
+          4,
+          50,
+          32
+        ],
+        [
+          39,
+          8,
+          2947
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 435,
+        "Removed": 288,
+        "Correct": 3031
+      },
+      "gt_counts": {
+        "extra_notes_midi": 290,
+        "removed_notes_midi": 160,
+        "correct_notes_midi": 3488
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_01_R1_2009_01-04_ORIG_MID--AUDIO_01_R1_2009_01_R1_2009_04_WAV": {
+      "matrix": [
+        [
+          301,
+          1,
+          202
+        ],
+        [
+          3,
+          78,
+          54
+        ],
+        [
+          46,
+          15,
+          5077
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 514,
+        "Removed": 332,
+        "Correct": 5168
+      },
+      "gt_counts": {
+        "extra_notes_midi": 378,
+        "removed_notes_midi": 276,
+        "correct_notes_midi": 6105
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_02_R1_2009_03-06_ORIG_MID--AUDIO_02_R1_2009_02_R1_2009_03_WAV": {
+      "matrix": [
+        [
+          59,
+          0,
+          40
+        ],
+        [
+          1,
+          14,
+          4
+        ],
+        [
+          11,
+          0,
+          2160
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 101,
+        "Removed": 70,
+        "Correct": 2184
+      },
+      "gt_counts": {
+        "extra_notes_midi": 73,
+        "removed_notes_midi": 55,
+        "correct_notes_midi": 2312
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_02_R1_2009_03-06_ORIG_MID--AUDIO_02_R1_2009_02_R1_2009_04_WAV": {
+      "matrix": [
+        [
+          20,
+          0,
+          9
+        ],
+        [
+          0,
+          10,
+          0
+        ],
+        [
+          1,
+          1,
+          714
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 29,
+        "Removed": 19,
+        "Correct": 717
+      },
+      "gt_counts": {
+        "extra_notes_midi": 21,
+        "removed_notes_midi": 17,
+        "correct_notes_midi": 766
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_02_R1_2011_MID--AUDIO_R1-D1_10_Track10_wav": {
+      "matrix": [
+        [
+          139,
+          1,
+          137
+        ],
+        [
+          4,
+          26,
+          50
+        ],
+        [
+          50,
+          6,
+          2419
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 281,
+        "Removed": 177,
+        "Correct": 2495
+      },
+      "gt_counts": {
+        "extra_notes_midi": 202,
+        "removed_notes_midi": 143,
+        "correct_notes_midi": 2982
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 50 exceeds diagonal 26 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_02_R2_2011_MID--AUDIO_R2-D1_02_Track02_wav": {
+      "matrix": [
+        [
+          122,
+          1,
+          85
+        ],
+        [
+          1,
+          32,
+          25
+        ],
+        [
+          25,
+          1,
+          3904
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 210,
+        "Removed": 139,
+        "Correct": 3950
+      },
+      "gt_counts": {
+        "extra_notes_midi": 150,
+        "removed_notes_midi": 97,
+        "correct_notes_midi": 4480
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_03_R1_2006_01-05_ORIG_MID--AUDIO_03_R1_2006_04_Track04_wav": {
+      "matrix": [
+        [
+          181,
+          0,
+          51
+        ],
+        [
+          0,
+          49,
+          26
+        ],
+        [
+          18,
+          2,
+          6734
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 235,
+        "Removed": 156,
+        "Correct": 6766
+      },
+      "gt_counts": {
+        "extra_notes_midi": 204,
+        "removed_notes_midi": 142,
+        "correct_notes_midi": 7574
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_03_R1_2008_01-04_ORIG_MID--AUDIO_03_R1_2008_wav--1": {
+      "matrix": [
+        [
+          96,
+          0,
+          48
+        ],
+        [
+          1,
+          28,
+          5
+        ],
+        [
+          19,
+          3,
+          2616
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 140,
+        "Removed": 106,
+        "Correct": 2633
+      },
+      "gt_counts": {
+        "extra_notes_midi": 113,
+        "removed_notes_midi": 77,
+        "correct_notes_midi": 2868
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_03_R1_2009_03-08_ORIG_MID--AUDIO_03_R1_2009_03_R1_2009_03_WAV": {
+      "matrix": [
+        [
+          215,
+          3,
+          130
+        ],
+        [
+          1,
+          57,
+          31
+        ],
+        [
+          33,
+          6,
+          3728
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 352,
+        "Removed": 239,
+        "Correct": 3776
+      },
+      "gt_counts": {
+        "extra_notes_midi": 257,
+        "removed_notes_midi": 189,
+        "correct_notes_midi": 4341
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_03_R2_2011_MID--AUDIO_R2-D1_06_Track06_wav": {
+      "matrix": [
+        [
+          105,
+          0,
+          47
+        ],
+        [
+          1,
+          26,
+          15
+        ],
+        [
+          15,
+          6,
+          1356
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 154,
+        "Removed": 108,
+        "Correct": 1386
+      },
+      "gt_counts": {
+        "extra_notes_midi": 130,
+        "removed_notes_midi": 94,
+        "correct_notes_midi": 1534
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_044_PIANO044_MID--AUDIO-split_07-06-17_Piano-e_1-04_wav--2": {
+      "matrix": [
+        [
+          253,
+          0,
+          122
+        ],
+        [
+          4,
+          66,
+          43
+        ],
+        [
+          33,
+          10,
+          3287
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 379,
+        "Removed": 268,
+        "Correct": 3346
+      },
+      "gt_counts": {
+        "extra_notes_midi": 300,
+        "removed_notes_midi": 204,
+        "correct_notes_midi": 3708
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_046_PIANO046_MID--AUDIO-split_07-06-17_Piano-e_2-02_wav--2": {
+      "matrix": [
+        [
+          57,
+          0,
+          28
+        ],
+        [
+          0,
+          12,
+          15
+        ],
+        [
+          14,
+          3,
+          2797
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 84,
+        "Removed": 54,
+        "Correct": 2814
+      },
+      "gt_counts": {
+        "extra_notes_midi": 75,
+        "removed_notes_midi": 51,
+        "correct_notes_midi": 3213
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 15 exceeds diagonal 12 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_049_PIANO049_MID--AUDIO-split_07-06-17_Piano-e_2-06_wav--2": {
+      "matrix": [
+        [
+          167,
+          0,
+          84
+        ],
+        [
+          2,
+          40,
+          34
+        ],
+        [
+          21,
+          12,
+          2870
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 254,
+        "Removed": 168,
+        "Correct": 2901
+      },
+      "gt_counts": {
+        "extra_notes_midi": 197,
+        "removed_notes_midi": 140,
+        "correct_notes_midi": 3230
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_04_R1_2008_01-04_ORIG_MID--AUDIO_04_R1_2008_wav--4": {
+      "matrix": [
+        [
+          433,
+          2,
+          345
+        ],
+        [
+          3,
+          98,
+          126
+        ],
+        [
+          95,
+          12,
+          6794
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 803,
+        "Removed": 556,
+        "Correct": 6985
+      },
+      "gt_counts": {
+        "extra_notes_midi": 573,
+        "removed_notes_midi": 373,
+        "correct_notes_midi": 8274
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 126 exceeds diagonal 98 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_04_R1_2011_MID--AUDIO_R1-D2_03_Track03_wav": {
+      "matrix": [
+        [
+          66,
+          0,
+          21
+        ],
+        [
+          0,
+          21,
+          9
+        ],
+        [
+          7,
+          6,
+          2412
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 88,
+        "Removed": 62,
+        "Correct": 2421
+      },
+      "gt_counts": {
+        "extra_notes_midi": 74,
+        "removed_notes_midi": 59,
+        "correct_notes_midi": 2563
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_04_R2_2008_01-04_ORIG_MID--AUDIO_04_R2_2008_wav--3": {
+      "matrix": [
+        [
+          165,
+          0,
+          24
+        ],
+        [
+          2,
+          51,
+          22
+        ],
+        [
+          10,
+          10,
+          3619
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 195,
+        "Removed": 130,
+        "Correct": 3643
+      },
+      "gt_counts": {
+        "extra_notes_midi": 189,
+        "removed_notes_midi": 135,
+        "correct_notes_midi": 4147
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--3": {
+      "matrix": [
+        [
+          55,
+          0,
+          19
+        ],
+        [
+          1,
+          13,
+          3
+        ],
+        [
+          6,
+          1,
+          1611
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 75,
+        "Removed": 48,
+        "Correct": 1625
+      },
+      "gt_counts": {
+        "extra_notes_midi": 63,
+        "removed_notes_midi": 38,
+        "correct_notes_midi": 1873
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--6": {
+      "matrix": [
+        [
+          139,
+          0,
+          131
+        ],
+        [
+          4,
+          36,
+          29
+        ],
+        [
+          26,
+          6,
+          3326
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 268,
+        "Removed": 176,
+        "Correct": 3395
+      },
+      "gt_counts": {
+        "extra_notes_midi": 186,
+        "removed_notes_midi": 114,
+        "correct_notes_midi": 3943
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--7": {
+      "matrix": [
+        [
+          126,
+          0,
+          69
+        ],
+        [
+          0,
+          39,
+          28
+        ],
+        [
+          22,
+          7,
+          3883
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 204,
+        "Removed": 142,
+        "Correct": 3965
+      },
+      "gt_counts": {
+        "extra_notes_midi": 164,
+        "removed_notes_midi": 116,
+        "correct_notes_midi": 4996
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_04_R3_2011_MID--AUDIO_R3-D2_05_Track05_wav": {
+      "matrix": [
+        [
+          66,
+          0,
+          37
+        ],
+        [
+          0,
+          12,
+          12
+        ],
+        [
+          7,
+          4,
+          2430
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 105,
+        "Removed": 64,
+        "Correct": 2458
+      },
+      "gt_counts": {
+        "extra_notes_midi": 76,
+        "removed_notes_midi": 53,
+        "correct_notes_midi": 2677
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_052_PIANO052_MID--AUDIO-split_07-06-17_Piano-e_3-03_wav--3": {
+      "matrix": [
+        [
+          109,
+          0,
+          50
+        ],
+        [
+          1,
+          28,
+          11
+        ],
+        [
+          15,
+          3,
+          2567
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 163,
+        "Removed": 110,
+        "Correct": 2584
+      },
+      "gt_counts": {
+        "extra_notes_midi": 127,
+        "removed_notes_midi": 90,
+        "correct_notes_midi": 2738
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_053_PIANO053_MID--AUDIO-split_07-06-17_Piano-e_3-04_wav--1": {
+      "matrix": [
+        [
+          43,
+          0,
+          15
+        ],
+        [
+          1,
+          11,
+          6
+        ],
+        [
+          7,
+          1,
+          1391
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 59,
+        "Removed": 46,
+        "Correct": 1399
+      },
+      "gt_counts": {
+        "extra_notes_midi": 52,
+        "removed_notes_midi": 37,
+        "correct_notes_midi": 1477
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_056_PIANO056_MID--AUDIO-split_07-07-17_Piano-e_1-05_wav--1": {
+      "matrix": [
+        [
+          14,
+          0,
+          5
+        ],
+        [
+          0,
+          4,
+          0
+        ],
+        [
+          0,
+          0,
+          1285
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 19,
+        "Removed": 11,
+        "Correct": 1286
+      },
+      "gt_counts": {
+        "extra_notes_midi": 14,
+        "removed_notes_midi": 9,
+        "correct_notes_midi": 1358
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_057_PIANO057_MID--AUDIO-split_07-07-17_Piano-e_1-07_wav--3": {
+      "matrix": [
+        [
+          32,
+          0,
+          13
+        ],
+        [
+          0,
+          13,
+          4
+        ],
+        [
+          6,
+          2,
+          1412
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 45,
+        "Removed": 34,
+        "Correct": 1427
+      },
+      "gt_counts": {
+        "extra_notes_midi": 41,
+        "removed_notes_midi": 26,
+        "correct_notes_midi": 1566
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_059_PIANO059_MID--AUDIO-split_07-07-17_Piano-e_2-03_wav--4": {
+      "matrix": [
+        [
+          247,
+          0,
+          166
+        ],
+        [
+          1,
+          68,
+          58
+        ],
+        [
+          48,
+          8,
+          6888
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 422,
+        "Removed": 306,
+        "Correct": 6994
+      },
+      "gt_counts": {
+        "extra_notes_midi": 319,
+        "removed_notes_midi": 192,
+        "correct_notes_midi": 8085
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--2": {
+      "matrix": [
+        [
+          304,
+          0,
+          146
+        ],
+        [
+          0,
+          77,
+          60
+        ],
+        [
+          36,
+          14,
+          2682
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 453,
+        "Removed": 282,
+        "Correct": 2736
+      },
+      "gt_counts": {
+        "extra_notes_midi": 362,
+        "removed_notes_midi": 246,
+        "correct_notes_midi": 3086
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--3": {
+      "matrix": [
+        [
+          84,
+          0,
+          18
+        ],
+        [
+          0,
+          21,
+          6
+        ],
+        [
+          9,
+          0,
+          2411
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 102,
+        "Removed": 55,
+        "Correct": 2429
+      },
+      "gt_counts": {
+        "extra_notes_midi": 97,
+        "removed_notes_midi": 58,
+        "correct_notes_midi": 2716
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--4": {
+      "matrix": [
+        [
+          119,
+          0,
+          96
+        ],
+        [
+          3,
+          32,
+          30
+        ],
+        [
+          20,
+          6,
+          2936
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 229,
+        "Removed": 151,
+        "Correct": 3023
+      },
+      "gt_counts": {
+        "extra_notes_midi": 159,
+        "removed_notes_midi": 102,
+        "correct_notes_midi": 3841
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_05_R1_2011_MID--AUDIO_R1-D2_10_Track10_wav": {
+      "matrix": [
+        [
+          74,
+          0,
+          34
+        ],
+        [
+          0,
+          15,
+          21
+        ],
+        [
+          11,
+          6,
+          2034
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 107,
+        "Removed": 75,
+        "Correct": 2048
+      },
+      "gt_counts": {
+        "extra_notes_midi": 85,
+        "removed_notes_midi": 55,
+        "correct_notes_midi": 2199
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 21 exceeds diagonal 15 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_05_R1_2011_MID--AUDIO_R1-D2_12_Track12_wav": {
+      "matrix": [
+        [
+          85,
+          0,
+          37
+        ],
+        [
+          0,
+          42,
+          8
+        ],
+        [
+          7,
+          3,
+          3426
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 120,
+        "Removed": 100,
+        "Correct": 3438
+      },
+      "gt_counts": {
+        "extra_notes_midi": 95,
+        "removed_notes_midi": 79,
+        "correct_notes_midi": 3672
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_065_PIANO065_MID--AUDIO-split_07-07-17_Piano-e_3-01_wav--2": {
+      "matrix": [
+        [
+          234,
+          0,
+          111
+        ],
+        [
+          5,
+          60,
+          37
+        ],
+        [
+          43,
+          12,
+          3627
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 345,
+        "Removed": 225,
+        "Correct": 3679
+      },
+      "gt_counts": {
+        "extra_notes_midi": 283,
+        "removed_notes_midi": 187,
+        "correct_notes_midi": 4092
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_065_PIANO065_MID--AUDIO-split_07-07-17_Piano-e_3-01_wav--3": {
+      "matrix": [
+        [
+          168,
+          1,
+          108
+        ],
+        [
+          5,
+          30,
+          35
+        ],
+        [
+          34,
+          8,
+          3245
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 285,
+        "Removed": 194,
+        "Correct": 3308
+      },
+      "gt_counts": {
+        "extra_notes_midi": 216,
+        "removed_notes_midi": 145,
+        "correct_notes_midi": 3950
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 35 exceeds diagonal 30 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_066_PIANO066_MID--AUDIO-split_07-07-17_Piano-e_3-02_wav--2": {
+      "matrix": [
+        [
+          150,
+          1,
+          63
+        ],
+        [
+          0,
+          36,
+          21
+        ],
+        [
+          8,
+          8,
+          2824
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 213,
+        "Removed": 137,
+        "Correct": 2841
+      },
+      "gt_counts": {
+        "extra_notes_midi": 161,
+        "removed_notes_midi": 109,
+        "correct_notes_midi": 3151
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_06_R1_2006_01-04_ORIG_MID--AUDIO_06_R1_2006_02_Track02_wav": {
+      "matrix": [
+        [
+          325,
+          1,
+          319
+        ],
+        [
+          3,
+          70,
+          92
+        ],
+        [
+          80,
+          19,
+          4700
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 665,
+        "Removed": 460,
+        "Correct": 4809
+      },
+      "gt_counts": {
+        "extra_notes_midi": 441,
+        "removed_notes_midi": 276,
+        "correct_notes_midi": 5852
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 92 exceeds diagonal 70 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_06_R1_2008_01-04_ORIG_MID--AUDIO_06_R1_2008_wav--2": {
+      "matrix": [
+        [
+          108,
+          0,
+          40
+        ],
+        [
+          0,
+          39,
+          10
+        ],
+        [
+          7,
+          2,
+          2813
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 149,
+        "Removed": 99,
+        "Correct": 2828
+      },
+      "gt_counts": {
+        "extra_notes_midi": 123,
+        "removed_notes_midi": 88,
+        "correct_notes_midi": 3106
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_06_R1_2008_01-04_ORIG_MID--AUDIO_06_R1_2008_wav--3": {
+      "matrix": [
+        [
+          142,
+          0,
+          137
+        ],
+        [
+          0,
+          31,
+          34
+        ],
+        [
+          35,
+          7,
+          2690
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 287,
+        "Removed": 194,
+        "Correct": 2757
+      },
+      "gt_counts": {
+        "extra_notes_midi": 196,
+        "removed_notes_midi": 121,
+        "correct_notes_midi": 3175
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 34 exceeds diagonal 31 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_071_PIANO071_MID--AUDIO-split_07-08-17_Piano-e_1-04_wav--2": {
+      "matrix": [
+        [
+          60,
+          0,
+          23
+        ],
+        [
+          0,
+          23,
+          4
+        ],
+        [
+          2,
+          1,
+          2036
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 84,
+        "Removed": 53,
+        "Correct": 2045
+      },
+      "gt_counts": {
+        "extra_notes_midi": 63,
+        "removed_notes_midi": 48,
+        "correct_notes_midi": 2315
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_072_PIANO072_MID--AUDIO-split_07-08-17_Piano-e_1-06_wav--2": {
+      "matrix": [
+        [
+          131,
+          0,
+          89
+        ],
+        [
+          0,
+          35,
+          35
+        ],
+        [
+          20,
+          6,
+          3880
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 223,
+        "Removed": 168,
+        "Correct": 3914
+      },
+      "gt_counts": {
+        "extra_notes_midi": 154,
+        "removed_notes_midi": 95,
+        "correct_notes_midi": 4457
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_075_PIANO075_MID--AUDIO-split_07-08-17_Piano-e_2-06_wav--3": {
+      "matrix": [
+        [
+          70,
+          0,
+          31
+        ],
+        [
+          0,
+          17,
+          20
+        ],
+        [
+          7,
+          5,
+          3399
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 106,
+        "Removed": 71,
+        "Correct": 3468
+      },
+      "gt_counts": {
+        "extra_notes_midi": 85,
+        "removed_notes_midi": 57,
+        "correct_notes_midi": 4106
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 20 exceeds diagonal 17 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_078_PIANO078_MID--AUDIO-split_07-09-17_Piano-e_1-02_wav--2": {
+      "matrix": [
+        [
+          355,
+          0,
+          150
+        ],
+        [
+          1,
+          100,
+          40
+        ],
+        [
+          38,
+          7,
+          6018
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 514,
+        "Removed": 323,
+        "Correct": 6075
+      },
+      "gt_counts": {
+        "extra_notes_midi": 401,
+        "removed_notes_midi": 274,
+        "correct_notes_midi": 6823
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_07_R1_2006_01-04_ORIG_MID--AUDIO_07_R1_2006_04_Track04_wav": {
+      "matrix": [
+        [
+          674,
+          6,
+          879
+        ],
+        [
+          20,
+          148,
+          259
+        ],
+        [
+          196,
+          44,
+          11954
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 1624,
+        "Removed": 1134,
+        "Correct": 12502
+      },
+      "gt_counts": {
+        "extra_notes_midi": 1054,
+        "removed_notes_midi": 701,
+        "correct_notes_midi": 16265
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 879 exceeds diagonal 674 (warn-only)",
+        "Removed row: Correct-column count 259 exceeds diagonal 148 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_07_R1_2009_01-03_ORIG_MID--AUDIO_07_R1_2009_07_R1_2009_03_WAV": {
+      "matrix": [
+        [
+          176,
+          0,
+          95
+        ],
+        [
+          1,
+          37,
+          23
+        ],
+        [
+          25,
+          4,
+          5229
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 274,
+        "Removed": 167,
+        "Correct": 5321
+      },
+      "gt_counts": {
+        "extra_notes_midi": 213,
+        "removed_notes_midi": 118,
+        "correct_notes_midi": 6271
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_07_R1_2011_MID--AUDIO_R1-D3_02_Track02_wav": {
+      "matrix": [
+        [
+          66,
+          0,
+          10
+        ],
+        [
+          0,
+          25,
+          3
+        ],
+        [
+          6,
+          3,
+          1272
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 77,
+        "Removed": 59,
+        "Correct": 1278
+      },
+      "gt_counts": {
+        "extra_notes_midi": 73,
+        "removed_notes_midi": 53,
+        "correct_notes_midi": 1321
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_07_R1_2011_MID--AUDIO_R1-D3_03_Track03_wav": {
+      "matrix": [
+        [
+          101,
+          0,
+          97
+        ],
+        [
+          1,
+          20,
+          22
+        ],
+        [
+          28,
+          4,
+          1652
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 208,
+        "Removed": 146,
+        "Correct": 1692
+      },
+      "gt_counts": {
+        "extra_notes_midi": 143,
+        "removed_notes_midi": 89,
+        "correct_notes_midi": 2043
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 22 exceeds diagonal 20 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_080_PIANO080_MID--AUDIO-split_07-09-17_Piano-e_1-06_wav--3": {
+      "matrix": [
+        [
+          597,
+          1,
+          338
+        ],
+        [
+          4,
+          167,
+          113
+        ],
+        [
+          112,
+          26,
+          12235
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 965,
+        "Removed": 673,
+        "Correct": 12512
+      },
+      "gt_counts": {
+        "extra_notes_midi": 763,
+        "removed_notes_midi": 534,
+        "correct_notes_midi": 15306
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_083_PIANO083_MID--AUDIO-split_07-09-17_Piano-e_2_-06_wav--1": {
+      "matrix": [
+        [
+          35,
+          0,
+          10
+        ],
+        [
+          0,
+          13,
+          1
+        ],
+        [
+          2,
+          0,
+          1053
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 45,
+        "Removed": 34,
+        "Correct": 1055
+      },
+      "gt_counts": {
+        "extra_notes_midi": 37,
+        "removed_notes_midi": 31,
+        "correct_notes_midi": 1098
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_083_PIANO083_MID--AUDIO-split_07-09-17_Piano-e_2_-06_wav--3": {
+      "matrix": [
+        [
+          132,
+          1,
+          50
+        ],
+        [
+          0,
+          45,
+          14
+        ],
+        [
+          26,
+          2,
+          2487
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 189,
+        "Removed": 130,
+        "Correct": 2532
+      },
+      "gt_counts": {
+        "extra_notes_midi": 167,
+        "removed_notes_midi": 119,
+        "correct_notes_midi": 2947
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_08_R1_2008_01-05_ORIG_MID--AUDIO_08_R1_2008_wav--2": {
+      "matrix": [
+        [
+          85,
+          1,
+          24
+        ],
+        [
+          0,
+          31,
+          12
+        ],
+        [
+          9,
+          5,
+          2659
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 109,
+        "Removed": 79,
+        "Correct": 2669
+      },
+      "gt_counts": {
+        "extra_notes_midi": 95,
+        "removed_notes_midi": 74,
+        "correct_notes_midi": 2776
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_08_R1_2008_01-05_ORIG_MID--AUDIO_08_R1_2008_wav--3": {
+      "matrix": [
+        [
+          51,
+          0,
+          104
+        ],
+        [
+          4,
+          10,
+          15
+        ],
+        [
+          22,
+          1,
+          2423
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 157,
+        "Removed": 94,
+        "Correct": 2499
+      },
+      "gt_counts": {
+        "extra_notes_midi": 88,
+        "removed_notes_midi": 57,
+        "correct_notes_midi": 3097
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 104 exceeds diagonal 51 (warn-only)",
+        "Removed row: Correct-column count 15 exceeds diagonal 10 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_08_R1_2009_01-04_ORIG_MID--AUDIO_08_R1_2009_08_R1_2009_03_WAV": {
+      "matrix": [
+        [
+          62,
+          0,
+          40
+        ],
+        [
+          0,
+          11,
+          10
+        ],
+        [
+          9,
+          1,
+          2459
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 110,
+        "Removed": 66,
+        "Correct": 2493
+      },
+      "gt_counts": {
+        "extra_notes_midi": 75,
+        "removed_notes_midi": 43,
+        "correct_notes_midi": 2825
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_08_R1_2009_01-04_ORIG_MID--AUDIO_08_R1_2009_08_R1_2009_04_WAV": {
+      "matrix": [
+        [
+          183,
+          1,
+          92
+        ],
+        [
+          1,
+          53,
+          62
+        ],
+        [
+          28,
+          24,
+          3633
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 289,
+        "Removed": 213,
+        "Correct": 3748
+      },
+      "gt_counts": {
+        "extra_notes_midi": 245,
+        "removed_notes_midi": 172,
+        "correct_notes_midi": 4827
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 62 exceeds diagonal 53 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_09_R1_2008_01-05_ORIG_MID--AUDIO_09_R1_2008_wav--2": {
+      "matrix": [
+        [
+          116,
+          0,
+          57
+        ],
+        [
+          1,
+          26,
+          20
+        ],
+        [
+          12,
+          7,
+          2868
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 173,
+        "Removed": 121,
+        "Correct": 2885
+      },
+      "gt_counts": {
+        "extra_notes_midi": 130,
+        "removed_notes_midi": 73,
+        "correct_notes_midi": 3166
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_09_R1_2009_01-04_ORIG_MID--AUDIO_09_R1_2009_09_R1_2009_03_WAV": {
+      "matrix": [
+        [
+          169,
+          1,
+          107
+        ],
+        [
+          3,
+          53,
+          37
+        ],
+        [
+          25,
+          9,
+          7363
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 292,
+        "Removed": 207,
+        "Correct": 7434
+      },
+      "gt_counts": {
+        "extra_notes_midi": 204,
+        "removed_notes_midi": 144,
+        "correct_notes_midi": 8339
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_09_R1_2011_MID--AUDIO_R1-D3_13_Track13_wav": {
+      "matrix": [
+        [
+          71,
+          0,
+          42
+        ],
+        [
+          0,
+          19,
+          8
+        ],
+        [
+          17,
+          1,
+          2399
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 113,
+        "Removed": 76,
+        "Correct": 2424
+      },
+      "gt_counts": {
+        "extra_notes_midi": 90,
+        "removed_notes_midi": 62,
+        "correct_notes_midi": 2547
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_09_R2_2008_01-05_ORIG_MID--AUDIO_09_R2_2008_wav--3": {
+      "matrix": [
+        [
+          211,
+          0,
+          90
+        ],
+        [
+          1,
+          60,
+          27
+        ],
+        [
+          36,
+          12,
+          3423
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 314,
+        "Removed": 205,
+        "Correct": 3517
+      },
+      "gt_counts": {
+        "extra_notes_midi": 263,
+        "removed_notes_midi": 160,
+        "correct_notes_midi": 4491
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_09_R3_2008_01-07_ORIG_MID--AUDIO_09_R3_2008_wav--1": {
+      "matrix": [
+        [
+          62,
+          0,
+          21
+        ],
+        [
+          0,
+          24,
+          6
+        ],
+        [
+          5,
+          1,
+          1018
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 83,
+        "Removed": 61,
+        "Correct": 1023
+      },
+      "gt_counts": {
+        "extra_notes_midi": 67,
+        "removed_notes_midi": 51,
+        "correct_notes_midi": 1062
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_09_R3_2008_01-07_ORIG_MID--AUDIO_09_R3_2008_wav--2": {
+      "matrix": [
+        [
+          38,
+          0,
+          11
+        ],
+        [
+          0,
+          11,
+          3
+        ],
+        [
+          12,
+          0,
+          751
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 49,
+        "Removed": 28,
+        "Correct": 765
+      },
+      "gt_counts": {
+        "extra_notes_midi": 51,
+        "removed_notes_midi": 37,
+        "correct_notes_midi": 845
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_10_R1_2006_01-04_ORIG_MID--AUDIO_10_R1_2006_03_Track03_wav": {
+      "matrix": [
+        [
+          278,
+          2,
+          142
+        ],
+        [
+          2,
+          78,
+          51
+        ],
+        [
+          45,
+          12,
+          12501
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 430,
+        "Removed": 276,
+        "Correct": 12669
+      },
+      "gt_counts": {
+        "extra_notes_midi": 340,
+        "removed_notes_midi": 244,
+        "correct_notes_midi": 15489
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_10_R1_2008_01-04_ORIG_MID--AUDIO_10_R1_2008_wav--2": {
+      "matrix": [
+        [
+          360,
+          2,
+          167
+        ],
+        [
+          3,
+          86,
+          58
+        ],
+        [
+          67,
+          13,
+          3566
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 534,
+        "Removed": 353,
+        "Correct": 3653
+      },
+      "gt_counts": {
+        "extra_notes_midi": 448,
+        "removed_notes_midi": 283,
+        "correct_notes_midi": 4085
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--1": {
+      "matrix": [
+        [
+          60,
+          0,
+          25
+        ],
+        [
+          0,
+          14,
+          9
+        ],
+        [
+          5,
+          3,
+          749
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 86,
+        "Removed": 53,
+        "Correct": 755
+      },
+      "gt_counts": {
+        "extra_notes_midi": 65,
+        "removed_notes_midi": 39,
+        "correct_notes_midi": 821
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--2": {
+      "matrix": [
+        [
+          42,
+          0,
+          20
+        ],
+        [
+          0,
+          9,
+          4
+        ],
+        [
+          5,
+          1,
+          1514
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 59,
+        "Removed": 38,
+        "Correct": 1523
+      },
+      "gt_counts": {
+        "extra_notes_midi": 48,
+        "removed_notes_midi": 38,
+        "correct_notes_midi": 1731
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--4": {
+      "matrix": [
+        [
+          151,
+          0,
+          42
+        ],
+        [
+          0,
+          37,
+          18
+        ],
+        [
+          6,
+          6,
+          3529
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 199,
+        "Removed": 117,
+        "Correct": 3571
+      },
+      "gt_counts": {
+        "extra_notes_midi": 167,
+        "removed_notes_midi": 105,
+        "correct_notes_midi": 4134
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_11_R1_2009_01-05_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_04_WAV": {
+      "matrix": [
+        [
+          51,
+          1,
+          34
+        ],
+        [
+          0,
+          18,
+          17
+        ],
+        [
+          13,
+          2,
+          1933
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 90,
+        "Removed": 75,
+        "Correct": 2002
+      },
+      "gt_counts": {
+        "extra_notes_midi": 72,
+        "removed_notes_midi": 67,
+        "correct_notes_midi": 2814
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_11_R1_2009_06-09_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_07_WAV": {
+      "matrix": [
+        [
+          25,
+          0,
+          24
+        ],
+        [
+          0,
+          8,
+          6
+        ],
+        [
+          1,
+          0,
+          647
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 51,
+        "Removed": 34,
+        "Correct": 650
+      },
+      "gt_counts": {
+        "extra_notes_midi": 27,
+        "removed_notes_midi": 16,
+        "correct_notes_midi": 705
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_11_R1_2009_06-09_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_08_WAV": {
+      "matrix": [
+        [
+          168,
+          0,
+          157
+        ],
+        [
+          1,
+          42,
+          34
+        ],
+        [
+          39,
+          9,
+          3337
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 339,
+        "Removed": 221,
+        "Correct": 3432
+      },
+      "gt_counts": {
+        "extra_notes_midi": 217,
+        "removed_notes_midi": 132,
+        "correct_notes_midi": 3927
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_11_R1_2011_MID--AUDIO_R1-D4_07_Track07_wav": {
+      "matrix": [
+        [
+          77,
+          0,
+          17
+        ],
+        [
+          0,
+          25,
+          2
+        ],
+        [
+          3,
+          1,
+          1236
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 94,
+        "Removed": 61,
+        "Correct": 1241
+      },
+      "gt_counts": {
+        "extra_notes_midi": 82,
+        "removed_notes_midi": 53,
+        "correct_notes_midi": 1310
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_11_R3_2008_01-04_ORIG_MID--AUDIO_11_R3_2008_wav--1": {
+      "matrix": [
+        [
+          153,
+          0,
+          91
+        ],
+        [
+          0,
+          39,
+          10
+        ],
+        [
+          21,
+          3,
+          2423
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 246,
+        "Removed": 164,
+        "Correct": 2447
+      },
+      "gt_counts": {
+        "extra_notes_midi": 176,
+        "removed_notes_midi": 120,
+        "correct_notes_midi": 2618
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_12_R1_2006_01-08_ORIG_MID--AUDIO_12_R1_2006_07_Track07_wav": {
+      "matrix": [
+        [
+          132,
+          0,
+          92
+        ],
+        [
+          1,
+          23,
+          30
+        ],
+        [
+          31,
+          4,
+          2705
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 226,
+        "Removed": 149,
+        "Correct": 2784
+      },
+      "gt_counts": {
+        "extra_notes_midi": 174,
+        "removed_notes_midi": 103,
+        "correct_notes_midi": 3713
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 30 exceeds diagonal 23 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_12_R1_2008_01-04_ORIG_MID--AUDIO_12_R1_2008_wav--1": {
+      "matrix": [
+        [
+          58,
+          0,
+          23
+        ],
+        [
+          0,
+          14,
+          6
+        ],
+        [
+          2,
+          2,
+          2103
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 82,
+        "Removed": 54,
+        "Correct": 2106
+      },
+      "gt_counts": {
+        "extra_notes_midi": 61,
+        "removed_notes_midi": 45,
+        "correct_notes_midi": 2199
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_12_R1_2008_01-04_ORIG_MID--AUDIO_12_R1_2008_wav--4": {
+      "matrix": [
+        [
+          179,
+          1,
+          127
+        ],
+        [
+          0,
+          51,
+          23
+        ],
+        [
+          33,
+          4,
+          5069
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 308,
+        "Removed": 221,
+        "Correct": 5140
+      },
+      "gt_counts": {
+        "extra_notes_midi": 225,
+        "removed_notes_midi": 183,
+        "correct_notes_midi": 5821
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_12_R3_2008_01-04_ORIG_MID--AUDIO_12_R3_2008_wav--3": {
+      "matrix": [
+        [
+          43,
+          0,
+          26
+        ],
+        [
+          0,
+          7,
+          3
+        ],
+        [
+          10,
+          1,
+          1122
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 69,
+        "Removed": 41,
+        "Correct": 1134
+      },
+      "gt_counts": {
+        "extra_notes_midi": 54,
+        "removed_notes_midi": 28,
+        "correct_notes_midi": 1220
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_13_R1_2008_01-04_ORIG_MID--AUDIO_13_R1_2008_wav--1": {
+      "matrix": [
+        [
+          30,
+          0,
+          8
+        ],
+        [
+          0,
+          7,
+          2
+        ],
+        [
+          5,
+          0,
+          1422
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 40,
+        "Removed": 26,
+        "Correct": 1428
+      },
+      "gt_counts": {
+        "extra_notes_midi": 37,
+        "removed_notes_midi": 27,
+        "correct_notes_midi": 1516
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_14_R1_2008_01-05_ORIG_MID--AUDIO_14_R1_2008_wav--1": {
+      "matrix": [
+        [
+          96,
+          0,
+          52
+        ],
+        [
+          1,
+          27,
+          16
+        ],
+        [
+          12,
+          5,
+          1621
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 149,
+        "Removed": 100,
+        "Correct": 1639
+      },
+      "gt_counts": {
+        "extra_notes_midi": 109,
+        "removed_notes_midi": 71,
+        "correct_notes_midi": 1753
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_14_R1_2008_01-05_ORIG_MID--AUDIO_14_R1_2008_wav--3": {
+      "matrix": [
+        [
+          82,
+          1,
+          110
+        ],
+        [
+          2,
+          12,
+          42
+        ],
+        [
+          24,
+          6,
+          2509
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 198,
+        "Removed": 131,
+        "Correct": 2560
+      },
+      "gt_counts": {
+        "extra_notes_midi": 116,
+        "removed_notes_midi": 76,
+        "correct_notes_midi": 3020
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 110 exceeds diagonal 82 (warn-only)",
+        "Removed row: Correct-column count 42 exceeds diagonal 12 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_14_R1_2011_MID--AUDIO_R1-D6_04_Track04_wav": {
+      "matrix": [
+        [
+          101,
+          0,
+          100
+        ],
+        [
+          0,
+          24,
+          31
+        ],
+        [
+          19,
+          3,
+          4523
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 218,
+        "Removed": 154,
+        "Correct": 4643
+      },
+      "gt_counts": {
+        "extra_notes_midi": 133,
+        "removed_notes_midi": 81,
+        "correct_notes_midi": 6309
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 31 exceeds diagonal 24 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_15_R1_2006_01-05_ORIG_MID--AUDIO_15_R1_2006_02_Track02_wav": {
+      "matrix": [
+        [
+          168,
+          1,
+          129
+        ],
+        [
+          0,
+          38,
+          35
+        ],
+        [
+          27,
+          2,
+          5805
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 306,
+        "Removed": 195,
+        "Correct": 5929
+      },
+      "gt_counts": {
+        "extra_notes_midi": 207,
+        "removed_notes_midi": 133,
+        "correct_notes_midi": 7519
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_15_R1_2009_01-02_ORIG_MID--AUDIO_15_R1_2009_15_R1_2009_02_WAV": {
+      "matrix": [
+        [
+          178,
+          0,
+          119
+        ],
+        [
+          1,
+          52,
+          40
+        ],
+        [
+          19,
+          5,
+          10549
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 302,
+        "Removed": 225,
+        "Correct": 10663
+      },
+      "gt_counts": {
+        "extra_notes_midi": 209,
+        "removed_notes_midi": 149,
+        "correct_notes_midi": 13167
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_16_R1_2006_01-04_ORIG_MID--AUDIO_16_R1_2006_02_Track02_wav": {
+      "matrix": [
+        [
+          173,
+          0,
+          91
+        ],
+        [
+          0,
+          42,
+          32
+        ],
+        [
+          30,
+          6,
+          3505
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 279,
+        "Removed": 175,
+        "Correct": 3614
+      },
+      "gt_counts": {
+        "extra_notes_midi": 231,
+        "removed_notes_midi": 137,
+        "correct_notes_midi": 4473
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_16_R2_2009_01_ORIG_MID--AUDIO_16_R2_2009_16_R2_2009_01_WAV": {
+      "matrix": [
+        [
+          97,
+          0,
+          44
+        ],
+        [
+          0,
+          30,
+          17
+        ],
+        [
+          6,
+          2,
+          4599
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 146,
+        "Removed": 106,
+        "Correct": 4626
+      },
+      "gt_counts": {
+        "extra_notes_midi": 108,
+        "removed_notes_midi": 82,
+        "correct_notes_midi": 5416
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_16_R2_2009_01_ORIG_MID--AUDIO_16_R2_2009_16_R2_2009_02_WAV": {
+      "matrix": [
+        [
+          169,
+          0,
+          79
+        ],
+        [
+          0,
+          47,
+          19
+        ],
+        [
+          18,
+          2,
+          3028
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 253,
+        "Removed": 175,
+        "Correct": 3056
+      },
+      "gt_counts": {
+        "extra_notes_midi": 190,
+        "removed_notes_midi": 131,
+        "correct_notes_midi": 3438
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_16_R2_2009_01_ORIG_MID--AUDIO_16_R2_2009_16_R2_2009_04_WAV": {
+      "matrix": [
+        [
+          458,
+          1,
+          258
+        ],
+        [
+          2,
+          117,
+          106
+        ],
+        [
+          74,
+          38,
+          5727
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 720,
+        "Removed": 486,
+        "Correct": 5820
+      },
+      "gt_counts": {
+        "extra_notes_midi": 571,
+        "removed_notes_midi": 392,
+        "correct_notes_midi": 6881
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_17_R1_2006_01-06_ORIG_MID--AUDIO_17_R1_2006_02_Track02_wav": {
+      "matrix": [
+        [
+          257,
+          1,
+          154
+        ],
+        [
+          1,
+          69,
+          47
+        ],
+        [
+          30,
+          6,
+          5277
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 417,
+        "Removed": 269,
+        "Correct": 5349
+      },
+      "gt_counts": {
+        "extra_notes_midi": 304,
+        "removed_notes_midi": 209,
+        "correct_notes_midi": 6182
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_17_R1_2008_01-04_ORIG_MID--AUDIO_17_R1_2008_wav--2": {
+      "matrix": [
+        [
+          119,
+          0,
+          51
+        ],
+        [
+          1,
+          29,
+          18
+        ],
+        [
+          15,
+          5,
+          2807
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 170,
+        "Removed": 102,
+        "Correct": 2833
+      },
+      "gt_counts": {
+        "extra_notes_midi": 142,
+        "removed_notes_midi": 90,
+        "correct_notes_midi": 3215
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_17_R1_2008_01-04_ORIG_MID--AUDIO_17_R1_2008_wav--3": {
+      "matrix": [
+        [
+          141,
+          0,
+          120
+        ],
+        [
+          2,
+          34,
+          22
+        ],
+        [
+          37,
+          6,
+          2735
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 265,
+        "Removed": 190,
+        "Correct": 2814
+      },
+      "gt_counts": {
+        "extra_notes_midi": 191,
+        "removed_notes_midi": 128,
+        "correct_notes_midi": 3240
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_17_R1_2009_01-03_ORIG_MID--AUDIO_17_R1_2009_17_R1_2009_01_WAV": {
+      "matrix": [
+        [
+          220,
+          1,
+          104
+        ],
+        [
+          2,
+          73,
+          34
+        ],
+        [
+          34,
+          5,
+          4941
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 331,
+        "Removed": 239,
+        "Correct": 5003
+      },
+      "gt_counts": {
+        "extra_notes_midi": 262,
+        "removed_notes_midi": 195,
+        "correct_notes_midi": 5557
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_17_R1_2009_01-03_ORIG_MID--AUDIO_17_R1_2009_17_R1_2009_02_WAV": {
+      "matrix": [
+        [
+          216,
+          1,
+          82
+        ],
+        [
+          0,
+          53,
+          31
+        ],
+        [
+          27,
+          12,
+          3448
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 308,
+        "Removed": 186,
+        "Correct": 3524
+      },
+      "gt_counts": {
+        "extra_notes_midi": 265,
+        "removed_notes_midi": 173,
+        "correct_notes_midi": 4229
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_17_R2_2008_01-04_ORIG_MID--AUDIO_17_R2_2008_wav--1": {
+      "matrix": [
+        [
+          39,
+          0,
+          16
+        ],
+        [
+          0,
+          12,
+          5
+        ],
+        [
+          4,
+          1,
+          1012
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 57,
+        "Removed": 43,
+        "Correct": 1020
+      },
+      "gt_counts": {
+        "extra_notes_midi": 44,
+        "removed_notes_midi": 30,
+        "correct_notes_midi": 1103
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_18_R1_2008_01-04_ORIG_MID--AUDIO_18_R1_2008_wav--2": {
+      "matrix": [
+        [
+          163,
+          0,
+          81
+        ],
+        [
+          1,
+          37,
+          23
+        ],
+        [
+          23,
+          5,
+          2768
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 245,
+        "Removed": 166,
+        "Correct": 2801
+      },
+      "gt_counts": {
+        "extra_notes_midi": 188,
+        "removed_notes_midi": 129,
+        "correct_notes_midi": 3084
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_18_R1_2011_MID--AUDIO_R1-D7_07_Track07_wav": {
+      "matrix": [
+        [
+          33,
+          0,
+          14
+        ],
+        [
+          0,
+          10,
+          1
+        ],
+        [
+          4,
+          0,
+          1381
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 46,
+        "Removed": 29,
+        "Correct": 1384
+      },
+      "gt_counts": {
+        "extra_notes_midi": 38,
+        "removed_notes_midi": 22,
+        "correct_notes_midi": 1476
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_19_R1_2011_MID--AUDIO_R1-D7_15_Track15_wav": {
+      "matrix": [
+        [
+          164,
+          1,
+          128
+        ],
+        [
+          0,
+          47,
+          25
+        ],
+        [
+          35,
+          6,
+          4730
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 295,
+        "Removed": 212,
+        "Correct": 4775
+      },
+      "gt_counts": {
+        "extra_notes_midi": 209,
+        "removed_notes_midi": 174,
+        "correct_notes_midi": 5321
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_20_R1_2009_01-05_ORIG_MID--AUDIO_20_R1_2009_20_R1_2009_02_WAV": {
+      "matrix": [
+        [
+          198,
+          1,
+          250
+        ],
+        [
+          2,
+          37,
+          67
+        ],
+        [
+          56,
+          8,
+          6318
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 464,
+        "Removed": 309,
+        "Correct": 6467
+      },
+      "gt_counts": {
+        "extra_notes_midi": 280,
+        "removed_notes_midi": 193,
+        "correct_notes_midi": 7849
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 250 exceeds diagonal 198 (warn-only)",
+        "Removed row: Correct-column count 67 exceeds diagonal 37 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_22_R2_2011_MID--AUDIO_R2-D5_10_Track10_wav": {
+      "matrix": [
+        [
+          81,
+          0,
+          32
+        ],
+        [
+          0,
+          22,
+          5
+        ],
+        [
+          9,
+          3,
+          1384
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 114,
+        "Removed": 69,
+        "Correct": 1407
+      },
+      "gt_counts": {
+        "extra_notes_midi": 96,
+        "removed_notes_midi": 57,
+        "correct_notes_midi": 1589
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_22_R2_2011_MID--AUDIO_R2-D5_11_Track11_wav": {
+      "matrix": [
+        [
+          316,
+          0,
+          263
+        ],
+        [
+          6,
+          70,
+          57
+        ],
+        [
+          74,
+          16,
+          4656
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 607,
+        "Removed": 411,
+        "Correct": 4812
+      },
+      "gt_counts": {
+        "extra_notes_midi": 427,
+        "removed_notes_midi": 296,
+        "correct_notes_midi": 5981
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_23_R1_2011_MID--AUDIO_R1-D9_03_Track03_wav": {
+      "matrix": [
+        [
+          94,
+          0,
+          33
+        ],
+        [
+          0,
+          29,
+          12
+        ],
+        [
+          12,
+          4,
+          1873
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 130,
+        "Removed": 93,
+        "Correct": 1899
+      },
+      "gt_counts": {
+        "extra_notes_midi": 109,
+        "removed_notes_midi": 66,
+        "correct_notes_midi": 2045
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_23_R2_2011_MID--AUDIO_R2-D6_03_Track03_wav": {
+      "matrix": [
+        [
+          166,
+          0,
+          80
+        ],
+        [
+          0,
+          42,
+          16
+        ],
+        [
+          18,
+          6,
+          2211
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 249,
+        "Removed": 158,
+        "Correct": 2235
+      },
+      "gt_counts": {
+        "extra_notes_midi": 187,
+        "removed_notes_midi": 120,
+        "correct_notes_midi": 2505
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_23_R3_2011_MID--AUDIO_R3-D8_04_Track04_wav": {
+      "matrix": [
+        [
+          144,
+          0,
+          112
+        ],
+        [
+          1,
+          34,
+          14
+        ],
+        [
+          26,
+          1,
+          3613
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 256,
+        "Removed": 157,
+        "Correct": 3671
+      },
+      "gt_counts": {
+        "extra_notes_midi": 184,
+        "removed_notes_midi": 124,
+        "correct_notes_midi": 4243
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_24_R1_2006_01-05_ORIG_MID--AUDIO_24_R1_2006_03_Track03_wav": {
+      "matrix": [
+        [
+          108,
+          0,
+          134
+        ],
+        [
+          1,
+          32,
+          25
+        ],
+        [
+          18,
+          5,
+          3152
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 250,
+        "Removed": 169,
+        "Correct": 3228
+      },
+      "gt_counts": {
+        "extra_notes_midi": 137,
+        "removed_notes_midi": 104,
+        "correct_notes_midi": 3774
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 134 exceeds diagonal 108 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_24_R1_2011_MID--AUDIO_R1-D9_11_Track11_wav": {
+      "matrix": [
+        [
+          56,
+          0,
+          25
+        ],
+        [
+          1,
+          13,
+          11
+        ],
+        [
+          6,
+          1,
+          1084
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 82,
+        "Removed": 46,
+        "Correct": 1095
+      },
+      "gt_counts": {
+        "extra_notes_midi": 64,
+        "removed_notes_midi": 49,
+        "correct_notes_midi": 1205
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_02_R1_2015_wav--1": {
+      "matrix": [
+        [
+          80,
+          0,
+          28
+        ],
+        [
+          1,
+          28,
+          3
+        ],
+        [
+          7,
+          0,
+          1195
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 107,
+        "Removed": 78,
+        "Correct": 1202
+      },
+      "gt_counts": {
+        "extra_notes_midi": 86,
+        "removed_notes_midi": 48,
+        "correct_notes_midi": 1266
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_04_R1_2015_wav--2": {
+      "matrix": [
+        [
+          142,
+          0,
+          54
+        ],
+        [
+          1,
+          32,
+          27
+        ],
+        [
+          21,
+          5,
+          2346
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 196,
+        "Removed": 134,
+        "Correct": 2366
+      },
+      "gt_counts": {
+        "extra_notes_midi": 162,
+        "removed_notes_midi": 98,
+        "correct_notes_midi": 2527
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_05_R1_2015_wav--3": {
+      "matrix": [
+        [
+          313,
+          1,
+          131
+        ],
+        [
+          2,
+          84,
+          65
+        ],
+        [
+          38,
+          11,
+          3684
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 450,
+        "Removed": 300,
+        "Correct": 3721
+      },
+      "gt_counts": {
+        "extra_notes_midi": 362,
+        "removed_notes_midi": 230,
+        "correct_notes_midi": 4117
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_05_R1_2015_wav--4": {
+      "matrix": [
+        [
+          39,
+          0,
+          50
+        ],
+        [
+          2,
+          11,
+          12
+        ],
+        [
+          9,
+          0,
+          1773
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 89,
+        "Removed": 66,
+        "Correct": 1796
+      },
+      "gt_counts": {
+        "extra_notes_midi": 48,
+        "removed_notes_midi": 37,
+        "correct_notes_midi": 2074
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 50 exceeds diagonal 39 (warn-only)",
+        "Removed row: Correct-column count 12 exceeds diagonal 11 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_06_R1_2015_wav--2": {
+      "matrix": [
+        [
+          342,
+          0,
+          135
+        ],
+        [
+          1,
+          90,
+          50
+        ],
+        [
+          37,
+          13,
+          6800
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 485,
+        "Removed": 310,
+        "Correct": 6864
+      },
+      "gt_counts": {
+        "extra_notes_midi": 394,
+        "removed_notes_midi": 254,
+        "correct_notes_midi": 7699
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_06_R1_2015_wav--6": {
+      "matrix": [
+        [
+          96,
+          1,
+          93
+        ],
+        [
+          1,
+          16,
+          28
+        ],
+        [
+          26,
+          3,
+          1669
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 199,
+        "Removed": 126,
+        "Correct": 1712
+      },
+      "gt_counts": {
+        "extra_notes_midi": 130,
+        "removed_notes_midi": 93,
+        "correct_notes_midi": 2031
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 28 exceeds diagonal 16 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_07_R1_2015_wav--1": {
+      "matrix": [
+        [
+          41,
+          0,
+          12
+        ],
+        [
+          0,
+          17,
+          0
+        ],
+        [
+          1,
+          0,
+          1213
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 53,
+        "Removed": 34,
+        "Correct": 1214
+      },
+      "gt_counts": {
+        "extra_notes_midi": 43,
+        "removed_notes_midi": 36,
+        "correct_notes_midi": 1318
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_09_R1_2015_wav--2": {
+      "matrix": [
+        [
+          66,
+          0,
+          34
+        ],
+        [
+          1,
+          18,
+          9
+        ],
+        [
+          9,
+          0,
+          5267
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 103,
+        "Removed": 72,
+        "Correct": 5298
+      },
+      "gt_counts": {
+        "extra_notes_midi": 77,
+        "removed_notes_midi": 40,
+        "correct_notes_midi": 5783
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_11_R1_2015_wav--2": {
+      "matrix": [
+        [
+          58,
+          1,
+          40
+        ],
+        [
+          1,
+          18,
+          11
+        ],
+        [
+          13,
+          2,
+          1839
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 96,
+        "Removed": 59,
+        "Correct": 1853
+      },
+      "gt_counts": {
+        "extra_notes_midi": 71,
+        "removed_notes_midi": 49,
+        "correct_notes_midi": 1973
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_11_R1_2015_wav--3": {
+      "matrix": [
+        [
+          106,
+          0,
+          68
+        ],
+        [
+          1,
+          26,
+          24
+        ],
+        [
+          10,
+          7,
+          1725
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 179,
+        "Removed": 129,
+        "Correct": 1750
+      },
+      "gt_counts": {
+        "extra_notes_midi": 123,
+        "removed_notes_midi": 89,
+        "correct_notes_midi": 2000
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_11_R1_2015_wav--5": {
+      "matrix": [
+        [
+          72,
+          0,
+          33
+        ],
+        [
+          0,
+          15,
+          8
+        ],
+        [
+          16,
+          2,
+          1201
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 107,
+        "Removed": 58,
+        "Correct": 1223
+      },
+      "gt_counts": {
+        "extra_notes_midi": 93,
+        "removed_notes_midi": 62,
+        "correct_notes_midi": 1338
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_12_R1_2015_wav--3": {
+      "matrix": [
+        [
+          43,
+          0,
+          22
+        ],
+        [
+          0,
+          11,
+          12
+        ],
+        [
+          1,
+          2,
+          1579
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 67,
+        "Removed": 46,
+        "Correct": 1590
+      },
+      "gt_counts": {
+        "extra_notes_midi": 48,
+        "removed_notes_midi": 29,
+        "correct_notes_midi": 1751
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 12 exceeds diagonal 11 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_15_R1_2015_wav--4": {
+      "matrix": [
+        [
+          127,
+          0,
+          55
+        ],
+        [
+          1,
+          19,
+          24
+        ],
+        [
+          11,
+          3,
+          2970
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 189,
+        "Removed": 127,
+        "Correct": 3002
+      },
+      "gt_counts": {
+        "extra_notes_midi": 145,
+        "removed_notes_midi": 66,
+        "correct_notes_midi": 3535
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 24 exceeds diagonal 19 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_16_R1_2015_wav--2": {
+      "matrix": [
+        [
+          34,
+          0,
+          9
+        ],
+        [
+          0,
+          17,
+          6
+        ],
+        [
+          4,
+          1,
+          1860
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 43,
+        "Removed": 31,
+        "Correct": 1869
+      },
+      "gt_counts": {
+        "extra_notes_midi": 40,
+        "removed_notes_midi": 28,
+        "correct_notes_midi": 2085
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_17_R1_2015_wav--3": {
+      "matrix": [
+        [
+          76,
+          0,
+          39
+        ],
+        [
+          0,
+          13,
+          14
+        ],
+        [
+          9,
+          4,
+          2831
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 117,
+        "Removed": 72,
+        "Correct": 2907
+      },
+      "gt_counts": {
+        "extra_notes_midi": 94,
+        "removed_notes_midi": 64,
+        "correct_notes_midi": 3930
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 14 exceeds diagonal 13 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R1_D2-21-22_mid--AUDIO-from_mp3_22_R1_2015_wav--3": {
+      "matrix": [
+        [
+          96,
+          1,
+          75
+        ],
+        [
+          1,
+          16,
+          19
+        ],
+        [
+          22,
+          1,
+          1722
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 177,
+        "Removed": 116,
+        "Correct": 1764
+      },
+      "gt_counts": {
+        "extra_notes_midi": 124,
+        "removed_notes_midi": 69,
+        "correct_notes_midi": 2055
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 19 exceeds diagonal 16 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_03_R2_2015_wav--1": {
+      "matrix": [
+        [
+          14,
+          0,
+          4
+        ],
+        [
+          0,
+          5,
+          1
+        ],
+        [
+          0,
+          0,
+          1004
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 18,
+        "Removed": 15,
+        "Correct": 1007
+      },
+      "gt_counts": {
+        "extra_notes_midi": 15,
+        "removed_notes_midi": 9,
+        "correct_notes_midi": 1101
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_06_R2_2015_wav--1": {
+      "matrix": [
+        [
+          289,
+          1,
+          63
+        ],
+        [
+          0,
+          76,
+          35
+        ],
+        [
+          15,
+          19,
+          3543
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 362,
+        "Removed": 214,
+        "Correct": 3580
+      },
+      "gt_counts": {
+        "extra_notes_midi": 319,
+        "removed_notes_midi": 194,
+        "correct_notes_midi": 4116
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R2_D2-12-13-15_mid--AUDIO-from_mp3_12_R2_2015_wav--3": {
+      "matrix": [
+        [
+          149,
+          1,
+          140
+        ],
+        [
+          1,
+          41,
+          41
+        ],
+        [
+          25,
+          5,
+          6880
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 292,
+        "Removed": 207,
+        "Correct": 6960
+      },
+      "gt_counts": {
+        "extra_notes_midi": 195,
+        "removed_notes_midi": 132,
+        "correct_notes_midi": 8203
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_R2_D2-12-13-15_mid--AUDIO-from_mp3_13_R2_2015_wav--4": {
+      "matrix": [
+        [
+          152,
+          0,
+          183
+        ],
+        [
+          2,
+          38,
+          51
+        ],
+        [
+          37,
+          1,
+          6843
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 343,
+        "Removed": 242,
+        "Correct": 6998
+      },
+      "gt_counts": {
+        "extra_notes_midi": 221,
+        "removed_notes_midi": 156,
+        "correct_notes_midi": 8619
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 183 exceeds diagonal 152 (warn-only)",
+        "Removed row: Correct-column count 51 exceeds diagonal 38 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_R2_D2-19-21-22_mid--AUDIO-from_mp3_19_R2_2015_wav--3": {
+      "matrix": [
+        [
+          218,
+          0,
+          54
+        ],
+        [
+          0,
+          57,
+          27
+        ],
+        [
+          10,
+          18,
+          3640
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 284,
+        "Removed": 158,
+        "Correct": 3689
+      },
+      "gt_counts": {
+        "extra_notes_midi": 240,
+        "removed_notes_midi": 165,
+        "correct_notes_midi": 4260
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_Recital13-15_MID--AUDIO_14_R1_2018_wav--3": {
+      "matrix": [
+        [
+          344,
+          0,
+          118
+        ],
+        [
+          1,
+          80,
+          69
+        ],
+        [
+          44,
+          22,
+          4657
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 478,
+        "Removed": 326,
+        "Correct": 4723
+      },
+      "gt_counts": {
+        "extra_notes_midi": 405,
+        "removed_notes_midi": 259,
+        "correct_notes_midi": 5403
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_Recital13-15_MID--AUDIO_15_R1_2018_wav--1": {
+      "matrix": [
+        [
+          162,
+          1,
+          175
+        ],
+        [
+          1,
+          36,
+          31
+        ],
+        [
+          37,
+          4,
+          3005
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 344,
+        "Removed": 230,
+        "Correct": 3077
+      },
+      "gt_counts": {
+        "extra_notes_midi": 210,
+        "removed_notes_midi": 146,
+        "correct_notes_midi": 3487
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 175 exceeds diagonal 162 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_Recital16_MID--AUDIO_16_R1_2018_wav--3": {
+      "matrix": [
+        [
+          6,
+          0,
+          2
+        ],
+        [
+          0,
+          2,
+          0
+        ],
+        [
+          0,
+          0,
+          333
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 8,
+        "Removed": 8,
+        "Correct": 336
+      },
+      "gt_counts": {
+        "extra_notes_midi": 6,
+        "removed_notes_midi": 8,
+        "correct_notes_midi": 358
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_Recital17-19_MID--AUDIO_17_R1_2018_wav--2": {
+      "matrix": [
+        [
+          168,
+          0,
+          117
+        ],
+        [
+          2,
+          44,
+          34
+        ],
+        [
+          40,
+          5,
+          2832
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 301,
+        "Removed": 188,
+        "Correct": 2960
+      },
+      "gt_counts": {
+        "extra_notes_midi": 239,
+        "removed_notes_midi": 147,
+        "correct_notes_midi": 3674
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_Recital17-19_MID--AUDIO_18_R1_2018_wav--3": {
+      "matrix": [
+        [
+          144,
+          2,
+          82
+        ],
+        [
+          1,
+          23,
+          29
+        ],
+        [
+          26,
+          7,
+          1454
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 225,
+        "Removed": 140,
+        "Correct": 1480
+      },
+      "gt_counts": {
+        "extra_notes_midi": 174,
+        "removed_notes_midi": 96,
+        "correct_notes_midi": 1636
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 29 exceeds diagonal 23 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_Recital17-19_MID--AUDIO_19_R1_2018_wav--3": {
+      "matrix": [
+        [
+          167,
+          2,
+          182
+        ],
+        [
+          2,
+          34,
+          46
+        ],
+        [
+          46,
+          5,
+          3209
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 355,
+        "Removed": 249,
+        "Correct": 3301
+      },
+      "gt_counts": {
+        "extra_notes_midi": 242,
+        "removed_notes_midi": 153,
+        "correct_notes_midi": 4015
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 182 exceeds diagonal 167 (warn-only)",
+        "Removed row: Correct-column count 46 exceeds diagonal 34 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_Recital5-7_MID--AUDIO_06_R1_2018_wav--3": {
+      "matrix": [
+        [
+          193,
+          0,
+          230
+        ],
+        [
+          0,
+          50,
+          44
+        ],
+        [
+          39,
+          0,
+          11360
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 439,
+        "Removed": 321,
+        "Correct": 11515
+      },
+      "gt_counts": {
+        "extra_notes_midi": 246,
+        "removed_notes_midi": 164,
+        "correct_notes_midi": 13995
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 230 exceeds diagonal 193 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_Recital9-11_MID--AUDIO_09_R1_2018_wav--1": {
+      "matrix": [
+        [
+          588,
+          0,
+          267
+        ],
+        [
+          3,
+          164,
+          84
+        ],
+        [
+          76,
+          17,
+          7941
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 876,
+        "Removed": 568,
+        "Correct": 8067
+      },
+      "gt_counts": {
+        "extra_notes_midi": 688,
+        "removed_notes_midi": 468,
+        "correct_notes_midi": 9317
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_Recital9-11_MID--AUDIO_09_R1_2018_wav--2": {
+      "matrix": [
+        [
+          94,
+          0,
+          55
+        ],
+        [
+          0,
+          30,
+          13
+        ],
+        [
+          12,
+          4,
+          2238
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 150,
+        "Removed": 92,
+        "Correct": 2273
+      },
+      "gt_counts": {
+        "extra_notes_midi": 112,
+        "removed_notes_midi": 81,
+        "correct_notes_midi": 2561
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_Recital9-11_MID--AUDIO_09_R1_2018_wav--5": {
+      "matrix": [
+        [
+          22,
+          0,
+          14
+        ],
+        [
+          0,
+          9,
+          1
+        ],
+        [
+          2,
+          0,
+          1022
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 36,
+        "Removed": 26,
+        "Correct": 1024
+      },
+      "gt_counts": {
+        "extra_notes_midi": 24,
+        "removed_notes_midi": 16,
+        "correct_notes_midi": 1079
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_SMF_02_R1_2004_01-05_ORIG_MID--AUDIO_02_R1_2004_08_Track08_wav": {
+      "matrix": [
+        [
+          41,
+          0,
+          34
+        ],
+        [
+          0,
+          8,
+          13
+        ],
+        [
+          8,
+          1,
+          2337
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 78,
+        "Removed": 51,
+        "Correct": 2371
+      },
+      "gt_counts": {
+        "extra_notes_midi": 50,
+        "removed_notes_midi": 25,
+        "correct_notes_midi": 2825
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 13 exceeds diagonal 8 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_SMF_02_R1_2004_01-05_ORIG_MID--AUDIO_02_R1_2004_10_Track10_wav": {
+      "matrix": [
+        [
+          176,
+          2,
+          240
+        ],
+        [
+          4,
+          40,
+          61
+        ],
+        [
+          65,
+          11,
+          4850
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 426,
+        "Removed": 300,
+        "Correct": 4948
+      },
+      "gt_counts": {
+        "extra_notes_midi": 262,
+        "removed_notes_midi": 168,
+        "correct_notes_midi": 6201
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 240 exceeds diagonal 176 (warn-only)",
+        "Removed row: Correct-column count 61 exceeds diagonal 40 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_SMF_17_R1_2004_03-06_ORIG_MID--AUDIO_20_R2_2004_12_Track12_wav--1": {
+      "matrix": [
+        [
+          54,
+          0,
+          173
+        ],
+        [
+          1,
+          8,
+          22
+        ],
+        [
+          24,
+          2,
+          1591
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 227,
+        "Removed": 146,
+        "Correct": 1624
+      },
+      "gt_counts": {
+        "extra_notes_midi": 85,
+        "removed_notes_midi": 44,
+        "correct_notes_midi": 1853
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 173 exceeds diagonal 54 (warn-only)",
+        "Removed row: Correct-column count 22 exceeds diagonal 8 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_XP_03_R1_2004_01-02_ORIG_MID--AUDIO_03_R1_2004_01_Track01_wav": {
+      "matrix": [
+        [
+          211,
+          0,
+          103
+        ],
+        [
+          0,
+          64,
+          12
+        ],
+        [
+          31,
+          3,
+          2437
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 312,
+        "Removed": 233,
+        "Correct": 2470
+      },
+      "gt_counts": {
+        "extra_notes_midi": 248,
+        "removed_notes_midi": 182,
+        "correct_notes_midi": 2627
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_04_R1_2004_03-05_ORIG_MID--AUDIO_04_R1_2004_06_Track06_wav": {
+      "matrix": [
+        [
+          98,
+          0,
+          28
+        ],
+        [
+          0,
+          26,
+          10
+        ],
+        [
+          12,
+          2,
+          1639
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 128,
+        "Removed": 81,
+        "Correct": 1654
+      },
+      "gt_counts": {
+        "extra_notes_midi": 110,
+        "removed_notes_midi": 76,
+        "correct_notes_midi": 1744
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_08_R1_2004_04-06_ORIG_MID--AUDIO_08_R1_2004_05_Track05_wav--1": {
+      "matrix": [
+        [
+          48,
+          0,
+          16
+        ],
+        [
+          0,
+          13,
+          8
+        ],
+        [
+          5,
+          2,
+          1932
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 67,
+        "Removed": 37,
+        "Correct": 1974
+      },
+      "gt_counts": {
+        "extra_notes_midi": 53,
+        "removed_notes_midi": 40,
+        "correct_notes_midi": 2601
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_11_R1_2004_01-02_ORIG_MID--AUDIO_11_R1_2004_02_Track02_wav": {
+      "matrix": [
+        [
+          373,
+          1,
+          237
+        ],
+        [
+          1,
+          81,
+          43
+        ],
+        [
+          71,
+          9,
+          9593
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 619,
+        "Removed": 419,
+        "Correct": 9733
+      },
+      "gt_counts": {
+        "extra_notes_midi": 469,
+        "removed_notes_midi": 288,
+        "correct_notes_midi": 11021
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_14_R1_2004_04_ORIG_MID--AUDIO_14_R1_2004_04_Track04_wav": {
+      "matrix": [
+        [
+          73,
+          0,
+          20
+        ],
+        [
+          0,
+          21,
+          6
+        ],
+        [
+          10,
+          0,
+          2365
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 93,
+        "Removed": 59,
+        "Correct": 2379
+      },
+      "gt_counts": {
+        "extra_notes_midi": 84,
+        "removed_notes_midi": 54,
+        "correct_notes_midi": 2517
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_14_R1_2004_04_ORIG_MID--AUDIO_14_R1_2004_05_Track05_wav": {
+      "matrix": [
+        [
+          13,
+          0,
+          1
+        ],
+        [
+          0,
+          4,
+          1
+        ],
+        [
+          0,
+          0,
+          824
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 14,
+        "Removed": 17,
+        "Correct": 825
+      },
+      "gt_counts": {
+        "extra_notes_midi": 14,
+        "removed_notes_midi": 12,
+        "correct_notes_midi": 863
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_15_R1_2004_03_ORIG_MID--AUDIO_15_R1_2004_03_Track03_wav": {
+      "matrix": [
+        [
+          640,
+          1,
+          255
+        ],
+        [
+          2,
+          182,
+          79
+        ],
+        [
+          89,
+          25,
+          8790
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 905,
+        "Removed": 612,
+        "Correct": 8912
+      },
+      "gt_counts": {
+        "extra_notes_midi": 756,
+        "removed_notes_midi": 529,
+        "correct_notes_midi": 9734
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_18_R1_2004_01-02_ORIG_MID--AUDIO_18_R1_2004_03_Track03_wav": {
+      "matrix": [
+        [
+          200,
+          0,
+          85
+        ],
+        [
+          1,
+          55,
+          30
+        ],
+        [
+          22,
+          7,
+          2103
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 291,
+        "Removed": 168,
+        "Correct": 2152
+      },
+      "gt_counts": {
+        "extra_notes_midi": 242,
+        "removed_notes_midi": 155,
+        "correct_notes_midi": 2499
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "MIDI-Unprocessed_XP_18_R1_2004_01-02_ORIG_MID--AUDIO_18_R1_2004_05_Track05_wav": {
+      "matrix": [
+        [
+          161,
+          0,
+          76
+        ],
+        [
+          1,
+          30,
+          71
+        ],
+        [
+          18,
+          15,
+          3268
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 249,
+        "Removed": 177,
+        "Correct": 3366
+      },
+      "gt_counts": {
+        "extra_notes_midi": 196,
+        "removed_notes_midi": 135,
+        "correct_notes_midi": 4299
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 71 exceeds diagonal 30 (warn-only)"
+      ]
+    },
+    "MIDI-Unprocessed_XP_19_R1_2004_01-02_ORIG_MID--AUDIO_19_R1_2004_02_Track02_wav": {
+      "matrix": [
+        [
+          71,
+          0,
+          25
+        ],
+        [
+          0,
+          23,
+          6
+        ],
+        [
+          5,
+          1,
+          1460
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 96,
+        "Removed": 67,
+        "Correct": 1466
+      },
+      "gt_counts": {
+        "extra_notes_midi": 77,
+        "removed_notes_midi": 52,
+        "correct_notes_midi": 1549
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_10_13_Group_MID--AUDIO_07_R3_2013_wav--1": {
+      "matrix": [
+        [
+          133,
+          0,
+          84
+        ],
+        [
+          0,
+          43,
+          23
+        ],
+        [
+          30,
+          9,
+          2909
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 217,
+        "Removed": 157,
+        "Correct": 2939
+      },
+      "gt_counts": {
+        "extra_notes_midi": 163,
+        "removed_notes_midi": 110,
+        "correct_notes_midi": 3161
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_01_R1_2013_wav--4": {
+      "matrix": [
+        [
+          362,
+          2,
+          300
+        ],
+        [
+          10,
+          76,
+          99
+        ],
+        [
+          74,
+          23,
+          4197
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 712,
+        "Removed": 488,
+        "Correct": 4356
+      },
+      "gt_counts": {
+        "extra_notes_midi": 497,
+        "removed_notes_midi": 332,
+        "correct_notes_midi": 5771
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 99 exceeds diagonal 76 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_03_R1_2013_wav--1": {
+      "matrix": [
+        [
+          44,
+          0,
+          19
+        ],
+        [
+          0,
+          12,
+          1
+        ],
+        [
+          5,
+          0,
+          1224
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 63,
+        "Removed": 38,
+        "Correct": 1230
+      },
+      "gt_counts": {
+        "extra_notes_midi": 49,
+        "removed_notes_midi": 24,
+        "correct_notes_midi": 1335
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_04_R1_2013_wav--1": {
+      "matrix": [
+        [
+          117,
+          0,
+          37
+        ],
+        [
+          1,
+          35,
+          5
+        ],
+        [
+          15,
+          0,
+          1373
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 153,
+        "Removed": 96,
+        "Correct": 1390
+      },
+      "gt_counts": {
+        "extra_notes_midi": 133,
+        "removed_notes_midi": 69,
+        "correct_notes_midi": 1489
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_04_R1_2013_wav--3": {
+      "matrix": [
+        [
+          80,
+          0,
+          90
+        ],
+        [
+          0,
+          20,
+          34
+        ],
+        [
+          30,
+          5,
+          2734
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 187,
+        "Removed": 142,
+        "Correct": 2873
+      },
+      "gt_counts": {
+        "extra_notes_midi": 132,
+        "removed_notes_midi": 93,
+        "correct_notes_midi": 3853
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 90 exceeds diagonal 80 (warn-only)",
+        "Removed row: Correct-column count 34 exceeds diagonal 20 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_04_R1_2013_wav--4": {
+      "matrix": [
+        [
+          179,
+          0,
+          136
+        ],
+        [
+          2,
+          47,
+          31
+        ],
+        [
+          34,
+          2,
+          4720
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 319,
+        "Removed": 212,
+        "Correct": 4767
+      },
+      "gt_counts": {
+        "extra_notes_midi": 221,
+        "removed_notes_midi": 142,
+        "correct_notes_midi": 5382
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_11_R1_2013_wav--1": {
+      "matrix": [
+        [
+          20,
+          0,
+          16
+        ],
+        [
+          0,
+          5,
+          2
+        ],
+        [
+          4,
+          0,
+          1910
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 36,
+        "Removed": 22,
+        "Correct": 1915
+      },
+      "gt_counts": {
+        "extra_notes_midi": 24,
+        "removed_notes_midi": 10,
+        "correct_notes_midi": 1996
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_11_R1_2013_wav--4": {
+      "matrix": [
+        [
+          173,
+          1,
+          245
+        ],
+        [
+          2,
+          34,
+          54
+        ],
+        [
+          33,
+          8,
+          4150
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 435,
+        "Removed": 311,
+        "Correct": 4307
+      },
+      "gt_counts": {
+        "extra_notes_midi": 266,
+        "removed_notes_midi": 194,
+        "correct_notes_midi": 5945
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 245 exceeds diagonal 173 (warn-only)",
+        "Removed row: Correct-column count 54 exceeds diagonal 34 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_13_R1_2013_wav--3": {
+      "matrix": [
+        [
+          187,
+          1,
+          259
+        ],
+        [
+          7,
+          35,
+          81
+        ],
+        [
+          71,
+          8,
+          3380
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 498,
+        "Removed": 365,
+        "Correct": 3539
+      },
+      "gt_counts": {
+        "extra_notes_midi": 318,
+        "removed_notes_midi": 210,
+        "correct_notes_midi": 4658
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 259 exceeds diagonal 187 (warn-only)",
+        "Removed row: Correct-column count 81 exceeds diagonal 35 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_14_R1_2013_wav--2": {
+      "matrix": [
+        [
+          63,
+          0,
+          44
+        ],
+        [
+          0,
+          19,
+          8
+        ],
+        [
+          16,
+          0,
+          2081
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 108,
+        "Removed": 76,
+        "Correct": 2098
+      },
+      "gt_counts": {
+        "extra_notes_midi": 80,
+        "removed_notes_midi": 42,
+        "correct_notes_midi": 2230
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_01_7_8_13_Group__MID--AUDIO_07_R2_2013_wav--2": {
+      "matrix": [
+        [
+          117,
+          0,
+          34
+        ],
+        [
+          0,
+          35,
+          5
+        ],
+        [
+          7,
+          2,
+          2263
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 153,
+        "Removed": 94,
+        "Correct": 2275
+      },
+      "gt_counts": {
+        "extra_notes_midi": 129,
+        "removed_notes_midi": 97,
+        "correct_notes_midi": 2545
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_02_7_10_13_Group_MID--AUDIO_12_R3_2013_wav--2": {
+      "matrix": [
+        [
+          195,
+          0,
+          94
+        ],
+        [
+          0,
+          57,
+          12
+        ],
+        [
+          21,
+          6,
+          1987
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 292,
+        "Removed": 175,
+        "Correct": 2015
+      },
+      "gt_counts": {
+        "extra_notes_midi": 223,
+        "removed_notes_midi": 151,
+        "correct_notes_midi": 2221
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_02_7_10_13_Group_MID--AUDIO_14_R3_2013_wav--2": {
+      "matrix": [
+        [
+          434,
+          4,
+          380
+        ],
+        [
+          4,
+          124,
+          113
+        ],
+        [
+          80,
+          20,
+          9113
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 839,
+        "Removed": 582,
+        "Correct": 9312
+      },
+      "gt_counts": {
+        "extra_notes_midi": 550,
+        "removed_notes_midi": 418,
+        "correct_notes_midi": 11407
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--4": {
+      "matrix": [
+        [
+          63,
+          0,
+          72
+        ],
+        [
+          0,
+          14,
+          16
+        ],
+        [
+          16,
+          1,
+          2408
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 135,
+        "Removed": 88,
+        "Correct": 2431
+      },
+      "gt_counts": {
+        "extra_notes_midi": 79,
+        "removed_notes_midi": 59,
+        "correct_notes_midi": 2727
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 72 exceeds diagonal 63 (warn-only)",
+        "Removed row: Correct-column count 16 exceeds diagonal 14 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--5": {
+      "matrix": [
+        [
+          53,
+          1,
+          64
+        ],
+        [
+          0,
+          14,
+          20
+        ],
+        [
+          13,
+          3,
+          2579
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 124,
+        "Removed": 84,
+        "Correct": 2620
+      },
+      "gt_counts": {
+        "extra_notes_midi": 70,
+        "removed_notes_midi": 39,
+        "correct_notes_midi": 3065
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Extra row: Correct-column count 64 exceeds diagonal 53 (warn-only)",
+        "Removed row: Correct-column count 20 exceeds diagonal 14 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_02_7_7_13_Group__MID--AUDIO_16_R1_2013_wav--2": {
+      "matrix": [
+        [
+          149,
+          0,
+          83
+        ],
+        [
+          1,
+          36,
+          28
+        ],
+        [
+          25,
+          8,
+          3710
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 237,
+        "Removed": 154,
+        "Correct": 3745
+      },
+      "gt_counts": {
+        "extra_notes_midi": 179,
+        "removed_notes_midi": 120,
+        "correct_notes_midi": 4234
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_02_7_7_13_Group__MID--AUDIO_19_R1_2013_wav--2": {
+      "matrix": [
+        [
+          48,
+          0,
+          20
+        ],
+        [
+          0,
+          10,
+          7
+        ],
+        [
+          6,
+          0,
+          2097
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 69,
+        "Removed": 50,
+        "Correct": 2105
+      },
+      "gt_counts": {
+        "extra_notes_midi": 54,
+        "removed_notes_midi": 39,
+        "correct_notes_midi": 2227
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_03_7_10_13_Group_MID--AUDIO_17_R3_2013_wav--1": {
+      "matrix": [
+        [
+          125,
+          0,
+          57
+        ],
+        [
+          0,
+          36,
+          19
+        ],
+        [
+          24,
+          8,
+          2590
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 180,
+        "Removed": 107,
+        "Correct": 2617
+      },
+      "gt_counts": {
+        "extra_notes_midi": 151,
+        "removed_notes_midi": 93,
+        "correct_notes_midi": 2780
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    },
+    "ORIG-MIDI_03_7_6_13_Group__MID--AUDIO_09_R1_2013_wav--3": {
+      "matrix": [
+        [
+          17,
+          0,
+          8
+        ],
+        [
+          0,
+          3,
+          5
+        ],
+        [
+          5,
+          0,
+          1702
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 24,
+        "Removed": 14,
+        "Correct": 1706
+      },
+      "gt_counts": {
+        "extra_notes_midi": 21,
+        "removed_notes_midi": 10,
+        "correct_notes_midi": 1822
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": [
+        "Removed row: Correct-column count 5 exceeds diagonal 3 (warn-only)"
+      ]
+    },
+    "ORIG-MIDI_03_7_8_13_Group__MID--AUDIO_19_R2_2013_wav--4": {
+      "matrix": [
+        [
+          284,
+          0,
+          196
+        ],
+        [
+          2,
+          71,
+          51
+        ],
+        [
+          61,
+          11,
+          4662
+        ]
+      ],
+      "pred_counts": {
+        "Extra": 493,
+        "Removed": 317,
+        "Correct": 4800
+      },
+      "gt_counts": {
+        "extra_notes_midi": 380,
+        "removed_notes_midi": 261,
+        "correct_notes_midi": 5882
+      },
+      "passed": true,
+      "failures": [],
+      "warnings": []
+    }
+  },
+  "grand_matrix": [
+    [
+      27650,
+      75,
+      17707
+    ],
+    [
+      224,
+      7088,
+      5240
+    ],
+    [
+      4711,
+      1111,
+      605952
+    ]
+  ],
+  "grand_check": {
+    "passed": true,
+    "failures": [],
+    "warnings": []
+  },
+  "n_pieces": 177,
+  "n_pass": 177,
+  "n_fail": 0,
+  "all_pass": true
+}

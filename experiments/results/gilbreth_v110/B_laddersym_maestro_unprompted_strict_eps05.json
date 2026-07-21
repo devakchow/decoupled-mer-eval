@@ -1,0 +1,430 @@
+{
+  "config": {
+    "scorer_version": "1.1.0",
+    "pred_dir": "/scratch/gilbreth/dcharapa/mer/run/preds/B_laddersym_maestro_unprompted",
+    "gt_meta": "/scratch/gilbreth/dcharapa/mer/run/gt_meta_maestro.json",
+    "tau_s": [
+      0.05,
+      0.075,
+      0.1,
+      0.15,
+      0.2,
+      0.5
+    ],
+    "epsilon_s": 0.05,
+    "collapse": "strict",
+    "note": "PHASE-3: on-disk schema (track names, metadata layout) must be reconfirmed against real Polytune/LadderSym artifacts before the pilot."
+  },
+  "n_pieces": 177,
+  "n_pred_events": 701592,
+  "n_ref_events": 775887,
+  "decoupled": {
+    "per_tau": [
+      {
+        "tau_s": 0.05,
+        "tau_ms": 50,
+        "epsilon_s": 0.05,
+        "collapse": "strict",
+        "localization": {
+          "tp": 33392,
+          "fp": 14879,
+          "fn": 11975,
+          "precision": 0.6917610987963788,
+          "recall": 0.7360416161527101,
+          "f1": 0.7132147205194472
+        },
+        "confusion": {
+          "missed": {
+            "missed": 2467,
+            "extra": 87,
+            "wrong": 315
+          },
+          "extra": {
+            "missed": 21,
+            "extra": 15157,
+            "wrong": 5037
+          },
+          "wrong": {
+            "missed": 43,
+            "extra": 1156,
+            "wrong": 9109
+          }
+        },
+        "confusion_sparse": {
+          "missed->missed": 2467,
+          "missed->extra": 87,
+          "missed->wrong": 315,
+          "extra->missed": 21,
+          "extra->extra": 15157,
+          "extra->wrong": 5037,
+          "wrong->missed": 43,
+          "wrong->extra": 1156,
+          "wrong->wrong": 9109
+        },
+        "false_alarm_on_correct": 14157,
+        "spurious": 722,
+        "miss_margin": 11975,
+        "n_localized": 33392,
+        "hm": 0.19941902252036417,
+        "n_pred_err": 48271,
+        "n_ref_err": 45367,
+        "mass_conserved": true
+      },
+      {
+        "tau_s": 0.075,
+        "tau_ms": 75,
+        "epsilon_s": 0.05,
+        "collapse": "strict",
+        "localization": {
+          "tp": 33731,
+          "fp": 14540,
+          "fn": 11636,
+          "precision": 0.6987839489548591,
+          "recall": 0.7435140079793683,
+          "f1": 0.7204553706828425
+        },
+        "confusion": {
+          "missed": {
+            "missed": 2478,
+            "extra": 120,
+            "wrong": 439
+          },
+          "extra": {
+            "missed": 32,
+            "extra": 15204,
+            "wrong": 5084
+          },
+          "wrong": {
+            "missed": 58,
+            "extra": 1162,
+            "wrong": 9154
+          }
+        },
+        "confusion_sparse": {
+          "missed->missed": 2478,
+          "missed->extra": 120,
+          "missed->wrong": 439,
+          "extra->missed": 32,
+          "extra->extra": 15204,
+          "extra->wrong": 5084,
+          "wrong->missed": 58,
+          "wrong->extra": 1162,
+          "wrong->wrong": 9154
+        },
+        "false_alarm_on_correct": 13960,
+        "spurious": 580,
+        "miss_margin": 11636,
+        "n_localized": 33731,
+        "hm": 0.20441137232812545,
+        "n_pred_err": 48271,
+        "n_ref_err": 45367,
+        "mass_conserved": true
+      },
+      {
+        "tau_s": 0.1,
+        "tau_ms": 100,
+        "epsilon_s": 0.05,
+        "collapse": "strict",
+        "localization": {
+          "tp": 34041,
+          "fp": 14230,
+          "fn": 11326,
+          "precision": 0.7052060243210209,
+          "recall": 0.7503471686468137,
+          "f1": 0.7270766141950917
+        },
+        "confusion": {
+          "missed": {
+            "missed": 2502,
+            "extra": 159,
+            "wrong": 540
+          },
+          "extra": {
+            "missed": 43,
+            "extra": 15227,
+            "wrong": 5132
+          },
+          "wrong": {
+            "missed": 70,
+            "extra": 1182,
+            "wrong": 9186
+          }
+        },
+        "confusion_sparse": {
+          "missed->missed": 2502,
+          "missed->extra": 159,
+          "missed->wrong": 540,
+          "extra->missed": 43,
+          "extra->extra": 15227,
+          "extra->wrong": 5132,
+          "wrong->missed": 70,
+          "wrong->extra": 1182,
+          "wrong->wrong": 9186
+        },
+        "false_alarm_on_correct": 13834,
+        "spurious": 396,
+        "miss_margin": 11326,
+        "n_localized": 34041,
+        "hm": 0.20933580094591817,
+        "n_pred_err": 48271,
+        "n_ref_err": 45367,
+        "mass_conserved": true
+      },
+      {
+        "tau_s": 0.15,
+        "tau_ms": 150,
+        "epsilon_s": 0.05,
+        "collapse": "strict",
+        "localization": {
+          "tp": 34619,
+          "fp": 13652,
+          "fn": 10748,
+          "precision": 0.7171800874230905,
+          "recall": 0.7630877069235348,
+          "f1": 0.7394220295179307
+        },
+        "confusion": {
+          "missed": {
+            "missed": 2568,
+            "extra": 228,
+            "wrong": 730
+          },
+          "extra": {
+            "missed": 68,
+            "extra": 15250,
+            "wrong": 5222
+          },
+          "wrong": {
+            "missed": 93,
+            "extra": 1209,
+            "wrong": 9251
+          }
+        },
+        "confusion_sparse": {
+          "missed->missed": 2568,
+          "missed->extra": 228,
+          "missed->wrong": 730,
+          "extra->missed": 68,
+          "extra->extra": 15250,
+          "extra->wrong": 5222,
+          "wrong->missed": 93,
+          "wrong->extra": 1209,
+          "wrong->wrong": 9251
+        },
+        "false_alarm_on_correct": 13434,
+        "spurious": 218,
+        "miss_margin": 10748,
+        "n_localized": 34619,
+        "hm": 0.21808833299633149,
+        "n_pred_err": 48271,
+        "n_ref_err": 45367,
+        "mass_conserved": true
+      },
+      {
+        "tau_s": 0.2,
+        "tau_ms": 200,
+        "epsilon_s": 0.05,
+        "collapse": "strict",
+        "localization": {
+          "tp": 35136,
+          "fp": 13135,
+          "fn": 10231,
+          "precision": 0.7278904518240765,
+          "recall": 0.7744836555205326,
+          "f1": 0.7504645549883595
+        },
+        "confusion": {
+          "missed": {
+            "missed": 2613,
+            "extra": 309,
+            "wrong": 902
+          },
+          "extra": {
+            "missed": 87,
+            "extra": 15258,
+            "wrong": 5314
+          },
+          "wrong": {
+            "missed": 122,
+            "extra": 1236,
+            "wrong": 9295
+          }
+        },
+        "confusion_sparse": {
+          "missed->missed": 2613,
+          "missed->extra": 309,
+          "missed->wrong": 902,
+          "extra->missed": 87,
+          "extra->extra": 15258,
+          "extra->wrong": 5314,
+          "wrong->missed": 122,
+          "wrong->extra": 1236,
+          "wrong->wrong": 9295
+        },
+        "false_alarm_on_correct": 12985,
+        "spurious": 150,
+        "miss_margin": 10231,
+        "n_localized": 35136,
+        "hm": 0.22683287795992715,
+        "n_pred_err": 48271,
+        "n_ref_err": 45367,
+        "mass_conserved": true
+      },
+      {
+        "tau_s": 0.5,
+        "tau_ms": 500,
+        "epsilon_s": 0.05,
+        "collapse": "strict",
+        "localization": {
+          "tp": 37325,
+          "fp": 10946,
+          "fn": 8042,
+          "precision": 0.773238590458039,
+          "recall": 0.8227345868142042,
+          "f1": 0.7972190777248553
+        },
+        "confusion": {
+          "missed": {
+            "missed": 2827,
+            "extra": 717,
+            "wrong": 1686
+          },
+          "extra": {
+            "missed": 218,
+            "extra": 15170,
+            "wrong": 5655
+          },
+          "wrong": {
+            "missed": 257,
+            "extra": 1396,
+            "wrong": 9399
+          }
+        },
+        "confusion_sparse": {
+          "missed->missed": 2827,
+          "missed->extra": 717,
+          "missed->wrong": 1686,
+          "extra->missed": 218,
+          "extra->extra": 15170,
+          "extra->wrong": 5655,
+          "wrong->missed": 257,
+          "wrong->extra": 1396,
+          "wrong->wrong": 9399
+        },
+        "false_alarm_on_correct": 10896,
+        "spurious": 50,
+        "miss_margin": 8042,
+        "n_localized": 37325,
+        "hm": 0.2660147354320161,
+        "n_pred_err": 48271,
+        "n_ref_err": 45367,
+        "mass_conserved": true
+      }
+    ],
+    "mean_loc_f1_over_tau_grid": 0.7413087279380878
+  },
+  "bootstrap": {
+    "50": {
+      "tau_s": 0.05,
+      "n_pieces": 177,
+      "n_boot": 1000,
+      "seed": 20260718,
+      "point_hm": 0.19941902252036417,
+      "point_loc_f1": 0.7132147205194472,
+      "hm_ci95": [
+        0.18865744055437705,
+        0.20986276919799043
+      ],
+      "loc_f1_ci95": [
+        0.7025346217960653,
+        0.724867528348325
+      ],
+      "n_hm_undefined": 0
+    },
+    "75": {
+      "tau_s": 0.075,
+      "n_pieces": 177,
+      "n_boot": 1000,
+      "seed": 20260718,
+      "point_hm": 0.20441137232812545,
+      "point_loc_f1": 0.7204553706828425,
+      "hm_ci95": [
+        0.19290605618924475,
+        0.21549950956093505
+      ],
+      "loc_f1_ci95": [
+        0.7107437007981792,
+        0.7311889810357589
+      ],
+      "n_hm_undefined": 0
+    },
+    "100": {
+      "tau_s": 0.1,
+      "n_pieces": 177,
+      "n_boot": 1000,
+      "seed": 20260718,
+      "point_hm": 0.20933580094591817,
+      "point_loc_f1": 0.7270766141950917,
+      "hm_ci95": [
+        0.19731159620792713,
+        0.22161139013550465
+      ],
+      "loc_f1_ci95": [
+        0.7183564654041987,
+        0.7370058544441701
+      ],
+      "n_hm_undefined": 0
+    },
+    "150": {
+      "tau_s": 0.15,
+      "n_pieces": 177,
+      "n_boot": 1000,
+      "seed": 20260718,
+      "point_hm": 0.21808833299633149,
+      "point_loc_f1": 0.7394220295179307,
+      "hm_ci95": [
+        0.20473724578820246,
+        0.23142474658194617
+      ],
+      "loc_f1_ci95": [
+        0.7319359326595013,
+        0.7479531606011238
+      ],
+      "n_hm_undefined": 0
+    },
+    "200": {
+      "tau_s": 0.2,
+      "n_pieces": 177,
+      "n_boot": 1000,
+      "seed": 20260718,
+      "point_hm": 0.22683287795992715,
+      "point_loc_f1": 0.7504645549883595,
+      "hm_ci95": [
+        0.21258654255214257,
+        0.241096319756421
+      ],
+      "loc_f1_ci95": [
+        0.7433125614506725,
+        0.7579346895192796
+      ],
+      "n_hm_undefined": 0
+    },
+    "500": {
+      "tau_s": 0.5,
+      "n_pieces": 177,
+      "n_boot": 1000,
+      "seed": 20260718,
+      "point_hm": 0.2660147354320161,
+      "point_loc_f1": 0.7972190777248553,
+      "hm_ci95": [
+        0.2482096963524166,
+        0.2833676508044289
+      ],
+      "loc_f1_ci95": [
+        0.7907168754061432,
+        0.8037869873922178
+      ],
+      "n_hm_undefined": 0
+    }
+  }
+}

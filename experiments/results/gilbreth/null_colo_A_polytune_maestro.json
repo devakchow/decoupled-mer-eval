@@ -1,0 +1,25 @@
+{
+  "n_pieces": 177,
+  "n_perm": 200,
+  "tau": 0.05,
+  "observed_off_diagonal": 8928,
+  "observed_matched_total": 30460,
+  "null_off_diagonal": {
+    "mean": 2480.445,
+    "min": 2350,
+    "max": 2598,
+    "p50": 2480,
+    "p95": 2558
+  },
+  "null_matched_total": {
+    "mean": 3804.23,
+    "min": 3670,
+    "max": 3959,
+    "p50": 3801,
+    "p95": 3904
+  },
+  "enrichment_off": 3.599354148146804,
+  "enrichment_total": 8.0068765558339,
+  "p_off_ge_observed": 0.0,
+  "p_total_ge_observed": 0.0
+}
