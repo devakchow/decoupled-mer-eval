@@ -1,7 +1,7 @@
 """Supplementary figure -- the exact constructed non-identifiability witness.
 
 Corroborates Proposition 1 (whose statement + proof stay in the main text): a
-family of corpora with an IDENTICAL shipped per-class report while HM sweeps
+family of corpora with an IDENTICAL published per-class report while HM sweeps
 0 -> 0.34. Real measured HM sits inside this same range, so the property is not
 a corner case. Kept in supplementary because the analytic bridge band (Fig. 2,
 Table I) carries the point in the main text on real data.
@@ -33,11 +33,11 @@ def main() -> None:
     for name, ys, c, dash in series:
         ax.plot(hm, ys, color=c, linestyle=dash, linewidth=1.0, label=name)
     ax.set_xlabel("hidden mass  $\\mathrm{HM}$ (constructed)")
-    ax.set_ylabel("shipped per-class $F$")
+    ax.set_ylabel("published per-class $F$")
     ax.set_ylim(0.0, 1.0)
     ax.set_xlim(min(hm), max(hm))
     ax.legend(loc="center left", handlelength=1.8, bbox_to_anchor=(0.02, 0.32))
-    ax.annotate("identical shipped report,\n$\\mathrm{HM}=0\\ \\rightarrow\\ %.2f$"
+    ax.annotate("identical published report,\n$\\mathrm{HM}=0\\ \\rightarrow\\ %.2f$"
                 % max(hm), xy=(max(hm) * 0.55, 0.80), fontsize=7.5,
                 ha="center", va="center")
     fig.tight_layout(pad=0.4)

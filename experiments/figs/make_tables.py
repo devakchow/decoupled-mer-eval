@@ -66,14 +66,14 @@ def table_main() -> str:
 \\centering
 \\caption{{Main Results on the MAESTRO Test Split ($\\tau=50$\\,ms,
 $\\epsilon=50$\\,ms; Per-Piece Bootstrap 95\\% CIs, $10^3$ Resamples, $n=177$).
-\\emph{{Shipped}} Is the Mean Per-Class Missed/Extra $F_1$ Under the Systems'
-Shipped Recipe, Computed by Our Replication (Pooled; Sec.~V). Last Column:
+\\emph{{Published}} Is the Mean Per-Class Missed/Extra $F_1$ Under the Systems'
+Published Recipe, Computed by Our Replication (Pooled; Sec.~V). Last Column:
 Inner Bound (Prop.~\\ref{{prop:bridge}}) on the Admissible
 $\\mathrm{{HM}}$ Band; Bold Marks the Best $\\mathrm{{HM}}$ and $F$}}
 \\label{{tab:main}}
 \\begin{{tabular}}{{@{{}}l c c c c@{{}}}}
 \\toprule
-System & Shipped & $\\mathrm{{HM}}\\!\\downarrow$ & $F\\!\\uparrow$ & Admissible $\\mathrm{{HM}}$ \\\\
+System & Published & $\\mathrm{{HM}}\\!\\downarrow$ & $F\\!\\uparrow$ & Admissible $\\mathrm{{HM}}$ \\\\
 \\midrule
 {body}
 \\bottomrule

@@ -52,26 +52,26 @@ def panel(ax, scenario):
         ax.annotate("", xy=(0.05, 68.35), xytext=(0.05, 68.65),
                     arrowprops=dict(arrowstyle="-", lw=0.6, color="#555555",
                                     shrinkA=0, shrinkB=0))
-        ax.text(0.16, 69, "system: substitution\n(missed 69 + extra 68)",
-                fontsize=7.0, va="center")
-        ax.text(0.16, 68, "ref: insertion (extra 68)", fontsize=7.0,
-                va="center", color=C_REF)
+        ax.text(0.15, 69.62, "system: substitution\n(missed 69 + extra 68)",
+                fontsize=7.0, va="center", ha="center")
+        ax.text(0.15, 67.45, "ref: insertion (extra 68)", fontsize=7.0,
+                va="center", ha="center", color=C_REF)
         ax.set_title("(a) as measured: $\\mathrm{HM}=1$", loc="left")
-        ax.set_xlim(-0.08, 0.78)
+        ax.set_xlim(0.0, 0.30)
     else:
         # extra matches reference correctly; missed relocated far away
-        ax.text(0.16, 68, "extra matches ref\n$\\Rightarrow$ correctly located",
-                fontsize=7.0, va="center", color=C_EXTRA)
-        arr = FancyArrowPatch((0.10, 69), (0.50, 69), arrowstyle="->",
+        ax.text(0.15, 67.45, "extra matches ref\n$\\Rightarrow$ correctly located",
+                fontsize=7.0, va="center", ha="center", color=C_EXTRA)
+        arr = FancyArrowPatch((0.115, 69), (0.28, 69), arrowstyle="->",
                               mutation_scale=7, lw=0.8, color=C_MISS,
                               linestyle="--")
         ax.add_patch(arr)
         note(ax, 0.0, 69, C_MISS, z=4, alpha=0.8, hatch="xxx",
              edge="#8a4a0b", lw=0.5)
-        ax.text(0.52, 69.2, "missed 69\nrelocated\n(unrelated)", fontsize=7.0,
-                va="center", ha="left", color=C_MISS)
+        ax.text(0.15, 69.62, "missed 69 relocated\n(unrelated)", fontsize=7.0,
+                va="center", ha="center", color=C_MISS)
         ax.set_title("(b) counterfactual: $\\mathrm{HM}=0$", loc="left")
-        ax.set_xlim(-0.08, 0.92)
+        ax.set_xlim(0.0, 0.30)
 
     ax.set_ylim(67.2, 69.9)
     ax.set_yticks([68, 69])

@@ -408,8 +408,9 @@ def check_doc_numbers() -> None:
                 fail(f"replication pooled {sysname}: artifact {pooled} != "
                      f"printed {letter_pooled[sysname]}")
             if sysname == "polytune":
-                # letter Sec. V dominant-cell clause: "the low shipped missed
-                # precision (0.228 for Polytune)" — TP/(TP+FP) of shipped_50ms
+                # letter Sec. V dominant-cell clause: "the low missed precision
+                # under the published recipe (0.228 for Polytune)" —
+                # TP/(TP+FP) of shipped_50ms (artifact key name unchanged)
                 prec = round(s50["missed"]["precision"], 3)
                 tp, fp = s50["missed"]["tp"], s50["missed"]["fp"]
                 if prec == 0.228 and round(tp / (tp + fp), 3) == 0.228:

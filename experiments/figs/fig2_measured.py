@@ -41,7 +41,7 @@ def panel_hm(ax) -> None:
     _, hi, _, _ = S.bridge_band("polytune")
     ax.axhspan(0.0, hi, color="#999999", alpha=0.13, linewidth=0, zorder=0)
     ax.axhline(hi, color="#7a7a7a", lw=0.5, ls=(0, (2, 2)), zorder=1)
-    ax.annotate("Polytune shipped-report admissible: $[0,\\,%.2f]$" % hi,
+    ax.annotate("Polytune published-report admissible: $[0,\\,%.2f]$" % hi,
                 xy=(52, hi), xytext=(52, hi - 0.028),
                 fontsize=7.5, va="top", ha="left", color="#2b2b2b")
     _tau_axis(ax)
