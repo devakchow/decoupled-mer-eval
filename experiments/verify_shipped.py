@@ -349,6 +349,109 @@ def check_doc_numbers() -> None:
     else:
         fail("nonidentifiability_sweep.json missing")
 
+    # 6f. letter Sec. V sensitivity claim: the matches gained between tau=50
+    # and tau=500 ms are "predominantly off-diagonal (78.7%--83.1% across
+    # configurations)". Re-derive each percentage from the incremental
+    # confusion mass (per_tau[500] - per_tau[50]) and require the printed
+    # 78.7--83.1 range to bracket every value at one-decimal rounding.
+    for fn, want in [
+            ("A_polytune_maestro_strict_eps05.json", 82.1),
+            ("B_laddersym_maestro_unprompted_strict_eps05.json", 83.1),
+            ("B_laddersym_maestro_prompted_strict_eps05.json", 78.7)]:
+        p = os.path.join(gil, fn)
+        if not os.path.exists(p):
+            fail(f"{fn} missing (incremental off-diagonal check)")
+            continue
+        per_tau = {t["tau_ms"]: t for t in _load(p)["decoupled"]["per_tau"]}
+        c50, c500 = per_tau[50]["confusion"], per_tau[500]["confusion"]
+        types = list(c50)
+        inc = {(r, c): c500[r][c] - c50[r][c] for r in types for c in types}
+        tot = sum(inc.values())
+        off = sum(v for (r, c), v in inc.items() if r != c)
+        pct = 100.0 * off / tot if tot else float("nan")
+        if abs(pct - want) <= 0.055 and 78.7 <= round(pct, 1) <= 83.1:
+            ok(f"{fn}: incremental off-diagonal 50->500 ms = {off}/{tot} "
+               f"({pct:.1f}%), inside printed 78.7--83.1%")
+        else:
+            fail(f"{fn}: incremental off-diagonal {off}/{tot} ({pct:.1f}%) "
+                 f"vs documented {want}% / printed range 78.7--83.1%")
+
+    # 6g. letter Sec. V replication paragraph: nine numbers. Pooled
+    # missed/extra F1 from the shipped artifacts, published-style per-piece
+    # (macro) F1 from replication_macro.json, and the "within 0.034 of every
+    # published value" bound on the macro-vs-published gaps.
+    published = {"polytune": (0.268, 0.720),          # chou2025detecting
+                 "laddersym_prompted": (0.563, 0.864)}  # chou2025multimodal
+    letter_pooled = {"polytune": (0.261, 0.683),
+                     "laddersym_prompted": (0.485, 0.828)}
+    letter_macro = {"polytune": (0.287, 0.713),
+                    "laddersym_prompted": (0.530, 0.854)}
+    stem = {"polytune": "A_polytune_maestro",
+            "laddersym_prompted": "B_laddersym_maestro_prompted"}
+    macro_p = os.path.join(gil, "replication_macro.json")
+    if not os.path.exists(macro_p):
+        fail("replication_macro.json missing (replication-paragraph check)")
+    else:
+        macro = _load(macro_p)["systems"]
+        gaps = []
+        for sysname in ("polytune", "laddersym_prompted"):
+            sp = os.path.join(gil, f"{stem[sysname]}_shipped.json")
+            if not os.path.exists(sp):
+                fail(f"{stem[sysname]}_shipped.json missing")
+                continue
+            s50 = _load(sp)["shipped_50ms"]
+            pooled = (round(s50["missed"]["f1"], 3), round(s50["extra"]["f1"], 3))
+            if pooled == letter_pooled[sysname]:
+                ok(f"replication pooled {sysname}: {pooled[0]:.3f}/{pooled[1]:.3f} "
+                   f"as printed")
+            else:
+                fail(f"replication pooled {sysname}: artifact {pooled} != "
+                     f"printed {letter_pooled[sysname]}")
+            if sysname == "polytune":
+                # letter Sec. V dominant-cell clause: "the low shipped missed
+                # precision (0.228 for Polytune)" — TP/(TP+FP) of shipped_50ms
+                prec = round(s50["missed"]["precision"], 3)
+                tp, fp = s50["missed"]["tp"], s50["missed"]["fp"]
+                if prec == 0.228 and round(tp / (tp + fp), 3) == 0.228:
+                    ok(f"letter dominant-cell clause: Polytune shipped missed "
+                       f"precision {tp}/{tp + fp} = {prec:.3f} == printed 0.228")
+                else:
+                    fail(f"Polytune shipped missed precision {prec} "
+                         f"({tp}/{tp + fp}) != printed 0.228")
+            m = macro[sysname]
+            mac = (round(m["macro_f1_missed"], 3), round(m["macro_f1_extra"], 3))
+            if mac == letter_macro[sysname]:
+                ok(f"replication macro {sysname}: {mac[0]:.3f}/{mac[1]:.3f} "
+                   f"as printed")
+            else:
+                fail(f"replication macro {sysname}: artifact {mac} != "
+                     f"printed {letter_macro[sysname]}")
+            # cross-check: macro JSON's pooled F1 agrees with the shipped JSON
+            jp = (round(m["pooled_f1_missed"], 3), round(m["pooled_f1_extra"], 3))
+            if jp != pooled:
+                fail(f"replication {sysname}: replication_macro pooled {jp} "
+                     f"disagrees with shipped artifact {pooled}")
+            gaps += [abs(m["macro_f1_missed"] - published[sysname][0]),
+                     abs(m["macro_f1_extra"] - published[sysname][1])]
+        if gaps:
+            if max(gaps) <= 0.034:
+                ok(f"replication: max macro-vs-published gap "
+                   f"{max(gaps):.4f} <= printed bound 0.034")
+            else:
+                fail(f"replication: max macro-vs-published gap {max(gaps):.4f} "
+                     f"exceeds printed bound 0.034")
+        # letter Sec. V replication clause: "Polytune missed overshooting by
+        # 0.019" — macro missed F1 minus the published 0.268, and it must be
+        # an overshoot (positive), not an undershoot.
+        if "polytune" in macro:
+            over = macro["polytune"]["macro_f1_missed"] - published["polytune"][0]
+            if over > 0 and round(over, 3) == 0.019:
+                ok(f"replication: Polytune missed macro overshoot "
+                   f"{over:.4f} rounds to printed 0.019")
+            else:
+                fail(f"replication: Polytune missed macro overshoot {over:.4f} "
+                     f"!= printed 0.019")
+
     # 6e. coco census percentages quoted in F6
     for fn, want_bad, want_tot in [
             ("C_polytune_coco_track_census.json", 2285, 4284),
@@ -441,7 +544,7 @@ def check_figs_tables() -> None:
     # (a) regenerate tables into a temp dir and compare to committed copies
     import tempfile
     tables = ("tab_main.tex", "tab_ablation.tex", "tab_coco.tex",
-              "tab_null.tex")
+              "tab_null.tex", "tab_confusion.tex")
     committed_missing = [t for t in tables if not os.path.exists(os.path.join(figs, t))]
     if committed_missing:
         fail(f"committed tables missing: {committed_missing}")

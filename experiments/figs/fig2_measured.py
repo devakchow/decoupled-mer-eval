@@ -43,11 +43,11 @@ def panel_hm(ax) -> None:
     ax.axhline(hi, color="#7a7a7a", lw=0.5, ls=(0, (2, 2)), zorder=1)
     ax.annotate("Polytune shipped-report admissible: $[0,\\,%.2f]$" % hi,
                 xy=(52, hi), xytext=(52, hi - 0.028),
-                fontsize=6.0, va="top", ha="left", color="#4d4d4d")
+                fontsize=7.5, va="top", ha="left", color="#2b2b2b")
     _tau_axis(ax)
     ax.set_xlabel("onset tolerance  $\\tau$ (ms)")
     ax.set_ylabel("hidden mass  $\\mathrm{HM}(\\tau)$")
-    ax.set_ylim(0.0, max(hi * 1.06, 0.42))
+    ax.set_ylim(0.0, 0.50)
     ax.legend(loc="lower left", handlelength=2.0, bbox_to_anchor=(0.0, 0.02))
     ax.set_title("(a) measured $\\mathrm{HM}$ vs. admissible band", loc="left")
 

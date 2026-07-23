@@ -42,34 +42,36 @@ def note(ax, x, pitch, face, edge="none", hatch=None, lw=0.0, z=3, alpha=1.0):
 
 def panel(ax, scenario):
     # reference: extra @ 68 (hollow red outline) -- same in both panels
-    note(ax, 0.005, 68, "none", edge=C_REF, hatch="////", lw=1.2, z=5)
+    note(ax, 0.0045, 68, "none", edge=C_REF, hatch="////", lw=1.2, z=5)
     # prediction extra @ 68 (solid blue) -- same in both panels
     note(ax, 0.0, 68, C_EXTRA, z=4)
 
     if scenario == "A":
         # prediction missed @ 69 co-located -> substitution -> HM+1
         note(ax, 0.0, 69, C_MISS, z=4)
-        ax.annotate("", xy=(0.05, 68.55), xytext=(0.05, 68.95),
-                    arrowprops=dict(arrowstyle="-", lw=0.6, color="#555555"))
+        ax.annotate("", xy=(0.05, 68.35), xytext=(0.05, 68.65),
+                    arrowprops=dict(arrowstyle="-", lw=0.6, color="#555555",
+                                    shrinkA=0, shrinkB=0))
         ax.text(0.16, 69, "system: substitution\n(missed 69 + extra 68)",
-                fontsize=5.6, va="center")
-        ax.text(0.16, 68, "ref: insertion (extra 68)", fontsize=5.6,
+                fontsize=7.0, va="center")
+        ax.text(0.16, 68, "ref: insertion (extra 68)", fontsize=7.0,
                 va="center", color=C_REF)
         ax.set_title("(a) as measured: $\\mathrm{HM}=1$", loc="left")
-        ax.set_xlim(-0.08, 0.62)
+        ax.set_xlim(-0.08, 0.78)
     else:
         # extra matches reference correctly; missed relocated far away
         ax.text(0.16, 68, "extra matches ref\n$\\Rightarrow$ correctly located",
-                fontsize=5.6, va="center", color=C_EXTRA)
-        arr = FancyArrowPatch((0.10, 69), (0.52, 69), arrowstyle="->",
+                fontsize=7.0, va="center", color=C_EXTRA)
+        arr = FancyArrowPatch((0.10, 69), (0.50, 69), arrowstyle="->",
                               mutation_scale=7, lw=0.8, color=C_MISS,
                               linestyle="--")
         ax.add_patch(arr)
-        note(ax, 0.0, 69, C_MISS, z=4, alpha=0.55)
-        ax.text(0.53, 69.2, "missed 69\nrelocated\n(unrelated)", fontsize=5.4,
+        note(ax, 0.0, 69, C_MISS, z=4, alpha=0.8, hatch="xxx",
+             edge="#8a4a0b", lw=0.5)
+        ax.text(0.52, 69.2, "missed 69\nrelocated\n(unrelated)", fontsize=7.0,
                 va="center", ha="left", color=C_MISS)
         ax.set_title("(b) counterfactual: $\\mathrm{HM}=0$", loc="left")
-        ax.set_xlim(-0.08, 0.78)
+        ax.set_xlim(-0.08, 0.92)
 
     ax.set_ylim(67.2, 69.9)
     ax.set_yticks([68, 69])
@@ -83,21 +85,18 @@ def main() -> None:
     panel(axes[0], "A")
     panel(axes[1], "B")
 
-    # banner ABOVE the panels (spans both), stated as the punchline
-    fig.text(0.5, 0.995,
-             "identical shipped report in both panels: extra 1 TP, missed 1 FP",
-             ha="center", va="top", fontsize=6.4, style="italic")
-
     legend = [
         Patch(facecolor="none", edgecolor=C_REF, hatch="////",
               label="reference: extra"),
         Patch(facecolor=C_EXTRA, label="prediction: extra"),
         Patch(facecolor=C_MISS, label="prediction: missed"),
     ]
-    fig.legend(handles=legend, loc="lower center", ncol=3, fontsize=5.8,
-               handlelength=1.3, columnspacing=1.1, frameon=False,
-               bbox_to_anchor=(0.5, -0.01))
-    fig.tight_layout(rect=(0, 0.10, 1, 0.90))
+    # legend above the panels, clear of the axis tick and axis labels
+    fig.legend(handles=legend, loc="upper center", ncol=3, fontsize=7.0,
+               handlelength=1.3, columnspacing=1.0, frameon=False,
+               bbox_to_anchor=(0.5, 1.0))
+    fig.subplots_adjust(top=0.80, bottom=0.17, left=0.13, right=0.97,
+                        wspace=0.42)
     out = os.path.join(HERE, "fig1_two_scenario.pdf")
     fig.savefig(out, bbox_inches="tight", pad_inches=0.02)
     fig.savefig(out[:-4] + ".png", dpi=300, bbox_inches="tight", pad_inches=0.02)

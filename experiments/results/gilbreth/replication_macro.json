@@ -1,0 +1,33 @@
+{
+ "description": "Published-style per-piece (macro) missed/extra F1, recomputed from per-piece coupled matrices in *_guard.json; pooled TPs cross-checked against *_shipped.json shipped_50ms.",
+ "onset_tolerance_s": 0.05,
+ "systems": {
+  "polytune": {
+   "n_pieces": 177,
+   "pooled_tp_missed": 7088,
+   "pooled_tp_extra": 27650,
+   "pooled_f1_missed": 0.26148227395137785,
+   "pooled_f1_extra": 0.6825727933643556,
+   "macro_f1_missed": 0.28656892978694315,
+   "macro_f1_extra": 0.7127775786309021
+  },
+  "laddersym_unprompted": {
+   "n_pieces": 177,
+   "pooled_tp_missed": 9975,
+   "pooled_tp_extra": 29166,
+   "pooled_f1_missed": 0.3862237193634568,
+   "pooled_f1_extra": 0.7613354564201624,
+   "macro_f1_missed": 0.4346206770484582,
+   "macro_f1_extra": 0.7939824662807647
+  },
+  "laddersym_prompted": {
+   "n_pieces": 177,
+   "pooled_tp_missed": 12135,
+   "pooled_tp_extra": 30414,
+   "pooled_f1_missed": 0.48536117110631144,
+   "pooled_f1_extra": 0.8284146158769935,
+   "macro_f1_missed": 0.5299556630066303,
+   "macro_f1_extra": 0.8543296144176041
+  }
+ }
+}

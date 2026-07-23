@@ -34,7 +34,7 @@ COL_DOUBLE = 7.16
 SYSTEMS = ("polytune", "laddersym_unprompted", "laddersym_prompted")
 LABEL = {
     "polytune": "Polytune",
-    "laddersym_unprompted": "LadderSym",
+    "laddersym_unprompted": "LadderSym (unprompted)",
     "laddersym_prompted": "LadderSym (prompted)",
 }
 COLOR = {

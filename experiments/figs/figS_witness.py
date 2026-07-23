@@ -37,10 +37,8 @@ def main() -> None:
     ax.set_ylim(0.0, 1.0)
     ax.set_xlim(min(hm), max(hm))
     ax.legend(loc="center left", handlelength=1.8, bbox_to_anchor=(0.02, 0.32))
-    ax.set_title("shipped $F$ invariant across the whole $\\mathrm{HM}$ range",
-                 loc="left")
     ax.annotate("identical shipped report,\n$\\mathrm{HM}=0\\ \\rightarrow\\ %.2f$"
-                % max(hm), xy=(max(hm) * 0.55, 0.80), fontsize=6.4,
+                % max(hm), xy=(max(hm) * 0.55, 0.80), fontsize=7.5,
                 ha="center", va="center")
     fig.tight_layout(pad=0.4)
     out = os.path.join(HERE, "figS_witness.pdf")
