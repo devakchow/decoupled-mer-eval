@@ -453,6 +453,41 @@ def check_doc_numbers() -> None:
                 fail(f"replication: Polytune missed macro overshoot {over:.4f} "
                      f"!= printed 0.019")
 
+    # 6h. supplementary CocoChorales bias clause: "85.6% of Polytune's
+    # three-track stems correspond to references containing both error
+    # classes, versus 43.2% in the population". Re-derived from the evidence
+    # artifacts: 1711/1999 (VERIFY_joingt.json, npred=3 rows) and 1852/4284
+    # (VERIFY_gtcensus.json, present pattern (1,1,1)).
+    jp = os.path.join(HERE, "evidence", "VERIFY_joingt.json")
+    gp = os.path.join(HERE, "evidence", "VERIFY_gtcensus.json")
+    if not os.path.exists(jp):
+        fail("evidence/VERIFY_joingt.json missing (supp census check)")
+    else:
+        joint = _load(jp)["C_polytune_coco"]["joint"]
+        three = {k: v for k, v in joint.items() if k.startswith("npred=3 ")}
+        tot3 = sum(three.values())
+        both3 = three.get("npred=3 gt=(1, 1, 1)", 0)
+        pct3 = 100.0 * both3 / tot3 if tot3 else float("nan")
+        if (both3, tot3) == (1711, 1999) and round(pct3, 1) == 85.6:
+            ok(f"supp census: Polytune 3-trk stems with both error classes "
+               f"{both3}/{tot3} ({pct3:.1f}%) == printed 85.6%")
+        else:
+            fail(f"supp census: 3-trk both-classes {both3}/{tot3} "
+                 f"({pct3:.1f}%) != printed 85.6% (1711/1999)")
+    if not os.path.exists(gp):
+        fail("evidence/VERIFY_gtcensus.json missing (supp census check)")
+    else:
+        cen = _load(gp)
+        n_all = cen["n_stems"]
+        both_pop = cen["present_pattern_counts"]["(1, 1, 1)"]
+        pctp = 100.0 * both_pop / n_all if n_all else float("nan")
+        if (both_pop, n_all) == (1852, 4284) and round(pctp, 1) == 43.2:
+            ok(f"supp census: population stems with both error classes "
+               f"{both_pop}/{n_all} ({pctp:.1f}%) == printed 43.2%")
+        else:
+            fail(f"supp census: population both-classes {both_pop}/{n_all} "
+                 f"({pctp:.1f}%) != printed 43.2% (1852/4284)")
+
     # 6e. coco census percentages quoted in F6
     for fn, want_bad, want_tot in [
             ("C_polytune_coco_track_census.json", 2285, 4284),
@@ -470,6 +505,33 @@ def check_doc_numbers() -> None:
         else:
             fail(f"{fn}: documented {want_bad}/{want_tot}, "
                  f"artifact {bad}/{c['n_files']}")
+
+    # 6i. garden-path guard: Sec. III must read "the onset ties that are
+    # routine in quantized MIDI". The "that are" has been dropped and
+    # restored three times; this pins it permanently in both letter copies.
+    # The public code release ships without the proposal/ tree; skip there.
+    if not os.path.isdir(os.path.join(REPO, "proposal")):
+        print("  [skip] proposal/ tree not in this distribution "
+              "(garden-path guard)")
+        letter_rels = []
+    else:
+        letter_rels = [os.path.join("proposal", "spl_letter.tex"),
+                       os.path.join("proposal", "arxiv-package",
+                                    "spl_letter.tex")]
+    for rel in letter_rels:
+        p = os.path.join(REPO, rel)
+        if not os.path.exists(p):
+            fail(f"{rel} missing (garden-path guard)")
+            continue
+        with open(p, encoding="utf-8") as fh:
+            txt = fh.read().replace("\n", " ")
+        if ("the onset ties that are routine" in txt
+                and "onset ties routine in quantized" not in txt):
+            ok(f"{rel}: 'the onset ties that are routine' present, "
+               f"garden-path wording absent")
+        else:
+            fail(f"{rel}: garden-path regression -- Sec. III must read "
+                 f"'the onset ties that are routine in quantized MIDI'")
 
 
 def check_rescore_v110() -> None:
