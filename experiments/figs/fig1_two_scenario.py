@@ -121,7 +121,7 @@ def main() -> None:
     panel(axes[1], "B")
 
     # the punchline: ONE shared report box fed by BOTH panels
-    fig.text(0.5, 0.105,
+    fig.text(0.5, 0.115,
              "identical published report from (a) and (b):\n"
              "extra: 1 TP        missed: 1 FP",
              ha="center", va="center", fontsize=7.2, linespacing=1.5,
@@ -134,8 +134,9 @@ def main() -> None:
             arrowstyle="->", mutation_scale=6, lw=0.7, color="#444444"))
 
     out = os.path.join(HERE, "fig1_two_scenario.pdf")
-    fig.savefig(out, bbox_inches="tight", pad_inches=0.02)
-    fig.savefig(out[:-4] + ".png", dpi=300, bbox_inches="tight", pad_inches=0.02)
+    # pad must clear the report box's rounded frame stroke at the bottom edge
+    fig.savefig(out, bbox_inches="tight", pad_inches=0.06)
+    fig.savefig(out[:-4] + ".png", dpi=300, bbox_inches="tight", pad_inches=0.06)
     print("wrote", out)
 
 
