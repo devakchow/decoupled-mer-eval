@@ -57,7 +57,7 @@ def box(ax, x0, x1, y0, y1, face, edge, label, tcol, lw=0.8):
 
 def panel(ax, scenario):
     ax.set_xlim(0, 1)
-    ax.set_ylim(-0.16, 1.04)
+    ax.set_ylim(-0.30, 1.04)
     ax.set_axis_off()
 
     # lane bands + plain-language lane headers
@@ -79,8 +79,8 @@ def panel(ax, scenario):
     # time arrow under the system lane
     ax.add_patch(FancyArrowPatch((0.0, -0.09), (1.0, -0.09), arrowstyle="->",
                                  mutation_scale=6, lw=0.6, color="#999999"))
-    ax.text(0.5, -0.155, "time (schematic)", fontsize=7.0, ha="center",
-            va="bottom", color="#999999")
+    ax.text(0.5, -0.14, "time (schematic)", fontsize=7.0, ha="center",
+            va="top", color="#999999")
 
     if scenario == "A":
         # system pair stacked at the SAME instant as the reference note
