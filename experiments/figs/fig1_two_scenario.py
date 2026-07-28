@@ -30,7 +30,6 @@ from __future__ import annotations
 
 import os
 
-import matplotlib.patheffects as pe
 import matplotlib.pyplot as plt
 from matplotlib.patches import ConnectionPatch, FancyArrowPatch, Rectangle
 
@@ -116,13 +115,13 @@ def panel(ax, scenario):
         ax.plot([bx, bx], [0.5, 2.5], lw=0.7, color=C_GRAY, zorder=3)
         ax.plot([bx - 0.008, bx], [2.5, 2.5], lw=0.7, color=C_GRAY, zorder=3)
         ax.plot([bx - 0.008, bx], [0.5, 0.5], lw=0.7, color=C_GRAY, zorder=3)
-        # white stroke keeps the label readable where it crosses the row rules
+        # white bounding box keeps the label readable where it crosses the
+        # heavy pitch-group divider and the row rules
         ax.text(bx + 0.014, 1.5,
                 "co-located pair:\nclaims a wrong note\n(played 68 for 69)",
                 fontsize=7.0, ha="left", va="center", color="#333333",
                 linespacing=1.35,
-                path_effects=[pe.withStroke(linewidth=1.6,
-                                            foreground="white")])
+                bbox=dict(facecolor="white", edgecolor="none", pad=1))
         ax.set_title("(a) as measured:\nfound the mistake, misnamed it",
                      loc="left", fontsize=7.5, pad=3)
     else:

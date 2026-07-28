@@ -189,7 +189,7 @@ Piece)}}
 \\toprule
 Configuration & \\multicolumn{{2}}{{c}}{{matched total}} & \\multicolumn{{2}}{{c}}{{off-diagonal}} \\\\
 \\cmidrule(lr){{2-3}} \\cmidrule(lr){{4-5}}
- & obs./null & $\\times$ & obs./null & $\\times$ \\\\
+ & obs./null mean & $\\times$ & obs./null mean & $\\times$ \\\\
 \\midrule
 {body}
 \\bottomrule
