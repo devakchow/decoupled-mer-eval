@@ -30,6 +30,7 @@ import ast
 import hashlib
 import json
 import os
+import shutil
 import subprocess
 import sys
 from typing import List, Tuple
@@ -91,6 +92,41 @@ def check_line_endings() -> None:
             ok(f"{os.path.relpath(p, REPO)} LF-only")
 
 
+_BASH: str | None = None
+_BASH_RESOLVED = False
+
+
+def _find_bash() -> str | None:
+    """Resolve a WORKING bash once, by probing — not by trusting PATH.
+
+    On some Windows setups PATH resolves to the broken WSL stub
+    C:\\Windows\\System32\\bash.exe, which exits nonzero and emits UTF-16
+    garbage ("Catastrophic failure") for every invocation — masquerading as
+    dozens of syntax failures. Probe each candidate with `bash -c true`; a
+    working bash returns 0 with no NUL bytes in its output. Cache the first
+    winner; None means no working bash on this machine.
+    """
+    global _BASH, _BASH_RESOLVED
+    if _BASH_RESOLVED:
+        return _BASH
+    _BASH_RESOLVED = True
+    candidates = [shutil.which("bash"),
+                  r"C:\Program Files\Git\bin\bash.exe",
+                  r"C:\Program Files\Git\usr\bin\bash.exe"]
+    for cand in candidates:
+        if not cand or not os.path.exists(cand):
+            continue
+        try:
+            r = subprocess.run([cand, "-c", "true"], capture_output=True,
+                               timeout=60)
+        except Exception:  # noqa: BLE001
+            continue
+        if r.returncode == 0 and b"\x00" not in (r.stdout + r.stderr):
+            _BASH = cand
+            return _BASH
+    return None
+
+
 _MOUNT_PREFIX: str | None = None
 
 
@@ -108,9 +144,10 @@ def _detect_mount_prefix() -> str:
         return _MOUNT_PREFIX
     probe = os.path.abspath(__file__).replace("\\", "/")
     drive, rest = probe[0].lower(), probe[2:]
+    bash = _find_bash() or "bash"
     for prefix in ("/mnt/", "/"):
         cand = f"{prefix}{drive}{rest}"
-        r = subprocess.run(["bash", "-c", f"test -f '{cand}'"],
+        r = subprocess.run([bash, "-c", f"test -f '{cand}'"],
                            capture_output=True, text=True, timeout=60)
         if r.returncode == 0:
             _MOUNT_PREFIX = prefix
@@ -128,8 +165,13 @@ def _posix(path: str) -> str:
 
 def check_shell_syntax() -> None:
     print("\n[2] shell syntax (bash -n)")
-    bash = "bash"
-    for p in sh_files():
+    bash = _find_bash()
+    files = sh_files()
+    if bash is None:
+        print(f"  [warn] SKIPPED {len(files)} shell-syntax checks: "
+              f"no working bash on this machine")
+        return
+    for p in files:
         try:
             r = subprocess.run([bash, "-n", _posix(p)], capture_output=True,
                                text=True, timeout=60)
