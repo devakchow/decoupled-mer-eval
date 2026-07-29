@@ -726,7 +726,8 @@ def check_cluster_parity() -> None:
     for local_rel, remote_rel in pairs:
         lp = os.path.join(HERE, local_rel)
         if not os.path.exists(lp):
-            fail(f"local {local_rel} missing")
+            print(f"  [skip] {local_rel}: author-only staging script "
+                  f"not published")
             continue
         lh = hashlib.sha256(open(lp, "rb").read()).hexdigest()
         remote = f"/scratch/gilbreth/dcharapa/mer/{remote_rel}"

@@ -49,7 +49,7 @@ experiments/
 Every printed number traces to an artifact in `experiments/results/`:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 cd experiments
 python -m pytest test_decoupled_scorer.py test_mass_conservation_real.py
 python bridge_checks.py            # analytic-bridge checks
@@ -58,6 +58,10 @@ python verify_shipped.py           # full gate (skips cluster parity without --c
 cd figs && python make_tables.py && python fig1_two_scenario.py \
     && python fig2_measured.py && python figS_witness.py
 ```
+
+Note: regenerated figure PDFs are not byte-stable across matplotlib builds
+(compare content, not hashes), and a CRLF-converting checkout can show
+phantom diffs in the regenerated `.tex` tables.
 
 Re-running inference end-to-end additionally requires the systems' released
 checkpoints and the error-annotated MAESTRO split released with Polytune

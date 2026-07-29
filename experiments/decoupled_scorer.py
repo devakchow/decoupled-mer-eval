@@ -50,21 +50,20 @@ LOCKED METRIC KNOBS (proposal/LOCK-DECISIONS.md section 5)
   tolerance (regression-tested against
   ``mir_eval.transcription.precision_recall_f1_overlap``).
 
-REAL-DATA LOADER -- PHASE-3 SCHEMA FLAG
----------------------------------------
-The loader targets the schema documented in
-``experiments/setup/03_inference_commands.md``: a directory of predicted
+REAL-DATA LOADER -- CONFIRMED SCHEMA
+------------------------------------
+The loader targets a directory of predicted
 multi-track MIDI files (tracks named Extra / Missing-Removed / Correct) plus a
 ground-truth metadata JSON mapping each piece id to reference MIDIs keyed
 ``extra_notes_midi`` / ``removed_notes_midi`` / ``correct_notes_midi``. The
 "Missed" class is stored under ``removed_notes`` and is mapped
 ``removed_notes -> missed`` here; ``wrong`` is DERIVED by the collapse and is
-never read from disk.  ** The real datasets are not downloaded yet: the
-on-disk schema (exact track names, metadata layout, path conventions) MUST be
-reconfirmed against the actual Polytune/LadderSym artifacts in Phase 3 before
-the pilot run. ** The loader is unit-tested on tiny generated MIDI files only.
+never read from disk.  The on-disk schema (exact track names, metadata layout,
+path conventions) was confirmed against the real Polytune/LadderSym artifacts
+(see ``bridge_checks.py``, check C15). The loader is additionally unit-tested
+on tiny generated MIDI files.
 
-No side effects on import. CLI (matches 03_inference_commands.md):
+No side effects on import. CLI:
 
     python decoupled_scorer.py \
         --pred_dir <pred_dir> --gt_meta <metadata.json> \
