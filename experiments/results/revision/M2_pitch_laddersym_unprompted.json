@@ -1,0 +1,267 @@
+{
+  "analysis": "M2 pitch-stratified off-diagonal",
+  "scorer_version": "1.1.0",
+  "config": {
+    "pred_dir": "/scratch/gilbreth/dcharapa/mer/run/preds/B_laddersym_maestro_unprompted",
+    "gt_meta": "/scratch/gilbreth/dcharapa/mer/run/gt_meta_maestro.json",
+    "expected": "/scratch/gilbreth/dcharapa/mer/revision_m2/B_laddersym_maestro_unprompted_strict_eps05.json",
+    "tau_s": 0.05,
+    "epsilon_s": 0.05,
+    "collapse": "strict"
+  },
+  "regression_gate": "EXACT match vs shipped confusion at tau=50 ms",
+  "n_pred_err": 48271,
+  "n_ref_err": 45367,
+  "stratified": {
+    "n_localized": 33392,
+    "off_diagonal_total": 6659,
+    "hm_observed": 0.19941902252036417,
+    "overall_off_diagonal": {
+      "n": 6659,
+      "equal_pitch": {
+        "count": 5730,
+        "fraction": 0.860489562997447,
+        "onset_dist": {
+          "n": 5730,
+          "median_ms": 4.545454545450411,
+          "q1_ms": 2.2727272727252057,
+          "q3_ms": 6.818181818175617,
+          "iqr_ms": 4.545454545450411,
+          "mean_ms": 4.79811201015359,
+          "max_ms": 50.00000000001137
+        }
+      },
+      "unequal_pitch": {
+        "count": 929,
+        "fraction": 0.13951043700255294,
+        "onset_dist": {
+          "n": 929,
+          "median_ms": 15.90909090909065,
+          "q1_ms": 6.818181818175617,
+          "q3_ms": 31.8181818181813,
+          "iqr_ms": 25.000000000005684,
+          "mean_ms": 19.80135042567877,
+          "max_ms": 50.00000000001137
+        },
+        "abs_pitch_diff": {
+          "n": 929,
+          "median_semitones": 5.0,
+          "p90_semitones": 25.0,
+          "frac_within_2_semitones": 0.3745963401506997,
+          "frac_octave_multiple": 0.04413347685683531
+        }
+      }
+    },
+    "per_cell": {
+      "missed->extra": {
+        "n": 87,
+        "equal_pitch": {
+          "count": 1,
+          "fraction": 0.011494252873563218,
+          "onset_dist": {
+            "n": 1,
+            "median_ms": 49.99999999999716,
+            "q1_ms": 49.99999999999716,
+            "q3_ms": 49.99999999999716,
+            "iqr_ms": 0.0,
+            "mean_ms": 49.99999999999716,
+            "max_ms": 49.99999999999716
+          }
+        },
+        "unequal_pitch": {
+          "count": 86,
+          "fraction": 0.9885057471264368,
+          "onset_dist": {
+            "n": 86,
+            "median_ms": 25.000000000003908,
+            "q1_ms": 13.636363636351234,
+            "q3_ms": 40.90909090908745,
+            "iqr_ms": 27.27272727273622,
+            "mean_ms": 26.136363636365118,
+            "max_ms": 50.00000000001137
+          },
+          "abs_pitch_diff": {
+            "n": 86,
+            "median_semitones": 9.0,
+            "p90_semitones": 27.0,
+            "frac_within_2_semitones": 0.16279069767441862,
+            "frac_octave_multiple": 0.08139534883720931
+          }
+        }
+      },
+      "missed->wrong": {
+        "n": 315,
+        "equal_pitch": {
+          "count": 2,
+          "fraction": 0.006349206349206349,
+          "onset_dist": {
+            "n": 2,
+            "median_ms": 38.636363636378235,
+            "q1_ms": 38.63636363637468,
+            "q3_ms": 38.63636363638179,
+            "iqr_ms": 7.105427357601002e-12,
+            "mean_ms": 38.636363636378235,
+            "max_ms": 38.63636363638534
+          }
+        },
+        "unequal_pitch": {
+          "count": 313,
+          "fraction": 0.9936507936507937,
+          "onset_dist": {
+            "n": 313,
+            "median_ms": 22.72727272747943,
+            "q1_ms": 9.090909090907928,
+            "q3_ms": 36.36363636363171,
+            "iqr_ms": 27.272727272723785,
+            "mean_ms": 23.279117049086434,
+            "max_ms": 50.00000000001137
+          },
+          "abs_pitch_diff": {
+            "n": 313,
+            "median_semitones": 8.0,
+            "p90_semitones": 27.0,
+            "frac_within_2_semitones": 0.25878594249201275,
+            "frac_octave_multiple": 0.019169329073482427
+          }
+        }
+      },
+      "extra->missed": {
+        "n": 21,
+        "equal_pitch": {
+          "count": 0,
+          "fraction": 0.0,
+          "onset_dist": null
+        },
+        "unequal_pitch": {
+          "count": 21,
+          "fraction": 1.0,
+          "onset_dist": {
+            "n": 21,
+            "median_ms": 18.181818181801646,
+            "q1_ms": 6.8181818182324605,
+            "q3_ms": 34.090909090878085,
+            "iqr_ms": 27.272727272645625,
+            "mean_ms": 21.320346320339702,
+            "max_ms": 50.00000000001137
+          },
+          "abs_pitch_diff": {
+            "n": 21,
+            "median_semitones": 8.0,
+            "p90_semitones": 25.0,
+            "frac_within_2_semitones": 0.19047619047619047,
+            "frac_octave_multiple": 0.047619047619047616
+          }
+        }
+      },
+      "extra->wrong": {
+        "n": 5037,
+        "equal_pitch": {
+          "count": 4672,
+          "fraction": 0.927536231884058,
+          "onset_dist": {
+            "n": 4672,
+            "median_ms": 4.545454545450411,
+            "q1_ms": 2.2727272727252057,
+            "q3_ms": 6.818181818175617,
+            "iqr_ms": 4.545454545450411,
+            "mean_ms": 4.76630603985025,
+            "max_ms": 50.00000000001137
+          }
+        },
+        "unequal_pitch": {
+          "count": 365,
+          "fraction": 0.07246376811594203,
+          "onset_dist": {
+            "n": 365,
+            "median_ms": 13.636363636351234,
+            "q1_ms": 4.545454545450411,
+            "q3_ms": 27.27272727273089,
+            "iqr_ms": 22.72727272728048,
+            "mean_ms": 16.768368617685805,
+            "max_ms": 50.00000000001137
+          },
+          "abs_pitch_diff": {
+            "n": 365,
+            "median_semitones": 2.0,
+            "p90_semitones": 21.600000000000023,
+            "frac_within_2_semitones": 0.5095890410958904,
+            "frac_octave_multiple": 0.04657534246575343
+          }
+        }
+      },
+      "wrong->missed": {
+        "n": 43,
+        "equal_pitch": {
+          "count": 0,
+          "fraction": 0.0,
+          "onset_dist": null
+        },
+        "unequal_pitch": {
+          "count": 43,
+          "fraction": 1.0,
+          "onset_dist": {
+            "n": 43,
+            "median_ms": 11.363636363633134,
+            "q1_ms": 5.681818181813014,
+            "q3_ms": 29.54545454538504,
+            "iqr_ms": 23.863636363572027,
+            "mean_ms": 17.706131078224605,
+            "max_ms": 49.99999999998295
+          },
+          "abs_pitch_diff": {
+            "n": 43,
+            "median_semitones": 7.0,
+            "p90_semitones": 23.800000000000004,
+            "frac_within_2_semitones": 0.3953488372093023,
+            "frac_octave_multiple": 0.09302325581395349
+          }
+        }
+      },
+      "wrong->extra": {
+        "n": 1156,
+        "equal_pitch": {
+          "count": 1055,
+          "fraction": 0.9126297577854672,
+          "onset_dist": {
+            "n": 1055,
+            "median_ms": 4.545454545450411,
+            "q1_ms": 2.2727272727252057,
+            "q3_ms": 6.818181818175617,
+            "iqr_ms": 4.545454545450411,
+            "mean_ms": 4.831968978888101,
+            "max_ms": 43.18181818183575
+          }
+        },
+        "unequal_pitch": {
+          "count": 101,
+          "fraction": 0.08737024221453288,
+          "onset_dist": {
+            "n": 101,
+            "median_ms": 11.363636363626028,
+            "q1_ms": 4.545454545450411,
+            "q3_ms": 27.27272727270247,
+            "iqr_ms": 22.727272727252057,
+            "mean_ms": 15.16651665166349,
+            "max_ms": 45.454545454546746
+          },
+          "abs_pitch_diff": {
+            "n": 101,
+            "median_semitones": 3.0,
+            "p90_semitones": 26.0,
+            "frac_within_2_semitones": 0.45544554455445546,
+            "frac_octave_multiple": 0.0594059405940594
+          }
+        }
+      }
+    },
+    "dominant_cell": "extra->wrong",
+    "hm_if_unequal_pitch_discarded": {
+      "equal_pitch_off_diagonal": 5730,
+      "unequal_pitch_off_diagonal": 929,
+      "hm_numerator_only": 0.1715979875419262,
+      "hm_pairs_removed": 0.17650864060622862,
+      "surviving_fraction_of_hm": 0.860489562997447
+    },
+    "pitch_semantics_note": "pred_pitch of a 'wrong' event is the collapsed pair's PLAYED (extra-half) pitch by construction; the missed-half (score) pitch is discarded. extra->wrong therefore compares two played-note pitches (meaningful). Cells with ref_etype='missed' compare a score pitch to a played pitch (interpret with care)."
+  }
+}

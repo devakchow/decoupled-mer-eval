@@ -1,0 +1,75 @@
+{
+  "analysis": "M3 excess-over-null hidden mass",
+  "scorer_version": "1.1.0",
+  "configurations": {
+    "polytune": {
+      "tau_ms": 50,
+      "n_perm": 200,
+      "observed": {
+        "off_diagonal": 8928,
+        "matched_total": 30460,
+        "hm": 0.29310571240971767
+      },
+      "null_mean": {
+        "off_diagonal": 2480.445,
+        "matched_total": 3804.23,
+        "hm_null": 0.6520228797943343
+      },
+      "enrichment": {
+        "off": 3.599354148146804,
+        "total": 8.0068765558339,
+        "p_off_ge_observed": 0.0,
+        "p_total_ge_observed": 0.0
+      },
+      "hm_excess_over_null": 0.24188215159419518,
+      "hm_simple_subtraction": -0.3589171673846166,
+      "note": "hm_excess_over_null = (obs_off - null_off) / (obs_matched - null_matched): the misclassified fraction of the ABOVE-CHANCE matched mass. hm_simple_subtraction can be negative because chance co-locations are mostly misclassified (hm_null >> hm_obs); it is reported for completeness, not as the headline quantity."
+    },
+    "laddersym_unprompted": {
+      "tau_ms": 50,
+      "n_perm": 200,
+      "observed": {
+        "off_diagonal": 6659,
+        "matched_total": 33392,
+        "hm": 0.19941902252036417
+      },
+      "null_mean": {
+        "off_diagonal": 2469.195,
+        "matched_total": 3841.545,
+        "hm_null": 0.6427609204109285
+      },
+      "enrichment": {
+        "off": 2.6968303434925147,
+        "total": 8.692336026260268,
+        "p_off_ge_observed": 0.0,
+        "p_total_ge_observed": 0.0
+      },
+      "hm_excess_over_null": 0.1417847880853273,
+      "hm_simple_subtraction": -0.44334189789056433,
+      "note": "hm_excess_over_null = (obs_off - null_off) / (obs_matched - null_matched): the misclassified fraction of the ABOVE-CHANCE matched mass. hm_simple_subtraction can be negative because chance co-locations are mostly misclassified (hm_null >> hm_obs); it is reported for completeness, not as the headline quantity."
+    },
+    "laddersym_prompted": {
+      "tau_ms": 50,
+      "n_perm": 200,
+      "observed": {
+        "off_diagonal": 6157,
+        "matched_total": 35105,
+        "hm": 0.17538812135023502
+      },
+      "null_mean": {
+        "off_diagonal": 2396.775,
+        "matched_total": 3752.87,
+        "hm_null": 0.6386512189337761
+      },
+      "enrichment": {
+        "off": 2.568868583826183,
+        "total": 9.354174271957195,
+        "p_off_ge_observed": 0.0,
+        "p_total_ge_observed": 0.0
+      },
+      "hm_excess_over_null": 0.11993523247064872,
+      "hm_simple_subtraction": -0.46326309758354106,
+      "note": "hm_excess_over_null = (obs_off - null_off) / (obs_matched - null_matched): the misclassified fraction of the ABOVE-CHANCE matched mass. hm_simple_subtraction can be negative because chance co-locations are mostly misclassified (hm_null >> hm_obs); it is reported for completeness, not as the headline quantity."
+    }
+  }
+}

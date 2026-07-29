@@ -6,12 +6,12 @@ Implementation, evaluation harness, and result artifacts for
 > Error Detection," 2026. Prepared for submission to *IEEE Signal Processing
 > Letters* (citation will be updated on submission/publication).
 
-The letter proves that the per-class scores shipped by music error-detection
+The letter proves that the per-class scores published by music error-detection
 systems cannot identify their localized-but-misclassified mass (**HM**), bounds
-the range a shipped report leaves open, and introduces a decoupled measure —
+the range a published report leaves open, and introduces a decoupled measure —
 localization `F(τ)` under a shared class-agnostic onset match, then class
 confusion on the matched events — with a backward-compatible mode that
-reproduces the shipped scoring.
+reproduces the published scoring.
 
 ## Layout
 
