@@ -1,0 +1,10 @@
+ref_type,pred_type,count,is_off_diagonal
+missed,missed,15,0
+missed,extra,5,1
+missed,wrong,0,1
+extra,missed,5,1
+extra,extra,15,0
+extra,wrong,0,1
+wrong,missed,0,1
+wrong,extra,0,1
+wrong,wrong,20,0

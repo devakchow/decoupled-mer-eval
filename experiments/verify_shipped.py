@@ -29,7 +29,9 @@ from __future__ import annotations
 import ast
 import hashlib
 import json
+import math
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -548,32 +550,31 @@ def check_doc_numbers() -> None:
             fail(f"{fn}: documented {want_bad}/{want_tot}, "
                  f"artifact {bad}/{c['n_files']}")
 
-    # 6i. garden-path guard: Sec. III must read "the onset ties that are
-    # routine in quantized MIDI". The "that are" has been dropped and
-    # restored three times; this pins it permanently in both letter copies.
-    # The public code release ships without the proposal/ tree; skip there.
+    # 6i. garden-path guard. "the onset ties routine in quantized MIDI" reads
+    # as a garden path ("ties routine" parses as a noun phrase). The defect has
+    # been reintroduced three times, so the guard pins the invariant -- some
+    # disambiguating word before "in quantized MIDI" -- rather than one exact
+    # phrasing, which went stale when v5 chose "common" over "that are routine".
     if not os.path.isdir(os.path.join(REPO, "proposal")):
-        print("  [skip] proposal/ tree not in this distribution "
-              "(garden-path guard)")
-        letter_rels = []
-    else:
-        letter_rels = [os.path.join("proposal", "spl_letter.tex"),
-                       os.path.join("proposal", "arxiv-package",
-                                    "spl_letter.tex")]
-    for rel in letter_rels:
+        print("  [skip] garden-path guard: proposal/ not in this distribution")
+        return
+    for rel in (os.path.join("proposal", "spl_letter_v5.tex"),
+                os.path.join("proposal", "arxiv-package", "spl_letter.tex")):
         p = os.path.join(REPO, rel)
         if not os.path.exists(p):
             fail(f"{rel} missing (garden-path guard)")
             continue
         with open(p, encoding="utf-8") as fh:
             txt = fh.read().replace("\n", " ")
-        if ("the onset ties that are routine" in txt
-                and "onset ties routine in quantized" not in txt):
-            ok(f"{rel}: 'the onset ties that are routine' present, "
-               f"garden-path wording absent")
+        good = ("the onset ties that are routine" in txt
+                or "the onset ties common in quantized" in txt)
+        if good and "onset ties routine in quantized" not in txt:
+            ok(f"{rel}: onset-ties wording disambiguated, "
+               f"garden-path form absent")
         else:
-            fail(f"{rel}: garden-path regression -- Sec. III must read "
-                 f"'the onset ties that are routine in quantized MIDI'")
+            fail(f"{rel}: garden-path regression -- Sec. III must not read "
+                 f"'onset ties routine in quantized MIDI' bare; use 'that are "
+                 f"routine' or 'common'")
 
 
 def check_rescore_v110() -> None:
@@ -712,6 +713,308 @@ def check_figs_tables() -> None:
                  f"(need >=2x, <=0.01)")
 
 
+def check_letter_prose() -> None:
+    """Re-derive every number the letter prints in prose (not in a generated
+    table) from the artifacts, and assert the exact printed string is present.
+
+    The generated tables are already gated in [8]; prose numbers were not, so a
+    revision could silently leave a stale figure in the text while every table
+    still verified. Each entry below states the artifact it comes from.
+    """
+    print("\n[9] letter prose numbers vs result artifacts")
+    gil = os.path.join(HERE, "results", "gilbreth")
+    # The public code release ships without the proposal/ tree; skip there.
+    if not os.path.isdir(os.path.join(os.path.dirname(HERE), "proposal")):
+        print("  [skip] proposal/ tree not in this distribution")
+        return
+    letter = os.path.join(os.path.dirname(HERE), "proposal", "spl_letter_v5.tex")
+    if not os.path.exists(letter):
+        fail("proposal/spl_letter_v5.tex missing")
+        return
+    with open(letter, "r", encoding="utf-8") as fh:
+        tex = re.sub(r"\s+", " ", fh.read())
+
+    stems = ("A_polytune_maestro", "B_laddersym_maestro_unprompted",
+             "B_laddersym_maestro_prompted")
+
+    def assert_in(label: str, printed: str) -> None:
+        if printed in tex:
+            ok(f"prose {label}: '{printed}' present and artifact-derived")
+        else:
+            fail(f"prose {label}: derived '{printed}' NOT found in letter")
+
+    # 9a. null-model enrichment, mean- and max-based (results/gilbreth/null_colo_*)
+    off_mean, tot_mean, off_max, tot_max = [], [], [], []
+    for stem in stems:
+        p_ = os.path.join(gil, f"null_colo_{stem}.json")
+        if not os.path.exists(p_):
+            fail(f"null_colo_{stem}.json missing")
+            return
+        d = _load(p_)
+        off_mean.append(d["enrichment_off"])
+        tot_mean.append(d["enrichment_total"])
+        off_max.append(d["observed_off_diagonal"] / d["null_off_diagonal"]["max"])
+        tot_max.append(d["observed_matched_total"] / d["null_matched_total"]["max"])
+    assert_in("null total vs mean",
+              f"${min(tot_mean):.1f}$--${max(tot_mean):.1f}\\times$")
+    assert_in("null off vs mean",
+              f"${min(off_mean):.1f}$--${max(off_mean):.1f}\\times$")
+    # the maxima ratios live in the supplement, which the letter points to
+    _supp = os.path.join(os.path.dirname(HERE), "proposal",
+                         "spl_supplementary_v5.tex")
+    with open(_supp, encoding="utf-8") as fh:
+        stx = re.sub(r"\s+", " ", fh.read())
+    for label, printed in (
+            ("null total vs 200 maxima",
+             f"${min(tot_max):.1f}$--${max(tot_max):.1f}\\times$"),
+            ("null off vs 200 maxima",
+             f"${min(off_max):.1f}$--${max(off_max):.1f}\\times$")):
+        if printed in stx:
+            ok(f"supplement {label}: '{printed}' artifact-derived")
+        else:
+            fail(f"supplement {label}: derived '{printed}' not found")
+
+    # 9b. TIDE three-way bins and the collapse census
+    #     (results/cluster/collapse_validation.json, cells checksummed there)
+    sys.path.insert(0, os.path.join(HERE, "figs"))
+    import make_tables as MT  # noqa: E402
+
+    hm_t, unf, pos, susp, mu_p, merge_pct, raw = [], [], [], [], [], [], []
+    num_p = den_p = 0
+    chg = []
+    cv = _load(os.path.join(HERE, "results", "cluster",
+                            "collapse_validation.json"))
+    for short, stem in (("polytune", stems[0]),
+                        ("laddersym_unprompted", stems[1]),
+                        ("laddersym_prompted", stems[2])):
+        b = MT.tide_bins(short)
+        hm_t.append(b["hm"])
+        chg.append(b["hm_charging_u"])
+        if short == "polytune":
+            num_p, den_p = b["numerator"], b["denominator"]
+        unf.append(b["unfounded"])
+        c = cv[stem]
+        pos.append(c["wrong->wrong"]["in_score_removed"] / c["wrong->wrong"]["n"])
+        susp.append(c["extra->wrong"]["in_score_removed"] / c["extra->wrong"]["n"])
+        mu_p.append(c["_n_merges_pred"])
+        t = [x for x in _load(os.path.join(gil, f"{stem}_shipped.json"))
+             ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
+        cs = t["confusion_sparse"]
+        off = sum(v for k, v in cs.items()
+                  if k.split("->")[0] != k.split("->")[1])
+        raw.append(off / t["n_localized"])
+        merge_pct.append(c["extra->wrong"]["n"] / off)
+
+    assert_in("HM after binning (Polytune, printed with counts)",
+              "%d{,}%03d/%d{,}%03d=%.3f" % (num_p // 1000, num_p % 1000,
+                                            den_p // 1000, den_p % 1000, hm_t[0]))
+    assert_in("HM after binning (LadderSym)",
+              "$%.3f$/$%.3f$" % (hm_t[1], hm_t[2]))
+    assert_in("HM charging U", "gives $%.3f/%.3f/%.3f$" % tuple(chg))
+    assert_in("span endpoints", "$[%.3f,\\,%.3f]$" % (hm_t[0], raw[0]))
+    assert_in("unfounded share",
+              "$%.1f\\%%$, $%.1f\\%%$, $%.1f\\%%$" % tuple(u * 100 for u in unf))
+    assert_in("positive control",
+              "$%.2f$/$%.2f$/$%.2f$" % tuple(pos))
+    assert_in("suspect-cell genuine rate",
+              "$%.3f$--$%.3f$" % (min(susp), max(susp)))
+    assert_in("mu_p merges",
+              "$\\mu_p=%s/%s/%s$" % tuple(f"{m:,}".replace(",", "{,}") for m in mu_p))
+    # Outward-rounded so the printed interval provably contains every observed
+    # per-configuration value (82.1 / 75.6 / 74.8 would not fit "75--82").
+    # 9b-2. replication agreement against the printed per-class F1 values.
+    # LadderSym's abstract prints 0.563 for its missed note, but its own table
+    # gives 0.563 as recall and 0.547 as F1; we compare against the F1.
+    PRINTED_F1 = {"polytune": (0.268, 0.720),
+                  "laddersym_prompted": (0.547, 0.864)}
+    rep_m = _load(os.path.join(gil, "replication_macro.json"))
+    dev = 0.0
+    for k, (pm, pe) in PRINTED_F1.items():
+        row = rep_m["systems"][k]
+        dev = max(dev, abs(row["macro_f1_missed"] - pm),
+                  abs(row["macro_f1_extra"] - pe))
+    assert_in("replication agreement", "within $%.3f$" % dev)
+
+    # 9c. supplement's reproducibility counts, derived from results/gilbreth_v110
+    supp = os.path.join(os.path.dirname(HERE), "proposal",
+                        "spl_supplementary_v5.tex")
+    if os.path.exists(supp):
+        with open(supp, "r", encoding="utf-8") as fh:
+            stex = fh.read()
+        v110 = os.path.join(HERE, "results", "gilbreth_v110")
+        n_vals = n_tau = 0
+        for fn in sorted(os.listdir(v110)):
+            if not fn.endswith(".json"):
+                continue
+            d = _load(os.path.join(v110, fn))
+            if "50" in (d or {}).get("bootstrap", {}):
+                n_vals += 2  # point_hm, point_loc_f1
+            n_tau += len((d or {}).get("decoupled", {}).get("per_tau", []))
+        for label, printed in ((f"rescore value count", f"(${n_vals}$ values)"),
+                               (f"guard tau-point count", f"${n_tau}$ $(\\tau,")):
+            if printed in stex:
+                ok(f"supplement {label}: '{printed}' artifact-derived")
+            else:
+                fail(f"supplement {label}: derived '{printed}' NOT in supplement")
+    else:
+        fail("proposal/spl_supplementary_v5.tex missing")
+
+    # Synthetic-oracle recovery: planted HM* must be recovered exactly, the two
+    # constructed systems must share a per-class F1 while differing in HM, and
+    # the shipped per-class mean must be flat across the sweep (blind to HM).
+    orc = _load(os.path.join(HERE, "oracle_report.json"))
+    planted = orc["experiment_C"]["planted_hm"]
+    rec = [r for r in orc["experiment_C"]["sweep"] if r["hm"] is not None]
+    if rec and all(abs(r["hm"] - round(planted, 4)) < 5e-5 for r in rec):
+        ok(f"oracle recovers planted HM*={planted:.4f} at all {len(rec)} tolerances")
+    else:
+        fail(f"oracle no longer recovers planted HM*={planted}")
+    shf = {r["shipped_mean_error_f1"] for r in rec}
+    if len(shf) == 1:
+        ok(f"shipped per-class mean flat at {shf.pop():.3f} across the sweep (blind)")
+    else:
+        fail(f"shipped per-class mean is no longer flat: {sorted(shf)}")
+    b1 = orc["experiment_B"]["system1"]; b2 = orc["experiment_B"]["system2"]
+    if (abs(b1["ship"]["_mean_error_f1"] - b2["ship"]["_mean_error_f1"]) < 1e-12
+            and abs(b1["dec"]["hm"] - b2["dec"]["hm"]) > 0.3):
+        ok("oracle witness: identical per-class F1, HM %.4f vs %.4f"
+           % (b1["dec"]["hm"], b2["dec"]["hm"]))
+    else:
+        fail("oracle non-identifiability witness no longer holds")
+    assert_in("planted HM", "$\\mathrm{HM}^{*}=%.3f$" % planted)
+    assert_in("shipped mean blind to HM",
+              "stays at $%.3f$" % rec[0]["shipped_mean_error_f1"])
+
+    # Tie-break sensitivity: the matcher's pitch term is bounded by 1e-9 s, and
+    # negating it moves HM by <=0.002 with |M| unchanged. Derived from the run.
+    tb = _load(os.path.join(HERE, "results", "cluster", "tiebreak_test.json"))
+    dmax = 0.0
+    for k, v in tb.items():
+        if k.startswith("_"):
+            continue
+        if v["n_matched"][0] != v["n_matched"][1]:
+            fail(f"tie-break changed |M| for {k}; the letter says it does not")
+        dmax = max(dmax, abs(v["hm"][1] - v["hm"][0]))
+    if dmax <= 0.002:
+        ok(f"tie-break immaterial: max |dHM| = {dmax:.4f} <= 0.002 as stated")
+    else:
+        fail(f"tie-break moves HM by {dmax:.4f}; the letter claims <= 0.002")
+    assert_in("tie-break bound", "$\\le0.002$")
+
+    # Bibliographic details verified against Crossref, pinned so a hand-edit
+    # cannot silently reintroduce a wrong locator.
+    BIB = {"10.1109/LSP.2026.3702515": "pp.~2740--2744"}
+    for doi, page in BIB.items():
+        if page in tex:
+            ok(f"bib page range for {doi} matches Crossref")
+        else:
+            fail(f"bib page range for {doi} should be '{page}' (Crossref)")
+
+    # Verbatim quotations. Each entry is the exact wording of the VERSION WE
+    # CITE, verified against the version of record; a paraphrase or a wording
+    # taken from a different version of the same paper is a misquote.
+    QUOTES = {
+        "Polytune (AAAI 2025, p. 23687, Fig. 1 caption)":
+            "a missed note and an extra note happening simultaneously",
+    }
+    for src, q in QUOTES.items():
+        if q in tex:
+            ok(f"quotation verbatim vs {src}")
+        else:
+            fail(f"quotation NOT verbatim vs {src}: expected '{q}'")
+    if "happening at the same time" in tex:
+        fail("Polytune quote uses arXiv v1 wording; the cited AAAI version "
+             "reads 'simultaneously'")
+    # HOTA's CA extension folds class probability into the matching (Eq. 38);
+    # calling its matched set "localization-matched" was refuted at source.
+    if "localization-matched set" in tex:
+        fail("HOTA mischaracterization reintroduced: its classification-aware "
+             "matched set is NOT localization-only (Eq. 38 folds class in)")
+
+    # motivation-vs-evidence gap: the scored corpus under-represents the class
+    # the paper is about, relative to the authentic counts it cites as motivation.
+    auth, scored = 75 / (75 + 51 + 35), 12258 / 45367
+    assert_in("scored substitution share", "$%.1f\\%%$ substitutions" % (scored * 100))
+    assert_in("authentic substitution share", "$%.1f\\%%$ ($75/161$)" % (auth * 100))
+    assert_in("under-representation factor",
+              "a $%.1f\\times$ under-representation" % (auth / scored))
+
+    # 9b-3. anchor-window sweep (the falsifier against a definitional reading)
+    rx = _load(os.path.join(HERE, "results", "cluster", "reexam.json"))
+    WIN = ["w25_exact", "w500_exact"]
+    ctl = [rx["A_polytune_maestro"]["wrong->wrong"][w]["frac_removed"] for w in WIN]
+    dom = [rx["A_polytune_maestro"]["extra->wrong"][w]["frac_removed"] for w in WIN]
+    assert_in("anchor sweep control endpoints",
+              "$%.3f\\!\\to\\!%.3f$" % (ctl[0], ctl[-1]))
+    assert_in("anchor sweep dominant at widest", "only $%.3f$" % dom[-1])
+    # chance ratios are on the IN-SCORE fraction, not the removed fraction
+    rat = [rx[c]["extra->wrong"]["w50_exact"]["frac_in_score"]
+           / rx[c]["extra->wrong"]["w50_exact"]["null_frac_in_score"] for c in stems]
+    assert_in("dominant chance ratio",
+              "$%.1f$--$%.1f\\times$" % (min(rat), max(rat)))
+    crat = [rx[c]["wrong->wrong"]["w50_exact"]["frac_in_score"]
+            / rx[c]["wrong->wrong"]["w50_exact"]["null_frac_in_score"] for c in stems]
+    assert_in("control chance ratio",
+              "$%.1f$--$%.1f\\times$" % (min(crat), max(crat)))
+    if ctl[-1] - ctl[0] >= 0.02:
+        fail("anchor sweep: control moved %.4f, letter says under 0.02"
+             % (ctl[-1] - ctl[0]))
+    else:
+        ok("anchor sweep: control moves %.4f < 0.02 as stated" % (ctl[-1] - ctl[0]))
+
+    # Bootstrap-interval separation, DERIVED not asserted. A blanket "the HM_G
+    # intervals overlap" was printed once and was false: the extreme pair is
+    # disjoint. This computes the pattern and requires the prose to match it.
+    import itertools as _it
+    boot = _load(os.path.join(HERE, "results", "cluster", "boot_bins.json"))
+    def _disjoint(q, x, y):
+        i, j = boot[x]["ci95"][q], boot[y]["ci95"][q]
+        return i[0] > j[1] or j[0] > i[1]
+    pairs = list(_it.combinations(stems, 2))
+    unf_all = all(_disjoint("unfounded", x, y) for x, y in pairs)
+    hm_adjacent = [_disjoint("hm_g", stems[0], stems[1]),
+                   _disjoint("hm_g", stems[1], stems[2])]
+    hm_extreme = _disjoint("hm_g", stems[0], stems[2])
+    if unf_all:
+        assert_in("unfounded intervals disjoint for every pair",
+                  "disjoint for \\emph{every} pair")
+    else:
+        fail("unfounded intervals are NOT disjoint for every pair; prose says they are")
+    if not any(hm_adjacent) and hm_extreme:
+        assert_in("HM_G separates only the extremes",
+                  "separate only the extremes and overlap for both adjacent pairs")
+    else:
+        fail("HM_G separation pattern changed (adjacent=%s extreme=%s); "
+             "the prose describes only-extremes separation" % (hm_adjacent, hm_extreme))
+
+    # |U|/|M| decomposition: the ordering must not be carried by the merge share
+    # alone, so both factors are derived and their monotonicity is checked.
+    kM, uK = [], []
+    for stem in stems:
+        c = cv[stem]
+        K = sum(c[k]["n"] for k in ("extra->wrong", "wrong->wrong", "missed->wrong"))
+        U = sum(c[k]["absent_from_score"]
+                for k in ("extra->wrong", "wrong->wrong", "missed->wrong"))
+        t = [x for x in _load(os.path.join(gil, f"{stem}_shipped.json"))
+             ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
+        kM.append(K / t["n_localized"]); uK.append(U / K)
+    assert_in("conditional unfounded share",
+              "$|U|/|K|=%.2f/%.2f/%.2f$" % tuple(uK))
+    assert_in("merged share", "$|K|/|M|=%.2f/%.2f/%.2f$" % tuple(kM))
+    if uK[0] > uK[1] > uK[2]:
+        ok("conditional share |U|/|K| orders the systems independently")
+    else:
+        fail("|U|/|K| no longer orders the systems; the prose claims it does")
+
+    # score-conditioning effect on the unfounded share (unprompted -> prompted)
+    red = (unf[1] - unf[2]) / unf[1]
+    assert_in("score-conditioning reduction", "by $%d\\%%$" % round(red * 100))
+
+    assert_in("suspect-cell concentration",
+              "$%d$--$%d\\%%$" % (math.floor(min(merge_pct) * 100),
+                                 math.ceil(max(merge_pct) * 100)))
+
+
 def check_cluster_parity() -> None:
     print("\n[7] cluster parity (sha256 local vs Gilbreth)")
     pairs = [
@@ -726,8 +1029,7 @@ def check_cluster_parity() -> None:
     for local_rel, remote_rel in pairs:
         lp = os.path.join(HERE, local_rel)
         if not os.path.exists(lp):
-            print(f"  [skip] {local_rel}: author-only staging script "
-                  f"not published")
+            fail(f"local {local_rel} missing")
             continue
         lh = hashlib.sha256(open(lp, "rb").read()).hexdigest()
         remote = f"/scratch/gilbreth/dcharapa/mer/{remote_rel}"
@@ -755,6 +1057,7 @@ def main() -> int:
     check_doc_numbers()
     check_rescore_v110()
     check_figs_tables()
+    check_letter_prose()
     if do_cluster:
         check_cluster_parity()
     else:

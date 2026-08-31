@@ -1,0 +1,29 @@
+{
+ "_provenance": {
+  "run": "perpiece_bins.py then boot_bins.py on gilbreth 2026-08-31, anaenv python (scipy 1.13.1)",
+  "retrieved": "OnDemand Files API 2026-08-31 from /scratch/gilbreth/dcharapa/mer/boot_bins.json",
+  "gate": "perpiece_bins.py reuses collapse_validation.py's verified helpers; its per-piece totals reproduce the shipped point estimates exactly",
+  "protocol": "per-piece cluster bootstrap, percentile, 1000 resamples, seed 20260831"
+ },
+ "A_polytune_maestro": {
+  "n_pieces": 177,
+  "point": {"hm_g": 0.06325504977288103, "unfounded": 0.24146421536441234, "raw": 0.29310571240971767},
+  "ci95": {"hm_g": [0.05748220153907672, 0.06909063075780508],
+           "unfounded": [0.23426038774670946, 0.24880564083574927],
+           "raw": [0.2833510595476085, 0.30254648308573706]}
+ },
+ "B_laddersym_maestro_unprompted": {
+  "n_pieces": 177,
+  "point": {"hm_g": 0.05443275732531931, "unfounded": 0.15398897939626258, "raw": 0.19941902252036417},
+  "ci95": {"hm_g": [0.04800972977098996, 0.060910806197929906],
+           "unfounded": [0.1465532835656328, 0.1621224887545061],
+           "raw": [0.1883815940058262, 0.21110348671630044]}
+ },
+ "B_laddersym_maestro_prompted": {
+  "n_pieces": 177,
+  "point": {"hm_g": 0.050010171560317354, "unfounded": 0.11029767839339126, "raw": 0.17538812135023502},
+  "ci95": {"hm_g": [0.04470096700685966, 0.05536747470434907],
+           "unfounded": [0.10428949767089235, 0.1158472789503116],
+           "raw": [0.1667017679988017, 0.1846395257674108]}
+ }
+}

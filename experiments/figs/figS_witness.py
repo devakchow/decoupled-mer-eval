@@ -24,12 +24,15 @@ def main() -> None:
     d = S.constructed_sweep()
     pts = d["points"]
     hm = [p["hm"] for p in pts]
+    # legend labels are plain words, not math subscripts: a subscript renders
+    # at ~0.7x the legend size (measured 4.6 pt placed), violating the 8 pt
+    # IEEE floor (FG-020). Full-size type only.
     series = [
-        ("$F_\\mathrm{miss}$", [p["f1_missed"] for p in pts], "#1b1b1b", (0, ())),
-        ("$F_\\mathrm{extra}$", [p["f1_extra"] for p in pts], "#3b6fb0", (0, (4, 1.5))),
-        ("$F_\\mathrm{wrong}$", [p["f1_wrong"] for p in pts], "#b03b52", (0, (1, 1))),
+        ("$F$ (missed)", [p["f1_missed"] for p in pts], "#1b1b1b", (0, ())),
+        ("$F$ (extra)", [p["f1_extra"] for p in pts], "#3b6fb0", (0, (4, 1.5))),
+        ("$F$ (wrong)", [p["f1_wrong"] for p in pts], "#b03b52", (0, (1, 1))),
     ]
-    fig, ax = plt.subplots(figsize=(S.COL_SINGLE, 2.1))
+    fig, ax = plt.subplots(figsize=(S.COL_SINGLE, 2.2))
     for name, ys, c, dash in series:
         ax.plot(hm, ys, color=c, linestyle=dash, linewidth=1.0, label=name)
     ax.set_xlabel("hidden mass  $\\mathrm{HM}$ (constructed)")
@@ -38,7 +41,7 @@ def main() -> None:
     ax.set_xlim(min(hm), max(hm))
     ax.legend(loc="center left", handlelength=1.8, bbox_to_anchor=(0.02, 0.32))
     ax.annotate("identical published report,\n$\\mathrm{HM}=0\\ \\rightarrow\\ %.2f$"
-                % max(hm), xy=(max(hm) * 0.55, 0.80), fontsize=7.5,
+                % max(hm), xy=(max(hm) * 0.55, 0.80), fontsize=8.5,
                 ha="center", va="center")
     fig.tight_layout(pad=0.4)
     out = os.path.join(HERE, "figS_witness.pdf")

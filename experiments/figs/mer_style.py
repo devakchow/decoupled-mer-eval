@@ -69,12 +69,15 @@ def apply_style() -> None:
         "font.family": "serif",
         "font.serif": ["Times New Roman", "STIXGeneral", "DejaVu Serif"],
         "mathtext.fontset": "stix",
-        "font.size": 8,
-        "axes.titlesize": 8,
-        "axes.labelsize": 8,
-        "xtick.labelsize": 7,
-        "ytick.labelsize": 7,
-        "legend.fontsize": 6.6,
+        # IEEE type floor (FG-019/FG-020): in-figure type ~9-10 pt at placed
+        # size, nothing below 8 pt. Figures are placed at ~native size
+        # (\columnwidth 252 pt vs 3.5 in native), so native sizes = placed.
+        "font.size": 9,
+        "axes.titlesize": 9,
+        "axes.labelsize": 9,
+        "xtick.labelsize": 8,
+        "ytick.labelsize": 8,
+        "legend.fontsize": 8,
         "axes.linewidth": 0.6,
         "lines.linewidth": 1.0,
         "lines.markersize": 3.0,

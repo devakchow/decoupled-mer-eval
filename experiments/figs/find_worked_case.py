@@ -5,9 +5,10 @@ disagree while the onset is matched within tau.
 
 Honest framing this figure will assert (verified against decoupled_scorer.py):
   the pair is co-located (matched) => the system localized the error; the types
-  differ => it named the wrong class. The shipped per-track metric books this as
-  FP on the predicted type + FN on the reference type -- identical to two
-  UNRELATED errors at different times. It cannot credit the correct localization.
+  differ => it named the wrong class. The shipped per-track metric scores the
+  classes independently and so cannot credit the correct localization; on the
+  case selected for Fig. 1 it books extra: 1 TP + missed: 1 FP (see
+  verify_two_scenario.py).
 
 We rank candidates by temporal isolation (few other events nearby) and prefer
 pairs where BOTH sides are real single notes (neither is a collapsed `wrong`),

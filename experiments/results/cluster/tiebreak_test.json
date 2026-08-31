@@ -1,0 +1,11 @@
+{
+ "_provenance": {
+  "run": "tiebreak_test.py on gilbreth 2026-08-31, anaenv python",
+  "question": "does the pitch tie-break in match_events determine the confusion matrix N?",
+  "method": "match_events rebuilt with the pitch term NEGATED (cost = d - tie_w*pd instead of d + tie_w*pd), full pipeline rerun, confusion compared cell by cell",
+  "tie_weight": "tie_w = 1e-9/(127*(n_min+1)); the pitch term's total contribution over a matching is < 1e-9 s, so it can only separate matchings whose total onset distance is equal to within 1e-9 s"
+ },
+ "A_polytune_maestro":            {"n_matched": [30460, 30460], "hm": [0.293106, 0.294123], "cells_changed": 9, "max_abs_cell_delta": 30, "extra_to_wrong_delta": -5},
+ "B_laddersym_maestro_unprompted":{"n_matched": [33392, 33392], "hm": [0.199419, 0.200647], "cells_changed": 7, "max_abs_cell_delta": 24, "extra_to_wrong_delta": 9},
+ "B_laddersym_maestro_prompted":  {"n_matched": [35105, 35105], "hm": [0.175388, 0.177126], "cells_changed": 8, "max_abs_cell_delta": 29, "extra_to_wrong_delta": 26}
+}

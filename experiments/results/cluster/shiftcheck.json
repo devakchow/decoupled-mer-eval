@@ -1,0 +1,10 @@
+{
+ "_provenance": {
+  "run": "inline check on gilbreth 2026-08-31, anaenv python; retrieved via OnDemand Files API (shiftcheck.log)",
+  "question": "context for the anchor rule: how dense are correct-note neighborhoods around removed notes on the performance timeline?",
+  "note": "density check only; the decisive evidence against a removed-note timing-shift artifact remains the anchor-window sweep (control moves <0.02 from 25 to 500 ms)"
+ },
+ "reference_event_counts_precollapse": {"extra": 34538, "missed": 23087, "correct": 718262},
+ "missed_to_nearest_correct_onset_gap_s": {"n": 23087, "median": 0.0227, "p90": 0.1136, "p99": 0.3136},
+ "fraction_within": {"50ms": 0.7123, "300ms": 0.9886}
+}

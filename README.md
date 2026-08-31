@@ -7,8 +7,9 @@ Implementation, evaluation harness, and result artifacts for
 > Letters* (citation will be updated on submission/publication).
 
 The letter proves that the per-class scores published by music error-detection
-systems cannot identify their localized-but-misclassified mass (**HM**), bounds
-the range a published report leaves open, and introduces a decoupled measure —
+systems cannot identify their localized-but-misclassified mass (**HM**),
+exhibits a range a published report leaves open, and introduces a decoupled
+measure —
 localization `F(τ)` under a shared class-agnostic onset match, then class
 confusion on the matched events — with a backward-compatible mode that
 reproduces the published scoring.
@@ -23,6 +24,9 @@ experiments/
                                  collapse, HM(τ), Loc-F(τ), shipped mode
   test_decoupled_scorer.py       unit tests
   test_mass_conservation_real.py falsifiability tests for the invariant
+  synthetic_oracle.py            model-free recovery experiments: planted HM*
+                                 recovered exactly while per-class F1 is blind
+                                 to it (oracle_report.json holds the outputs)
   paired_analysis.py             Wilcoxon / Cliff's δ / paired bootstrap
   nonidentifiability_*.py        constructed witness + empirical search
   bridge_checks.py               39 numerical checks of the analytic results
@@ -37,6 +41,11 @@ experiments/
                                  (provenance for the 85.6%/43.2% selection-bias
                                  figures in the supplementary material)
   results/gilbreth/              scored artifacts cited in the letter
+  results/cluster/               adjudication of merged wrong-events against
+                                 the score (genuine/ambiguous/unfounded), the
+                                 per-piece bootstrap for those columns, the
+                                 anchor-window sweep, and the matcher tie-break
+                                 negation test; each carries a _provenance block
   results/gilbreth_v110/         output of the independent v1.1.0 re-score job
                                  (cluster job 11341983), retained verbatim; the
                                  scorer is deterministic and timestamp-free, so

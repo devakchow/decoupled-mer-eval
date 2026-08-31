@@ -1,0 +1,628 @@
+{
+  "_provenance": {
+    "run": "reexam.py on gilbreth 2026-08-30 (four falsifiers)",
+    "retrieved": "OnDemand Files API 2026-08-31 from /scratch/gilbreth/dcharapa/mer/reexam.json (19.4 KB)",
+    "serialization": "re-serialized from the retrieved payload; numeric values verbatim",
+    "gates": "parity + confusion both identical to shipped, per config",
+    "anchor_rule": "claimed pitch matched to a score-track note within the stated window on the performance timeline; exact = MIDI pitch equality, octave = pitch class; score = union of removed_notes and correct_notes",
+    "null": "claimed pitches shuffled within piece, 10 draws, seed 20260830"
+  },
+  "A_polytune_maestro": {
+    "wrong->wrong": {
+      "w25_exact": {
+        "n": 8689,
+        "removed": 6507,
+        "correct": 155,
+        "absent": 2027,
+        "frac_removed": 0.7488778915870641,
+        "frac_correct": 0.017838646564621936,
+        "frac_in_score": 0.7667165381516861,
+        "null_frac_removed": 0.045206583036022555,
+        "null_frac_in_score": 0.06222235009782482
+      },
+      "w50_exact": {
+        "n": 8689,
+        "removed": 6542,
+        "correct": 266,
+        "absent": 1881,
+        "frac_removed": 0.7529059730693981,
+        "frac_correct": 0.03061341926573829,
+        "frac_in_score": 0.7835193923351363,
+        "null_frac_removed": 0.046599148348486594,
+        "null_frac_in_score": 0.07918632754056854
+      },
+      "w100_exact": {
+        "n": 8689,
+        "removed": 6556,
+        "correct": 469,
+        "absent": 1664,
+        "frac_removed": 0.7545172056623317,
+        "frac_correct": 0.053976291863275405,
+        "frac_in_score": 0.8084934975256071,
+        "null_frac_removed": 0.04819311773506733,
+        "null_frac_in_score": 0.11053055587524459
+      },
+      "w200_exact": {
+        "n": 8689,
+        "removed": 6589,
+        "correct": 769,
+        "absent": 1331,
+        "frac_removed": 0.7583151110599609,
+        "frac_correct": 0.08850270456899528,
+        "frac_in_score": 0.8468178156289562,
+        "null_frac_removed": 0.050650247439291064,
+        "null_frac_in_score": 0.15931062262630913
+      },
+      "w500_exact": {
+        "n": 8689,
+        "removed": 6667,
+        "correct": 1165,
+        "absent": 857,
+        "frac_removed": 0.7672919783634481,
+        "frac_correct": 0.13407756934054552,
+        "frac_in_score": 0.9013695477039936,
+        "null_frac_removed": 0.05985729082748302,
+        "null_frac_in_score": 0.26250431580158823
+      },
+      "w25_octave": {
+        "n": 8689,
+        "removed": 6550,
+        "correct": 291,
+        "absent": 1848,
+        "frac_removed": 0.7538266774082173,
+        "frac_correct": 0.03349062032454828,
+        "frac_in_score": 0.7873172977327656
+      },
+      "w50_octave": {
+        "n": 8689,
+        "removed": 6615,
+        "correct": 483,
+        "absent": 1591,
+        "frac_removed": 0.7613074001611233,
+        "frac_correct": 0.055587524456209,
+        "frac_in_score": 0.8168949246173323
+      },
+      "w100_octave": {
+        "n": 8689,
+        "removed": 6647,
+        "correct": 809,
+        "absent": 1233,
+        "frac_removed": 0.7649902175164001,
+        "frac_correct": 0.09310622626309127,
+        "frac_in_score": 0.8580964437794913
+      },
+      "w200_octave": {
+        "n": 8689,
+        "removed": 6706,
+        "correct": 1171,
+        "absent": 812,
+        "frac_removed": 0.7717804120151917,
+        "frac_correct": 0.1347680975946599,
+        "frac_in_score": 0.9065485096098516
+      },
+      "w500_octave": {
+        "n": 8689,
+        "removed": 6847,
+        "correct": 1447,
+        "absent": 395,
+        "frac_removed": 0.78800782598688,
+        "frac_correct": 0.1665323972839222,
+        "frac_in_score": 0.9545402232708021
+      }
+    },
+    "extra->wrong": {
+      "w25_exact": {
+        "n": 7331,
+        "removed": 19,
+        "correct": 1357,
+        "absent": 5955,
+        "frac_removed": 0.0025917337334606465,
+        "frac_correct": 0.18510435138453143,
+        "frac_in_score": 0.1876960851179921,
+        "null_frac_removed": 0.0003819397080889374,
+        "null_frac_in_score": 0.03066430227799754
+      },
+      "w50_exact": {
+        "n": 7331,
+        "removed": 37,
+        "correct": 2089,
+        "absent": 5205,
+        "frac_removed": 0.005047060428318101,
+        "frac_correct": 0.2849543036420679,
+        "frac_in_score": 0.290001364070386,
+        "null_frac_removed": 0.000907106806711226,
+        "null_frac_in_score": 0.054562815441276766
+      },
+      "w100_exact": {
+        "n": 7331,
+        "removed": 76,
+        "correct": 3110,
+        "absent": 4145,
+        "frac_removed": 0.010366934933842586,
+        "frac_correct": 0.42422589005592687,
+        "frac_in_score": 0.4345928249897695,
+        "null_frac_removed": 0.002653116900832082,
+        "null_frac_in_score": 0.09308416314281816
+      },
+      "w200_exact": {
+        "n": 7331,
+        "removed": 154,
+        "correct": 4338,
+        "absent": 2839,
+        "frac_removed": 0.021006683944891556,
+        "frac_correct": 0.5917337334606466,
+        "frac_in_score": 0.6127404174055381,
+        "null_frac_removed": 0.0058927840676578904,
+        "null_frac_in_score": 0.15068203519301598
+      },
+      "w500_exact": {
+        "n": 7331,
+        "removed": 344,
+        "correct": 5663,
+        "absent": 1324,
+        "frac_removed": 0.046924021279498025,
+        "frac_correct": 0.7724730596098759,
+        "frac_in_score": 0.8193970808893739,
+        "null_frac_removed": 0.01503887600600191,
+        "null_frac_in_score": 0.26094666484790613
+      },
+      "w25_octave": {
+        "n": 7331,
+        "removed": 33,
+        "correct": 1781,
+        "absent": 5517,
+        "frac_removed": 0.004501432273905334,
+        "frac_correct": 0.24294093575228481,
+        "frac_in_score": 0.24744236802619016
+      },
+      "w50_octave": {
+        "n": 7331,
+        "removed": 64,
+        "correct": 2751,
+        "absent": 4516,
+        "frac_removed": 0.008730050470604283,
+        "frac_correct": 0.37525576319738096,
+        "frac_in_score": 0.3839858136679853
+      },
+      "w100_octave": {
+        "n": 7331,
+        "removed": 160,
+        "correct": 3968,
+        "absent": 3203,
+        "frac_removed": 0.02182512617651071,
+        "frac_correct": 0.5412631291774656,
+        "frac_in_score": 0.5630882553539762
+      },
+      "w200_octave": {
+        "n": 7331,
+        "removed": 335,
+        "correct": 5141,
+        "absent": 1855,
+        "frac_removed": 0.0456963579320693,
+        "frac_correct": 0.7012685854590097,
+        "frac_in_score": 0.746964943391079
+      },
+      "w500_octave": {
+        "n": 7331,
+        "removed": 753,
+        "correct": 5928,
+        "absent": 650,
+        "frac_removed": 0.10271450006820351,
+        "frac_correct": 0.8086209248397217,
+        "frac_in_score": 0.9113354249079253
+      }
+    }
+  },
+  "B_laddersym_maestro_unprompted": {
+    "wrong->wrong": {
+      "w25_exact": {
+        "n": 9109,
+        "removed": 7508,
+        "correct": 103,
+        "absent": 1498,
+        "frac_removed": 0.8242397628718849,
+        "frac_correct": 0.011307498078823142,
+        "frac_in_score": 0.8355472609507081,
+        "null_frac_removed": 0.04649247996486991,
+        "null_frac_in_score": 0.0628005269513668
+      },
+      "w50_exact": {
+        "n": 9109,
+        "removed": 7547,
+        "correct": 181,
+        "absent": 1381,
+        "frac_removed": 0.8285212427269734,
+        "frac_correct": 0.01987045778899989,
+        "frac_in_score": 0.8483917005159732,
+        "null_frac_removed": 0.04638269843012404,
+        "null_frac_in_score": 0.07926775716324515
+      },
+      "w100_exact": {
+        "n": 9109,
+        "removed": 7562,
+        "correct": 335,
+        "absent": 1212,
+        "frac_removed": 0.8301679657481612,
+        "frac_correct": 0.036776814139861676,
+        "frac_in_score": 0.8669447798880229,
+        "null_frac_removed": 0.048545394664617415,
+        "null_frac_in_score": 0.1096607750576353
+      },
+      "w200_exact": {
+        "n": 9109,
+        "removed": 7593,
+        "correct": 562,
+        "absent": 954,
+        "frac_removed": 0.8335711933252827,
+        "frac_correct": 0.06169722252717093,
+        "frac_in_score": 0.8952684158524536,
+        "null_frac_removed": 0.051591832253814904,
+        "null_frac_in_score": 0.1604182676473817
+      },
+      "w500_exact": {
+        "n": 9109,
+        "removed": 7658,
+        "correct": 882,
+        "absent": 569,
+        "frac_removed": 0.8407069930837633,
+        "frac_correct": 0.09682731364584476,
+        "frac_in_score": 0.937534306729608,
+        "null_frac_removed": 0.06030848611263586,
+        "null_frac_in_score": 0.2637556263036557
+      },
+      "w25_octave": {
+        "n": 9109,
+        "removed": 7547,
+        "correct": 209,
+        "absent": 1353,
+        "frac_removed": 0.8285212427269734,
+        "frac_correct": 0.02294434076188385,
+        "frac_in_score": 0.8514655834888571
+      },
+      "w50_octave": {
+        "n": 9109,
+        "removed": 7607,
+        "correct": 346,
+        "absent": 1156,
+        "frac_removed": 0.8351081348117246,
+        "frac_correct": 0.03798441102206609,
+        "frac_in_score": 0.8730925458337908
+      },
+      "w100_octave": {
+        "n": 9109,
+        "removed": 7636,
+        "correct": 573,
+        "absent": 900,
+        "frac_removed": 0.8382917993193545,
+        "frac_correct": 0.06290481940937534,
+        "frac_in_score": 0.9011966187287298
+      },
+      "w200_octave": {
+        "n": 9109,
+        "removed": 7691,
+        "correct": 846,
+        "absent": 572,
+        "frac_removed": 0.8443297837303766,
+        "frac_correct": 0.09287517839499396,
+        "frac_in_score": 0.9372049621253705
+      },
+      "w500_octave": {
+        "n": 9109,
+        "removed": 7817,
+        "correct": 1046,
+        "absent": 246,
+        "frac_removed": 0.8581622571083544,
+        "frac_correct": 0.11483148534416511,
+        "frac_in_score": 0.9729937424525195
+      }
+    },
+    "extra->wrong": {
+      "w25_exact": {
+        "n": 5037,
+        "removed": 22,
+        "correct": 918,
+        "absent": 4097,
+        "frac_removed": 0.004367679174111574,
+        "frac_correct": 0.18225134008338298,
+        "frac_in_score": 0.18661901925749455,
+        "null_frac_removed": 0.0007147111375818939,
+        "null_frac_in_score": 0.033462378399841175
+      },
+      "w50_exact": {
+        "n": 5037,
+        "removed": 34,
+        "correct": 1413,
+        "absent": 3590,
+        "frac_removed": 0.006750049632717888,
+        "frac_correct": 0.2805241215008934,
+        "frac_in_score": 0.28727417113361126,
+        "null_frac_removed": 0.0012011117728806828,
+        "null_frac_in_score": 0.0565614453047449
+      },
+      "w100_exact": {
+        "n": 5037,
+        "removed": 79,
+        "correct": 2126,
+        "absent": 2832,
+        "frac_removed": 0.01568393885249156,
+        "frac_correct": 0.4220766329164185,
+        "frac_in_score": 0.4377605717689101,
+        "null_frac_removed": 0.0030375223347230496,
+        "null_frac_in_score": 0.09821322215604529
+      },
+      "w200_exact": {
+        "n": 5037,
+        "removed": 162,
+        "correct": 2960,
+        "absent": 1915,
+        "frac_removed": 0.03216200119118523,
+        "frac_correct": 0.5876513797895573,
+        "frac_in_score": 0.6198133809807425,
+        "null_frac_removed": 0.006591224935477466,
+        "null_frac_in_score": 0.15435775263053406
+      },
+      "w500_exact": {
+        "n": 5037,
+        "removed": 351,
+        "correct": 3880,
+        "absent": 806,
+        "frac_removed": 0.06968433591423466,
+        "frac_correct": 0.7702997816160413,
+        "frac_in_score": 0.8399841175302759,
+        "null_frac_removed": 0.016388723446495928,
+        "null_frac_in_score": 0.2676196148501092
+      },
+      "w25_octave": {
+        "n": 5037,
+        "removed": 33,
+        "correct": 1219,
+        "absent": 3785,
+        "frac_removed": 0.006551518761167362,
+        "frac_correct": 0.2420091324200913,
+        "frac_in_score": 0.2485606511812587
+      },
+      "w50_octave": {
+        "n": 5037,
+        "removed": 56,
+        "correct": 1860,
+        "absent": 3121,
+        "frac_removed": 0.011117728806829461,
+        "frac_correct": 0.36926742108397853,
+        "frac_in_score": 0.380385149890808
+      },
+      "w100_octave": {
+        "n": 5037,
+        "removed": 143,
+        "correct": 2745,
+        "absent": 2149,
+        "frac_removed": 0.028389914631725233,
+        "frac_correct": 0.5449672424061942,
+        "frac_in_score": 0.5733571570379195
+      },
+      "w200_octave": {
+        "n": 5037,
+        "removed": 292,
+        "correct": 3520,
+        "absent": 1225,
+        "frac_removed": 0.057971014492753624,
+        "frac_correct": 0.6988286678578519,
+        "frac_in_score": 0.7567996823506056
+      },
+      "w500_octave": {
+        "n": 5037,
+        "removed": 657,
+        "correct": 4003,
+        "absent": 377,
+        "frac_removed": 0.13043478260869565,
+        "frac_correct": 0.794719078816756,
+        "frac_in_score": 0.9251538614254516
+      }
+    }
+  },
+  "B_laddersym_maestro_prompted": {
+    "wrong->wrong": {
+      "w25_exact": {
+        "n": 9546,
+        "removed": 8562,
+        "correct": 91,
+        "absent": 893,
+        "frac_removed": 0.8969201759899434,
+        "frac_correct": 0.009532788602556044,
+        "frac_in_score": 0.9064529645924995,
+        "null_frac_removed": 0.046186884558977584,
+        "null_frac_in_score": 0.061203645505971085
+      },
+      "w50_exact": {
+        "n": 9546,
+        "removed": 8617,
+        "correct": 160,
+        "absent": 769,
+        "frac_removed": 0.9026817515189608,
+        "frac_correct": 0.016760946993505135,
+        "frac_in_score": 0.919442698512466,
+        "null_frac_removed": 0.046941127173685315,
+        "null_frac_in_score": 0.07828409805153991
+      },
+      "w100_exact": {
+        "n": 9546,
+        "removed": 8632,
+        "correct": 267,
+        "absent": 647,
+        "frac_removed": 0.9042530902996019,
+        "frac_correct": 0.02796983029541169,
+        "frac_in_score": 0.9322229205950137,
+        "null_frac_removed": 0.04860674628116489,
+        "null_frac_in_score": 0.10836476010894618
+      },
+      "w200_exact": {
+        "n": 9546,
+        "removed": 8678,
+        "correct": 407,
+        "absent": 461,
+        "frac_removed": 0.9090718625602346,
+        "frac_correct": 0.04263565891472868,
+        "frac_in_score": 0.9517075214749633,
+        "null_frac_removed": 0.05147705845380264,
+        "null_frac_in_score": 0.15887806411062222
+      },
+      "w500_exact": {
+        "n": 9546,
+        "removed": 8764,
+        "correct": 613,
+        "absent": 169,
+        "frac_removed": 0.9180808715692437,
+        "frac_correct": 0.06421537816886654,
+        "frac_in_score": 0.9822962497381102,
+        "null_frac_removed": 0.05992562329771632,
+        "null_frac_in_score": 0.26225644248900065
+      },
+      "w25_octave": {
+        "n": 9546,
+        "removed": 8593,
+        "correct": 146,
+        "absent": 807,
+        "frac_removed": 0.900167609469935,
+        "frac_correct": 0.015294364131573434,
+        "frac_in_score": 0.9154619736015085
+      },
+      "w50_octave": {
+        "n": 9546,
+        "removed": 8658,
+        "correct": 249,
+        "absent": 639,
+        "frac_removed": 0.9069767441860465,
+        "frac_correct": 0.026084223758642364,
+        "frac_in_score": 0.9330609679446888
+      },
+      "w100_octave": {
+        "n": 9546,
+        "removed": 8678,
+        "correct": 385,
+        "absent": 483,
+        "frac_removed": 0.9090718625602346,
+        "frac_correct": 0.040331028703121725,
+        "frac_in_score": 0.9494028912633564
+      },
+      "w200_octave": {
+        "n": 9546,
+        "removed": 8737,
+        "correct": 534,
+        "absent": 275,
+        "frac_removed": 0.9152524617640897,
+        "frac_correct": 0.05593966059082338,
+        "frac_in_score": 0.971192122354913
+      },
+      "w500_octave": {
+        "n": 9546,
+        "removed": 8848,
+        "correct": 628,
+        "absent": 70,
+        "frac_removed": 0.9268803687408339,
+        "frac_correct": 0.06578671694950765,
+        "frac_in_score": 0.9926670856903415
+      }
+    },
+    "extra->wrong": {
+      "w25_exact": {
+        "n": 4607,
+        "removed": 28,
+        "correct": 955,
+        "absent": 3624,
+        "frac_removed": 0.006077707835901888,
+        "frac_correct": 0.20729324940308227,
+        "frac_in_score": 0.21337095723898417,
+        "null_frac_removed": 0.0009442153245061864,
+        "null_frac_in_score": 0.03424137182548296
+      },
+      "w50_exact": {
+        "n": 4607,
+        "removed": 45,
+        "correct": 1557,
+        "absent": 3005,
+        "frac_removed": 0.009767744736270892,
+        "frac_correct": 0.33796396787497285,
+        "frac_in_score": 0.34773171261124375,
+        "null_frac_removed": 0.0014217495116127636,
+        "null_frac_in_score": 0.062003472975906214
+      },
+      "w100_exact": {
+        "n": 4607,
+        "removed": 101,
+        "correct": 2232,
+        "absent": 2274,
+        "frac_removed": 0.02192316040807467,
+        "frac_correct": 0.48448013891903624,
+        "frac_in_score": 0.5064032993271109,
+        "null_frac_removed": 0.00408074668981984,
+        "null_frac_in_score": 0.10320164966355545
+      },
+      "w200_exact": {
+        "n": 4607,
+        "removed": 202,
+        "correct": 3012,
+        "absent": 1393,
+        "frac_removed": 0.04384632081614934,
+        "frac_correct": 0.6537877143477318,
+        "frac_in_score": 0.697634035163881,
+        "null_frac_removed": 0.007922726286086392,
+        "null_frac_in_score": 0.16282830475363574
+      },
+      "w500_exact": {
+        "n": 4607,
+        "removed": 436,
+        "correct": 3737,
+        "absent": 434,
+        "frac_removed": 0.09463859344475797,
+        "frac_correct": 0.8111569350987627,
+        "frac_in_score": 0.9057955285435207,
+        "null_frac_removed": 0.020740177990015193,
+        "null_frac_in_score": 0.27758845235511187
+      },
+      "w25_octave": {
+        "n": 4607,
+        "removed": 37,
+        "correct": 1253,
+        "absent": 3317,
+        "frac_removed": 0.008031256783156067,
+        "frac_correct": 0.2719774256566095,
+        "frac_in_score": 0.28000868243976557
+      },
+      "w50_octave": {
+        "n": 4607,
+        "removed": 64,
+        "correct": 1963,
+        "absent": 2580,
+        "frac_removed": 0.013891903624918602,
+        "frac_correct": 0.42609073149555027,
+        "frac_in_score": 0.43998263512046887
+      },
+      "w100_octave": {
+        "n": 4607,
+        "removed": 153,
+        "correct": 2746,
+        "absent": 1708,
+        "frac_removed": 0.033210332103321034,
+        "frac_correct": 0.5960494899066637,
+        "frac_in_score": 0.6292598220099848
+      },
+      "w200_octave": {
+        "n": 4607,
+        "removed": 311,
+        "correct": 3408,
+        "absent": 888,
+        "frac_removed": 0.06750596917733884,
+        "frac_correct": 0.7397438680269156,
+        "frac_in_score": 0.8072498372042544
+      },
+      "w500_octave": {
+        "n": 4607,
+        "removed": 694,
+        "correct": 3718,
+        "absent": 195,
+        "frac_removed": 0.1506403299327111,
+        "frac_correct": 0.807032776210115,
+        "frac_in_score": 0.9576731061428261
+      }
+    }
+  }
+}

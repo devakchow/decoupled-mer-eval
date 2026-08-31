@@ -1,0 +1,91 @@
+{
+ "A_polytune_maestro": {
+  "extra->wrong": {
+   "n": 7331,
+   "in_score_removed": 37,
+   "in_score_correct": 2089,
+   "absent_from_score": 5205,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.8108108108108109
+  },
+  "wrong->wrong": {
+   "n": 8689,
+   "in_score_removed": 6542,
+   "in_score_correct": 266,
+   "absent_from_score": 1881,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.9969428309385509
+  },
+  "missed->wrong": {
+   "n": 424,
+   "in_score_removed": 99,
+   "in_score_correct": 56,
+   "absent_from_score": 269,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.7171717171717171
+  },
+  "_gate": "confusion identical to shipped artifact",
+  "_n_merges_pred": 29157
+ },
+ "B_laddersym_maestro_unprompted": {
+  "extra->wrong": {
+   "n": 5037,
+   "in_score_removed": 34,
+   "in_score_correct": 1413,
+   "absent_from_score": 3590,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.7647058823529411
+  },
+  "wrong->wrong": {
+   "n": 9109,
+   "in_score_removed": 7547,
+   "in_score_correct": 181,
+   "absent_from_score": 1381,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.9892672585133165
+  },
+  "missed->wrong": {
+   "n": 315,
+   "in_score_removed": 108,
+   "in_score_correct": 36,
+   "absent_from_score": 171,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.7129629629629629
+  },
+  "_gate": "confusion identical to shipped artifact",
+  "_n_merges_pred": 22376
+ },
+ "B_laddersym_maestro_prompted": {
+  "extra->wrong": {
+   "n": 4607,
+   "in_score_removed": 45,
+   "in_score_correct": 1557,
+   "absent_from_score": 3005,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.7777777777777778
+  },
+  "wrong->wrong": {
+   "n": 9546,
+   "in_score_removed": 8617,
+   "in_score_correct": 160,
+   "absent_from_score": 769,
+   "median_semitones_removed": 1,
+   "within2_removed": 0.9841011953115933
+  },
+  "missed->wrong": {
+   "n": 216,
+   "in_score_removed": 96,
+   "in_score_correct": 22,
+   "absent_from_score": 98,
+   "median_semitones_removed": 2,
+   "within2_removed": 0.59375
+  },
+  "_gate": "confusion identical to shipped artifact",
+  "_n_merges_pred": 18644
+ },
+ "_provenance": {
+  "run": "collapse_validation.py on gilbreth 2026-08-30",
+  "gate": "per-config confusion asserted identical to shipped confusion_sparse before any statistic emitted",
+  "retrieved": "OnDemand file API from /scratch/gilbreth/dcharapa/mer/collapse_validation.json"
+ }
+}

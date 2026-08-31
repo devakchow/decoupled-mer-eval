@@ -11,7 +11,8 @@ Data used (all under experiments/results/gilbreth/):
   {A_polytune_maestro,B_laddersym_maestro_unprompted}_shipped.json
   ..._guard.json           (per-piece 3x3 CROSS-TRACK mir_eval matrix + totals)
   ..._strict_eps05.json    (decoupled sweep, primary config)
-  ..._strict_eps0.json     (decoupled sweep, no-collapse sensitivity)
+  ..._strict_eps0.json     (decoupled sweep, eps=0 sensitivity; collapse still
+                            applied -- this is NOT a collapse-free ablation)
   ..._pitchaware_eps05.json
   nonidentifiability_empirical.json  (per-piece table, 354 observations)
 """
