@@ -850,7 +850,8 @@ def check_letter_prose() -> None:
             if "50" in (d or {}).get("bootstrap", {}):
                 n_vals += 2  # point_hm, point_loc_f1
             n_tau += len((d or {}).get("decoupled", {}).get("per_tau", []))
-        for label, printed in ((f"rescore value count", f"(${n_vals}$ values)"),
+        for label, printed in ((f"rescore value count",
+                                f"bit-identically (${n_vals}$)"),
                                (f"guard tau-point count",
                                 f"holds at all ${n_tau}$ $(\\tau,\\text")):
             if printed in stex:
@@ -1096,6 +1097,113 @@ def check_letter_prose() -> None:
     assert_in("suspect-cell concentration",
               "$%d$--$%d\\%%$" % (math.floor(min(merge_pct) * 100),
                                  math.ceil(max(merge_pct) * 100)))
+
+    # 9c. MAESTRO-EI campaign: every EI number printed in the letter and
+    # supplement derives from the campaign artifacts, and the ordering claims
+    # (published err-F1 and F rise, HM falls, under every variant and tau)
+    # are re-checked from the artifacts, not asserted.
+    gei = os.path.join(HERE, "results", "gilbreth_ei")
+    ei_cfgs = ("A_polytune_maestro_ei", "B_laddersym_maestro_ei_unprompted",
+               "B_laddersym_maestro_ei_prompted")
+    summ = _load(os.path.join(HERE, "results", "cluster",
+                              "maestro_ei_summary.json"))["summary"]
+    n_inj = sum(summ["totals"][k] for k in ("sub", "om", "ins"))
+    mix = summ["achieved_mix"]
+    inj_str = "{:,}".format(n_inj).replace(",", "{,}")
+    assert_in("EI mix and size", "($%.1f\\%%$ substitutions; $%s$ injections)"
+              % (mix["substitution"] * 100, inj_str))
+    val = _load(os.path.join(HERE, "results", "cluster",
+                             "maestro_ei_validate.json"))
+    neg_n = val["negative_controls"]["total"]
+    neg_m = val["negative_controls"]["merged_by_collapse"]
+    assert_in("EI decoy count", "$%s$ decoy"
+              % "{:,}".format(neg_n).replace(",", "{,}"))
+    assert_in("EI decoy merges", "merges $%d$ decoys ($%.2f\\%%$)"
+              % (neg_m, 100 * neg_m / neg_n))
+    assert_in("EI adjudication ceiling", "$%.3f$ of merged\nevents at substitution sites".replace("\n", " ")
+              % val["adjudication"]["genuine_rate"])
+    cvei = {}
+    for suf in ("A", "Bu", "Bp"):
+        cvei.update(_load(os.path.join(gei, "collapse_validation_ei_%s.json" % suf)))
+    ww = [cvei[c]["wrong->wrong"]["manifest_genuine_rate"] for c in ei_cfgs]
+    ew = [cvei[c]["extra->wrong"]["manifest_genuine_rate"] for c in ei_cfgs]
+    mw = [cvei[c]["missed->wrong"]["manifest_genuine_rate"] for c in ei_cfgs]
+    assert_in("EI genuine contrast",
+              "manifest-genuine on $%.3f/%.3f/%.3f$ against $%.3f/%.3f/%.3f$"
+              % (*ww, *ew))
+    hm50, loc50, err50, mc_all = [], [], [], True
+    for c in ei_cfgs:
+        d = _load(os.path.join(gei, c + "_shipped.json"))
+        t = [x for x in d["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
+        hm50.append(t["hm"]); loc50.append(t["localization"]["f1"])
+        err50.append(d["shipped_50ms"]["_mean_error_f1"])
+        mc_all &= all(x["mass_conserved"] for x in d["decoupled"]["per_tau"])
+    assert_in("EI published err-F1 and F",
+              "($%.3f/%.3f/%.3f$), tracking $F$ ($%.3f/%.3f/%.3f$)"
+              % (*err50, *loc50))
+    assert_in("EI raw HM", "($%.3f/%.3f/%.3f$;" % tuple(hm50))
+    if not (err50[0] < err50[1] < err50[2] and loc50[0] < loc50[1] < loc50[2]):
+        fail("EI: published err-F1 / F no longer rise monotonically as printed")
+    else:
+        ok("EI: published err-F1 and F rise monotonically across the configs")
+    mono = True
+    for var in ("shipped", "strict_eps05", "strict_eps0", "pitchaware_eps05"):
+        seq = []
+        for c in ei_cfgs:
+            d = _load(os.path.join(gei, "%s_%s.json" % (c, var)))
+            pt = d["decoupled"]["per_tau"] if "decoupled" in d else d["per_tau"]
+            seq.append({x["tau_ms"]: x["hm"] for x in pt})
+        for tau in seq[0]:
+            mono &= seq[0][tau] > seq[1][tau] > seq[2][tau]
+    if mono and mc_all:
+        ok("EI: HM ordering falls under all four variants at every tau; "
+           "mass conserved throughout")
+    else:
+        fail("EI: HM ordering or mass conservation broke (mono=%s mc=%s); "
+             "the letter claims both" % (mono, mc_all))
+    guards = [_load(os.path.join(gei, c + "_guard.json")) for c in ei_cfgs]
+    a_ok = (guards[0]["n_fail"] == 1 and guards[0]["grand_check"]["passed"]
+            and os.path.exists(os.path.join(
+                gei, "A_polytune_maestro_ei_guard_OVERRIDE.md")))
+    b_ok = guards[1]["all_pass"] and guards[2]["all_pass"]
+    if a_ok and b_ok:
+        ok("EI guards: 177/177 both LadderSym; Polytune 176/177 + pooled, "
+           "override documented")
+    else:
+        fail("EI guard state changed; letter/supplement describe "
+             "177/177 + 176/177-with-pooled")
+    if os.path.exists(supp):
+        with open(supp, encoding="utf-8") as fh:
+            s3 = re.sub(r"\s+", " ", fh.read())
+        def s_in(label, printed):
+            if printed in s3:
+                ok("supplement %s: '%s' artifact-derived" % (label, printed))
+            else:
+                fail("supplement %s: derived '%s' NOT found" % (label, printed))
+        s_in("EI seed", "seed $%d$" % val["_provenance"]["seed"])
+        s_in("EI achieved mix", "$%.2f/%.2f/%.2f\\%%$ of $%s$"
+             % (mix["substitution"] * 100, mix["insertion"] * 100,
+                mix["omission"] * 100, inj_str))
+        s_in("EI planted flips", "$%s$ planted class-flips"
+             % "{:,}".format(val["planted_flips"]).replace(",", "{,}"))
+        f_ = val["recovery"]["flip_fate"]
+        s_in("EI flip fate",
+             "($%s$ matched off-diagonal, $%d$ diagonal, $%s$ collapse-absorbed, $%s$ unmatched)"
+             % ("{:,}".format(f_["matched_offdiag"]).replace(",", "{,}"),
+                f_["matched_diag"],
+                "{:,}".format(f_["merged"]).replace(",", "{,}"),
+                "{:,}".format(f_["unmatched"]).replace(",", "{,}")))
+        for lbl, cell in (("EI w->w cell counts", "wrong->wrong"),
+                          ("EI e->w cell counts", "extra->wrong")):
+            s_in(lbl, "$%s$" % "/".join(
+                "{:,}".format(cvei[c][cell]["n"]).replace(",", "{,}")
+                for c in ei_cfgs))
+        s_in("EI missed->wrong rates",
+             "manifest-genuine on $%.3f/%.3f/%.3f$" % tuple(mw))
+        s_in("EI guard counts", "passes $%d/%d$" %
+             (guards[1]["n_pass"], guards[1]["n_pieces"]))
+        s_in("EI Polytune guard", "$%d/%d$ plus pooled" %
+             (guards[0]["n_pass"], guards[0]["n_pieces"]))
 
 
 def check_cluster_parity() -> None:
