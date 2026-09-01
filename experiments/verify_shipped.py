@@ -1138,14 +1138,57 @@ def check_letter_prose() -> None:
         hm50.append(t["hm"]); loc50.append(t["localization"]["f1"])
         err50.append(d["shipped_50ms"]["_mean_error_f1"])
         mc_all &= all(x["mass_conserved"] for x in d["decoupled"]["per_tau"])
-    assert_in("EI published err-F1 and F",
-              "($%.3f/%.3f/%.3f$), tracking $F$ ($%.3f/%.3f/%.3f$)"
-              % (*err50, *loc50))
-    assert_in("EI raw HM", "($%.3f/%.3f/%.3f$;" % tuple(hm50))
-    if not (err50[0] < err50[1] < err50[2] and loc50[0] < loc50[1] < loc50[2]):
-        fail("EI: published err-F1 / F no longer rise monotonically as printed")
+    assert_in("EI published err-F1",
+              "mean error $F_1$ ($%.3f/%.3f/%.3f$)" % tuple(err50))
+    assert_in("EI localization F", "$F=%.3f/%.3f/%.3f$" % tuple(loc50))
+    # HM with per-piece intervals from the bootstrap artifacts; the intervals
+    # must be pairwise disjoint for HM and for F, else the prose overclaims.
+    hm_ci, f_ci = [], []
+    for c in ei_cfgs:
+        b = _load(os.path.join(gei, c + "_strict_eps05.json"))["bootstrap"]["50"]
+        if abs(b["point_hm"] - hm50[len(hm_ci)]) > 1e-9:
+            fail("EI bootstrap point HM != shipped HM for %s" % c)
+        hm_ci.append(b["hm_ci95"]); f_ci.append(b["loc_f1_ci95"])
+    assert_in("EI raw HM with intervals",
+              "$\\mathrm{HM}=%.3f/%.3f/%.3f$ with per-piece intervals "
+              "$[%.3f,%.3f]/[%.3f,%.3f]/[%.3f,%.3f]$"
+              % (*hm50, *hm_ci[0], *hm_ci[1], *hm_ci[2]))
+    def _pd(iv):
+        return all(iv[i][1] < iv[j][0] or iv[j][1] < iv[i][0]
+                   for i in range(3) for j in range(i + 1, 3))
+    if _pd(hm_ci) and _pd(f_ci):
+        ok("EI: HM and F per-piece intervals pairwise disjoint")
     else:
-        ok("EI: published err-F1 and F rise monotonically across the configs")
+        fail("EI: HM/F intervals overlap; the prose reports them as distinct levels")
+    # Direction: HM is the misclassified fraction, so a FALL is an improvement.
+    # All three quantities must order the configs the same way (no re-ranking),
+    # and the letter must not claim an inversion.
+    if (err50[0] < err50[1] < err50[2] and loc50[0] < loc50[1] < loc50[2]
+            and hm50[0] > hm50[1] > hm50[2]):
+        ok("EI: err-F1 and F rise while HM (misclassified fraction) falls: "
+           "orderings agree, no re-ranking")
+    else:
+        fail("EI: the three orderings no longer agree; the letter says they do")
+    for bad in ("orderings invert", "part ways", "carried by localization",
+                "misclassification worsens"):
+        if bad in tex:
+            fail("EI: inversion misreading reintroduced ('%s')" % bad)
+    # abstract / conclusion ranges from the adjudication rates
+    assert_in("EI abstract genuine range",
+              "genuine at %.2f to %.2f of true sites against %.2f to %.2f"
+              % (min(ww), max(ww), min(ew), max(ew)))
+    assert_in("EI conclusion genuine range",
+              "$%.2f$--$%.2f$ of" % (min(ww), max(ww)))
+    # MAESTRO-E paired decomposition, derived from the paired artifact
+    pa = _load(os.path.join(gil, "paired_prompted_vs_unprompted.json"))
+    assert_in("paired delta on F",
+              "$\\delta=%.2f$ on $F$ ($%d/%d$ pieces)"
+              % (pa["loc_f1"]["cliffs_delta"], pa["loc_f1"]["n_pieces_favouring_a"],
+                 pa["n_used"]))
+    assert_in("paired delta on HM",
+              "$\\delta=%.2f$ on $\\mathrm{HM}$ ($%d/%d$)"
+              % (pa["hm"]["cliffs_delta"], pa["hm"]["n_pieces_favouring_b"],
+                 pa["n_used"]))
     mono = True
     for var in ("shipped", "strict_eps05", "strict_eps0", "pitchaware_eps05"):
         seq = []
