@@ -1,0 +1,21 @@
+{
+ "A_polytune_maestro_ei": {
+  "_gate": "confusion identical to scorer artifact: run/results/A_polytune_maestro_ei_shipped.json",
+  "_n_merges_pred": 104484,
+  "extra->wrong": {
+   "n": 36463,
+   "manifest_genuine": 662,
+   "manifest_genuine_rate": 0.01815539039574363
+  },
+  "wrong->wrong": {
+   "n": 61059,
+   "manifest_genuine": 48161,
+   "manifest_genuine_rate": 0.7887616895134214
+  },
+  "missed->wrong": {
+   "n": 1403,
+   "manifest_genuine": 703,
+   "manifest_genuine_rate": 0.5010691375623664
+  }
+ }
+}

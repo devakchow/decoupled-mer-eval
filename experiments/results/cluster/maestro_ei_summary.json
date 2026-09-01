@@ -1,0 +1,1440 @@
+{
+ "summary": {
+  "pieces": 177,
+  "totals": {
+   "sub": 86343,
+   "om": 40332,
+   "ins": 58671,
+   "neg": 4320,
+   "n": 741410
+  },
+  "achieved_mix": {
+   "substitution": 0.46584765789388494,
+   "insertion": 0.316548509274546,
+   "omission": 0.21760383283156906
+  }
+ },
+ "per_piece": [
+  {
+   "piece": "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_01_R1_2014_wav--1",
+   "n": 1376,
+   "sub": 165,
+   "om": 74,
+   "ins": 105,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_01_R1_2014_wav--2",
+   "n": 505,
+   "sub": 58,
+   "om": 31,
+   "ins": 37,
+   "neg": 3
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_02_R1_2014_wav--4",
+   "n": 5736,
+   "sub": 693,
+   "om": 329,
+   "ins": 412,
+   "neg": 35
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_01-03_R1_2014_MID--AUDIO_03_R1_2014_wav--4",
+   "n": 2401,
+   "sub": 273,
+   "om": 143,
+   "ins": 184,
+   "neg": 14
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_04-05_R1_2014_MID--AUDIO_04_R1_2014_wav--2",
+   "n": 11207,
+   "sub": 1297,
+   "om": 614,
+   "ins": 891,
+   "neg": 65
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_04-05_R1_2014_MID--AUDIO_04_R1_2014_wav--5",
+   "n": 3057,
+   "sub": 353,
+   "om": 158,
+   "ins": 253,
+   "neg": 18
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_09-10_R1_2014_MID--AUDIO_09_R1_2014_wav--4",
+   "n": 7732,
+   "sub": 910,
+   "om": 416,
+   "ins": 607,
+   "neg": 46
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_11_R1_2014_wav--1",
+   "n": 1701,
+   "sub": 202,
+   "om": 94,
+   "ins": 129,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_13_R1_2014_wav--4",
+   "n": 8266,
+   "sub": 950,
+   "om": 450,
+   "ins": 666,
+   "neg": 48
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_11-13_R1_2014_MID--AUDIO_13_R1_2014_wav--6",
+   "n": 15564,
+   "sub": 1796,
+   "om": 869,
+   "ins": 1226,
+   "neg": 90
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_14-15_R1_2014_MID--AUDIO_15_R1_2014_wav--2",
+   "n": 5636,
+   "sub": 649,
+   "om": 303,
+   "ins": 457,
+   "neg": 32
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_19-20-21_R2_2014_MID--AUDIO_20_R2_2014_wav",
+   "n": 10874,
+   "sub": 1235,
+   "om": 633,
+   "ins": 850,
+   "neg": 62
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_19-20_R1_2014_MID--AUDIO_19_R1_2014_wav--8",
+   "n": 6173,
+   "sub": 714,
+   "om": 318,
+   "ins": 511,
+   "neg": 36
+  },
+  {
+   "piece": "MIDI-UNPROCESSED_19-21_R3_2014_MID--AUDIO_21_R3_2014_wav--1",
+   "n": 1864,
+   "sub": 210,
+   "om": 99,
+   "ins": 157,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-Unprocessed_01_R1_2006_01-09_ORIG_MID--AUDIO_01_R1_2006_02_Track02_wav",
+   "n": 4154,
+   "sub": 482,
+   "om": 219,
+   "ins": 337,
+   "neg": 24
+  },
+  {
+   "piece": "MIDI-Unprocessed_01_R1_2006_01-09_ORIG_MID--AUDIO_01_R1_2006_04_Track04_wav",
+   "n": 3648,
+   "sub": 426,
+   "om": 185,
+   "ins": 301,
+   "neg": 21
+  },
+  {
+   "piece": "MIDI-Unprocessed_01_R1_2009_01-04_ORIG_MID--AUDIO_01_R1_2009_01_R1_2009_04_WAV",
+   "n": 6382,
+   "sub": 729,
+   "om": 346,
+   "ins": 521,
+   "neg": 36
+  },
+  {
+   "piece": "MIDI-Unprocessed_02_R1_2009_03-06_ORIG_MID--AUDIO_02_R1_2009_02_R1_2009_03_WAV",
+   "n": 2367,
+   "sub": 265,
+   "om": 126,
+   "ins": 201,
+   "neg": 13
+  },
+  {
+   "piece": "MIDI-Unprocessed_02_R1_2009_03-06_ORIG_MID--AUDIO_02_R1_2009_02_R1_2009_04_WAV",
+   "n": 783,
+   "sub": 78,
+   "om": 43,
+   "ins": 75,
+   "neg": 4
+  },
+  {
+   "piece": "MIDI-Unprocessed_02_R1_2011_MID--AUDIO_R1-D1_10_Track10_wav",
+   "n": 3126,
+   "sub": 371,
+   "om": 166,
+   "ins": 245,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_02_R2_2011_MID--AUDIO_R2-D1_02_Track02_wav",
+   "n": 4577,
+   "sub": 504,
+   "om": 265,
+   "ins": 375,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_03_R1_2006_01-05_ORIG_MID--AUDIO_03_R1_2006_04_Track04_wav",
+   "n": 7716,
+   "sub": 922,
+   "om": 415,
+   "ins": 592,
+   "neg": 46
+  },
+  {
+   "piece": "MIDI-Unprocessed_03_R1_2008_01-04_ORIG_MID--AUDIO_03_R1_2008_wav--1",
+   "n": 2945,
+   "sub": 340,
+   "om": 168,
+   "ins": 228,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_03_R1_2009_03-08_ORIG_MID--AUDIO_03_R1_2009_03_R1_2009_03_WAV",
+   "n": 4530,
+   "sub": 547,
+   "om": 260,
+   "ins": 325,
+   "neg": 27
+  },
+  {
+   "piece": "MIDI-Unprocessed_03_R2_2011_MID--AUDIO_R2-D1_06_Track06_wav",
+   "n": 1628,
+   "sub": 203,
+   "om": 78,
+   "ins": 126,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-Unprocessed_044_PIANO044_MID--AUDIO-split_07-06-17_Piano-e_1-04_wav--2",
+   "n": 3912,
+   "sub": 463,
+   "om": 209,
+   "ins": 306,
+   "neg": 23
+  },
+  {
+   "piece": "MIDI-Unprocessed_046_PIANO046_MID--AUDIO-split_07-06-17_Piano-e_2-02_wav--2",
+   "n": 3264,
+   "sub": 410,
+   "om": 160,
+   "ins": 246,
+   "neg": 20
+  },
+  {
+   "piece": "MIDI-Unprocessed_049_PIANO049_MID--AUDIO-split_07-06-17_Piano-e_2-06_wav--2",
+   "n": 3370,
+   "sub": 384,
+   "om": 178,
+   "ins": 280,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R1_2008_01-04_ORIG_MID--AUDIO_04_R1_2008_wav--4",
+   "n": 8649,
+   "sub": 994,
+   "om": 482,
+   "ins": 686,
+   "neg": 50
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R1_2011_MID--AUDIO_R1-D2_03_Track03_wav",
+   "n": 2622,
+   "sub": 317,
+   "om": 128,
+   "ins": 211,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R2_2008_01-04_ORIG_MID--AUDIO_04_R2_2008_wav--3",
+   "n": 4282,
+   "sub": 493,
+   "om": 240,
+   "ins": 337,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--3",
+   "n": 1911,
+   "sub": 228,
+   "om": 103,
+   "ins": 147,
+   "neg": 11
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--6",
+   "n": 4057,
+   "sub": 454,
+   "om": 219,
+   "ins": 341,
+   "neg": 23
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R3_2008_01-07_ORIG_MID--AUDIO_04_R3_2008_wav--7",
+   "n": 5112,
+   "sub": 601,
+   "om": 287,
+   "ins": 390,
+   "neg": 30
+  },
+  {
+   "piece": "MIDI-Unprocessed_04_R3_2011_MID--AUDIO_R3-D2_05_Track05_wav",
+   "n": 2730,
+   "sub": 325,
+   "om": 138,
+   "ins": 219,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_052_PIANO052_MID--AUDIO-split_07-06-17_Piano-e_3-03_wav--3",
+   "n": 2828,
+   "sub": 323,
+   "om": 186,
+   "ins": 198,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_053_PIANO053_MID--AUDIO-split_07-06-17_Piano-e_3-04_wav--1",
+   "n": 1514,
+   "sub": 187,
+   "om": 80,
+   "ins": 111,
+   "neg": 9
+  },
+  {
+   "piece": "MIDI-Unprocessed_056_PIANO056_MID--AUDIO-split_07-07-17_Piano-e_1-05_wav--1",
+   "n": 1367,
+   "sub": 157,
+   "om": 76,
+   "ins": 109,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_057_PIANO057_MID--AUDIO-split_07-07-17_Piano-e_1-07_wav--3",
+   "n": 1592,
+   "sub": 185,
+   "om": 97,
+   "ins": 116,
+   "neg": 9
+  },
+  {
+   "piece": "MIDI-Unprocessed_059_PIANO059_MID--AUDIO-split_07-07-17_Piano-e_2-03_wav--4",
+   "n": 8277,
+   "sub": 938,
+   "om": 468,
+   "ins": 663,
+   "neg": 47
+  },
+  {
+   "piece": "MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--2",
+   "n": 3332,
+   "sub": 382,
+   "om": 193,
+   "ins": 258,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--3",
+   "n": 2774,
+   "sub": 295,
+   "om": 165,
+   "ins": 234,
+   "neg": 15
+  },
+  {
+   "piece": "MIDI-Unprocessed_05_R1_2008_01-04_ORIG_MID--AUDIO_05_R1_2008_wav--4",
+   "n": 3944,
+   "sub": 456,
+   "om": 226,
+   "ins": 304,
+   "neg": 23
+  },
+  {
+   "piece": "MIDI-Unprocessed_05_R1_2011_MID--AUDIO_R1-D2_10_Track10_wav",
+   "n": 2254,
+   "sub": 275,
+   "om": 130,
+   "ins": 159,
+   "neg": 14
+  },
+  {
+   "piece": "MIDI-Unprocessed_05_R1_2011_MID--AUDIO_R1-D2_12_Track12_wav",
+   "n": 3751,
+   "sub": 435,
+   "om": 223,
+   "ins": 280,
+   "neg": 22
+  },
+  {
+   "piece": "MIDI-Unprocessed_065_PIANO065_MID--AUDIO-split_07-07-17_Piano-e_3-01_wav--2",
+   "n": 4279,
+   "sub": 523,
+   "om": 192,
+   "ins": 355,
+   "neg": 26
+  },
+  {
+   "piece": "MIDI-Unprocessed_065_PIANO065_MID--AUDIO-split_07-07-17_Piano-e_3-01_wav--3",
+   "n": 4095,
+   "sub": 479,
+   "om": 209,
+   "ins": 336,
+   "neg": 24
+  },
+  {
+   "piece": "MIDI-Unprocessed_066_PIANO066_MID--AUDIO-split_07-07-17_Piano-e_3-02_wav--2",
+   "n": 3260,
+   "sub": 379,
+   "om": 159,
+   "ins": 277,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_06_R1_2006_01-04_ORIG_MID--AUDIO_06_R1_2006_02_Track02_wav",
+   "n": 6128,
+   "sub": 728,
+   "om": 312,
+   "ins": 492,
+   "neg": 36
+  },
+  {
+   "piece": "MIDI-Unprocessed_06_R1_2008_01-04_ORIG_MID--AUDIO_06_R1_2008_wav--2",
+   "n": 3194,
+   "sub": 373,
+   "om": 164,
+   "ins": 261,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_06_R1_2008_01-04_ORIG_MID--AUDIO_06_R1_2008_wav--3",
+   "n": 3297,
+   "sub": 396,
+   "om": 182,
+   "ins": 246,
+   "neg": 20
+  },
+  {
+   "piece": "MIDI-Unprocessed_071_PIANO071_MID--AUDIO-split_07-08-17_Piano-e_1-04_wav--2",
+   "n": 2363,
+   "sub": 271,
+   "om": 111,
+   "ins": 209,
+   "neg": 14
+  },
+  {
+   "piece": "MIDI-Unprocessed_072_PIANO072_MID--AUDIO-split_07-08-17_Piano-e_1-06_wav--2",
+   "n": 4552,
+   "sub": 518,
+   "om": 260,
+   "ins": 360,
+   "neg": 26
+  },
+  {
+   "piece": "MIDI-Unprocessed_075_PIANO075_MID--AUDIO-split_07-08-17_Piano-e_2-06_wav--3",
+   "n": 4163,
+   "sub": 505,
+   "om": 211,
+   "ins": 325,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_078_PIANO078_MID--AUDIO-split_07-09-17_Piano-e_1-02_wav--2",
+   "n": 7097,
+   "sub": 831,
+   "om": 393,
+   "ins": 550,
+   "neg": 42
+  },
+  {
+   "piece": "MIDI-Unprocessed_07_R1_2006_01-04_ORIG_MID--AUDIO_07_R1_2006_04_Track04_wav",
+   "n": 16966,
+   "sub": 1954,
+   "om": 913,
+   "ins": 1375,
+   "neg": 98
+  },
+  {
+   "piece": "MIDI-Unprocessed_07_R1_2009_01-03_ORIG_MID--AUDIO_07_R1_2009_07_R1_2009_03_WAV",
+   "n": 6392,
+   "sub": 757,
+   "om": 359,
+   "ins": 482,
+   "neg": 38
+  },
+  {
+   "piece": "MIDI-Unprocessed_07_R1_2011_MID--AUDIO_R1-D3_02_Track02_wav",
+   "n": 1374,
+   "sub": 165,
+   "om": 69,
+   "ins": 110,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_07_R1_2011_MID--AUDIO_R1-D3_03_Track03_wav",
+   "n": 2134,
+   "sub": 247,
+   "om": 115,
+   "ins": 172,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_080_PIANO080_MID--AUDIO-split_07-09-17_Piano-e_1-06_wav--3",
+   "n": 15840,
+   "sub": 1868,
+   "om": 846,
+   "ins": 1246,
+   "neg": 93
+  },
+  {
+   "piece": "MIDI-Unprocessed_083_PIANO083_MID--AUDIO-split_07-09-17_Piano-e_2_-06_wav--1",
+   "n": 1129,
+   "sub": 139,
+   "om": 62,
+   "ins": 81,
+   "neg": 7
+  },
+  {
+   "piece": "MIDI-Unprocessed_083_PIANO083_MID--AUDIO-split_07-09-17_Piano-e_2_-06_wav--3",
+   "n": 3066,
+   "sub": 353,
+   "om": 164,
+   "ins": 249,
+   "neg": 18
+  },
+  {
+   "piece": "MIDI-Unprocessed_08_R1_2008_01-05_ORIG_MID--AUDIO_08_R1_2008_wav--2",
+   "n": 2850,
+   "sub": 341,
+   "om": 157,
+   "ins": 214,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_08_R1_2008_01-05_ORIG_MID--AUDIO_08_R1_2008_wav--3",
+   "n": 3154,
+   "sub": 344,
+   "om": 196,
+   "ins": 248,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_08_R1_2009_01-04_ORIG_MID--AUDIO_08_R1_2009_08_R1_2009_03_WAV",
+   "n": 2868,
+   "sub": 354,
+   "om": 141,
+   "ins": 222,
+   "neg": 18
+  },
+  {
+   "piece": "MIDI-Unprocessed_08_R1_2009_01-04_ORIG_MID--AUDIO_08_R1_2009_08_R1_2009_04_WAV",
+   "n": 5000,
+   "sub": 597,
+   "om": 263,
+   "ins": 390,
+   "neg": 30
+  },
+  {
+   "piece": "MIDI-Unprocessed_09_R1_2008_01-05_ORIG_MID--AUDIO_09_R1_2008_wav--2",
+   "n": 3239,
+   "sub": 365,
+   "om": 182,
+   "ins": 263,
+   "neg": 18
+  },
+  {
+   "piece": "MIDI-Unprocessed_09_R1_2009_01-04_ORIG_MID--AUDIO_09_R1_2009_09_R1_2009_03_WAV",
+   "n": 8486,
+   "sub": 977,
+   "om": 488,
+   "ins": 657,
+   "neg": 49
+  },
+  {
+   "piece": "MIDI-Unprocessed_09_R1_2011_MID--AUDIO_R1-D3_13_Track13_wav",
+   "n": 2609,
+   "sub": 317,
+   "om": 137,
+   "ins": 198,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_09_R2_2008_01-05_ORIG_MID--AUDIO_09_R2_2008_wav--3",
+   "n": 4651,
+   "sub": 550,
+   "om": 249,
+   "ins": 364,
+   "neg": 28
+  },
+  {
+   "piece": "MIDI-Unprocessed_09_R3_2008_01-07_ORIG_MID--AUDIO_09_R3_2008_wav--1",
+   "n": 1113,
+   "sub": 125,
+   "om": 60,
+   "ins": 93,
+   "neg": 6
+  },
+  {
+   "piece": "MIDI-Unprocessed_09_R3_2008_01-07_ORIG_MID--AUDIO_09_R3_2008_wav--2",
+   "n": 882,
+   "sub": 92,
+   "om": 46,
+   "ins": 82,
+   "neg": 5
+  },
+  {
+   "piece": "MIDI-Unprocessed_10_R1_2006_01-04_ORIG_MID--AUDIO_10_R1_2006_03_Track03_wav",
+   "n": 15733,
+   "sub": 1819,
+   "om": 856,
+   "ins": 1258,
+   "neg": 91
+  },
+  {
+   "piece": "MIDI-Unprocessed_10_R1_2008_01-04_ORIG_MID--AUDIO_10_R1_2008_wav--2",
+   "n": 4368,
+   "sub": 497,
+   "om": 228,
+   "ins": 367,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--1",
+   "n": 860,
+   "sub": 100,
+   "om": 50,
+   "ins": 65,
+   "neg": 5
+  },
+  {
+   "piece": "MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--2",
+   "n": 1770,
+   "sub": 201,
+   "om": 95,
+   "ins": 146,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-Unprocessed_10_R2_2008_01-05_ORIG_MID--AUDIO_10_R2_2008_wav--4",
+   "n": 4239,
+   "sub": 505,
+   "om": 220,
+   "ins": 335,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_11_R1_2009_01-05_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_04_WAV",
+   "n": 2884,
+   "sub": 327,
+   "om": 139,
+   "ins": 255,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_11_R1_2009_06-09_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_07_WAV",
+   "n": 721,
+   "sub": 83,
+   "om": 33,
+   "ins": 64,
+   "neg": 4
+  },
+  {
+   "piece": "MIDI-Unprocessed_11_R1_2009_06-09_ORIG_MID--AUDIO_11_R1_2009_11_R1_2009_08_WAV",
+   "n": 4060,
+   "sub": 493,
+   "om": 207,
+   "ins": 315,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_11_R1_2011_MID--AUDIO_R1-D4_07_Track07_wav",
+   "n": 1363,
+   "sub": 152,
+   "om": 69,
+   "ins": 120,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_11_R3_2008_01-04_ORIG_MID--AUDIO_11_R3_2008_wav--1",
+   "n": 2738,
+   "sub": 339,
+   "om": 139,
+   "ins": 206,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_12_R1_2006_01-08_ORIG_MID--AUDIO_12_R1_2006_07_Track07_wav",
+   "n": 3816,
+   "sub": 459,
+   "om": 195,
+   "ins": 300,
+   "neg": 23
+  },
+  {
+   "piece": "MIDI-Unprocessed_12_R1_2008_01-04_ORIG_MID--AUDIO_12_R1_2008_wav--1",
+   "n": 2244,
+   "sub": 245,
+   "om": 123,
+   "ins": 193,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_12_R1_2008_01-04_ORIG_MID--AUDIO_12_R1_2008_wav--4",
+   "n": 6004,
+   "sub": 709,
+   "om": 325,
+   "ins": 467,
+   "neg": 35
+  },
+  {
+   "piece": "MIDI-Unprocessed_12_R3_2008_01-04_ORIG_MID--AUDIO_12_R3_2008_wav--3",
+   "n": 1248,
+   "sub": 155,
+   "om": 72,
+   "ins": 85,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_13_R1_2008_01-04_ORIG_MID--AUDIO_13_R1_2008_wav--1",
+   "n": 1543,
+   "sub": 175,
+   "om": 93,
+   "ins": 118,
+   "neg": 9
+  },
+  {
+   "piece": "MIDI-Unprocessed_14_R1_2008_01-05_ORIG_MID--AUDIO_14_R1_2008_wav--1",
+   "n": 1824,
+   "sub": 208,
+   "om": 105,
+   "ins": 143,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-Unprocessed_14_R1_2008_01-05_ORIG_MID--AUDIO_14_R1_2008_wav--3",
+   "n": 3097,
+   "sub": 377,
+   "om": 165,
+   "ins": 232,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_14_R1_2011_MID--AUDIO_R1-D6_04_Track04_wav",
+   "n": 6391,
+   "sub": 714,
+   "om": 371,
+   "ins": 513,
+   "neg": 36
+  },
+  {
+   "piece": "MIDI-Unprocessed_15_R1_2006_01-05_ORIG_MID--AUDIO_15_R1_2006_02_Track02_wav",
+   "n": 7652,
+   "sub": 891,
+   "om": 417,
+   "ins": 605,
+   "neg": 45
+  },
+  {
+   "piece": "MIDI-Unprocessed_15_R1_2009_01-02_ORIG_MID--AUDIO_15_R1_2009_15_R1_2009_02_WAV",
+   "n": 13316,
+   "sub": 1552,
+   "om": 729,
+   "ins": 1048,
+   "neg": 78
+  },
+  {
+   "piece": "MIDI-Unprocessed_16_R1_2006_01-04_ORIG_MID--AUDIO_16_R1_2006_02_Track02_wav",
+   "n": 4610,
+   "sub": 510,
+   "om": 239,
+   "ins": 403,
+   "neg": 26
+  },
+  {
+   "piece": "MIDI-Unprocessed_16_R2_2009_01_ORIG_MID--AUDIO_16_R2_2009_16_R2_2009_01_WAV",
+   "n": 5498,
+   "sub": 663,
+   "om": 311,
+   "ins": 400,
+   "neg": 33
+  },
+  {
+   "piece": "MIDI-Unprocessed_16_R2_2009_01_ORIG_MID--AUDIO_16_R2_2009_16_R2_2009_02_WAV",
+   "n": 3569,
+   "sub": 420,
+   "om": 193,
+   "ins": 279,
+   "neg": 21
+  },
+  {
+   "piece": "MIDI-Unprocessed_16_R2_2009_01_ORIG_MID--AUDIO_16_R2_2009_16_R2_2009_04_WAV",
+   "n": 7273,
+   "sub": 843,
+   "om": 412,
+   "ins": 563,
+   "neg": 42
+  },
+  {
+   "piece": "MIDI-Unprocessed_17_R1_2006_01-06_ORIG_MID--AUDIO_17_R1_2006_02_Track02_wav",
+   "n": 6391,
+   "sub": 774,
+   "om": 312,
+   "ins": 512,
+   "neg": 39
+  },
+  {
+   "piece": "MIDI-Unprocessed_17_R1_2008_01-04_ORIG_MID--AUDIO_17_R1_2008_wav--2",
+   "n": 3306,
+   "sub": 383,
+   "om": 172,
+   "ins": 271,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_17_R1_2008_01-04_ORIG_MID--AUDIO_17_R1_2008_wav--3",
+   "n": 3369,
+   "sub": 379,
+   "om": 202,
+   "ins": 261,
+   "neg": 19
+  },
+  {
+   "piece": "MIDI-Unprocessed_17_R1_2009_01-03_ORIG_MID--AUDIO_17_R1_2009_17_R1_2009_01_WAV",
+   "n": 5752,
+   "sub": 689,
+   "om": 326,
+   "ins": 423,
+   "neg": 34
+  },
+  {
+   "piece": "MIDI-Unprocessed_17_R1_2009_01-03_ORIG_MID--AUDIO_17_R1_2009_17_R1_2009_02_WAV",
+   "n": 4403,
+   "sub": 500,
+   "om": 224,
+   "ins": 377,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_17_R2_2008_01-04_ORIG_MID--AUDIO_17_R2_2008_wav--1",
+   "n": 1133,
+   "sub": 128,
+   "om": 65,
+   "ins": 90,
+   "neg": 6
+  },
+  {
+   "piece": "MIDI-Unprocessed_18_R1_2008_01-04_ORIG_MID--AUDIO_18_R1_2008_wav--2",
+   "n": 3213,
+   "sub": 345,
+   "om": 185,
+   "ins": 273,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_18_R1_2011_MID--AUDIO_R1-D7_07_Track07_wav",
+   "n": 1498,
+   "sub": 158,
+   "om": 98,
+   "ins": 118,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_19_R1_2011_MID--AUDIO_R1-D7_15_Track15_wav",
+   "n": 5495,
+   "sub": 660,
+   "om": 290,
+   "ins": 424,
+   "neg": 33
+  },
+  {
+   "piece": "MIDI-Unprocessed_20_R1_2009_01-05_ORIG_MID--AUDIO_20_R1_2009_20_R1_2009_02_WAV",
+   "n": 8043,
+   "sub": 911,
+   "om": 449,
+   "ins": 651,
+   "neg": 46
+  },
+  {
+   "piece": "MIDI-Unprocessed_22_R2_2011_MID--AUDIO_R2-D5_10_Track10_wav",
+   "n": 1647,
+   "sub": 190,
+   "om": 99,
+   "ins": 123,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-Unprocessed_22_R2_2011_MID--AUDIO_R2-D5_11_Track11_wav",
+   "n": 6277,
+   "sub": 703,
+   "om": 357,
+   "ins": 509,
+   "neg": 35
+  },
+  {
+   "piece": "MIDI-Unprocessed_23_R1_2011_MID--AUDIO_R1-D9_03_Track03_wav",
+   "n": 2111,
+   "sub": 254,
+   "om": 100,
+   "ins": 174,
+   "neg": 13
+  },
+  {
+   "piece": "MIDI-Unprocessed_23_R2_2011_MID--AUDIO_R2-D6_03_Track03_wav",
+   "n": 2625,
+   "sub": 317,
+   "om": 139,
+   "ins": 200,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_23_R3_2011_MID--AUDIO_R3-D8_04_Track04_wav",
+   "n": 4368,
+   "sub": 501,
+   "om": 222,
+   "ins": 369,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_24_R1_2006_01-05_ORIG_MID--AUDIO_24_R1_2006_03_Track03_wav",
+   "n": 3878,
+   "sub": 432,
+   "om": 205,
+   "ins": 333,
+   "neg": 22
+  },
+  {
+   "piece": "MIDI-Unprocessed_24_R1_2011_MID--AUDIO_R1-D9_11_Track11_wav",
+   "n": 1256,
+   "sub": 136,
+   "om": 70,
+   "ins": 108,
+   "neg": 7
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_02_R1_2015_wav--1",
+   "n": 1314,
+   "sub": 170,
+   "om": 57,
+   "ins": 101,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_04_R1_2015_wav--2",
+   "n": 2625,
+   "sub": 312,
+   "om": 138,
+   "ins": 206,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_05_R1_2015_wav--3",
+   "n": 4347,
+   "sub": 519,
+   "om": 227,
+   "ins": 341,
+   "neg": 26
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_05_R1_2015_wav--4",
+   "n": 2111,
+   "sub": 243,
+   "om": 112,
+   "ins": 173,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_06_R1_2015_wav--2",
+   "n": 7953,
+   "sub": 937,
+   "om": 447,
+   "ins": 604,
+   "neg": 47
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_06_R1_2015_wav--6",
+   "n": 2124,
+   "sub": 249,
+   "om": 126,
+   "ins": 156,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-1-8_mid--AUDIO-from_mp3_07_R1_2015_wav--1",
+   "n": 1354,
+   "sub": 149,
+   "om": 68,
+   "ins": 121,
+   "neg": 7
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_09_R1_2015_wav--2",
+   "n": 5823,
+   "sub": 694,
+   "om": 307,
+   "ins": 455,
+   "neg": 35
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_11_R1_2015_wav--2",
+   "n": 2022,
+   "sub": 224,
+   "om": 124,
+   "ins": 158,
+   "neg": 11
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_11_R1_2015_wav--3",
+   "n": 2089,
+   "sub": 245,
+   "om": 127,
+   "ins": 150,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_11_R1_2015_wav--5",
+   "n": 1400,
+   "sub": 156,
+   "om": 81,
+   "ins": 113,
+   "neg": 8
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D1-9-12_mid--AUDIO-from_mp3_12_R1_2015_wav--3",
+   "n": 1780,
+   "sub": 226,
+   "om": 76,
+   "ins": 143,
+   "neg": 11
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_15_R1_2015_wav--4",
+   "n": 3601,
+   "sub": 405,
+   "om": 204,
+   "ins": 291,
+   "neg": 20
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_16_R1_2015_wav--2",
+   "n": 2113,
+   "sub": 253,
+   "om": 96,
+   "ins": 179,
+   "neg": 13
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D2-13-20_mid--AUDIO-from_mp3_17_R1_2015_wav--3",
+   "n": 3994,
+   "sub": 510,
+   "om": 203,
+   "ins": 285,
+   "neg": 26
+  },
+  {
+   "piece": "MIDI-Unprocessed_R1_D2-21-22_mid--AUDIO-from_mp3_22_R1_2015_wav--3",
+   "n": 2124,
+   "sub": 249,
+   "om": 122,
+   "ins": 160,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_03_R2_2015_wav--1",
+   "n": 1110,
+   "sub": 141,
+   "om": 47,
+   "ins": 90,
+   "neg": 7
+  },
+  {
+   "piece": "MIDI-Unprocessed_R2_D1-2-3-6-7-8-11_mid--AUDIO-from_mp3_06_R2_2015_wav--1",
+   "n": 4310,
+   "sub": 499,
+   "om": 230,
+   "ins": 349,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_R2_D2-12-13-15_mid--AUDIO-from_mp3_12_R2_2015_wav--3",
+   "n": 8335,
+   "sub": 980,
+   "om": 449,
+   "ins": 655,
+   "neg": 49
+  },
+  {
+   "piece": "MIDI-Unprocessed_R2_D2-12-13-15_mid--AUDIO-from_mp3_13_R2_2015_wav--4",
+   "n": 8775,
+   "sub": 1048,
+   "om": 440,
+   "ins": 706,
+   "neg": 52
+  },
+  {
+   "piece": "MIDI-Unprocessed_R2_D2-19-21-22_mid--AUDIO-from_mp3_19_R2_2015_wav--3",
+   "n": 4425,
+   "sub": 517,
+   "om": 257,
+   "ins": 332,
+   "neg": 26
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital13-15_MID--AUDIO_14_R1_2018_wav--3",
+   "n": 5662,
+   "sub": 668,
+   "om": 310,
+   "ins": 438,
+   "neg": 33
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital13-15_MID--AUDIO_15_R1_2018_wav--1",
+   "n": 3633,
+   "sub": 406,
+   "om": 205,
+   "ins": 297,
+   "neg": 20
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital16_MID--AUDIO_16_R1_2018_wav--3",
+   "n": 366,
+   "sub": 38,
+   "om": 21,
+   "ins": 33,
+   "neg": 2
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital17-19_MID--AUDIO_17_R1_2018_wav--2",
+   "n": 3821,
+   "sub": 456,
+   "om": 214,
+   "ins": 285,
+   "neg": 23
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital17-19_MID--AUDIO_18_R1_2018_wav--3",
+   "n": 1732,
+   "sub": 201,
+   "om": 102,
+   "ins": 130,
+   "neg": 10
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital17-19_MID--AUDIO_19_R1_2018_wav--3",
+   "n": 4169,
+   "sub": 485,
+   "om": 227,
+   "ins": 330,
+   "neg": 24
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital5-7_MID--AUDIO_06_R1_2018_wav--3",
+   "n": 14160,
+   "sub": 1648,
+   "om": 801,
+   "ins": 1091,
+   "neg": 82
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital9-11_MID--AUDIO_09_R1_2018_wav--1",
+   "n": 9786,
+   "sub": 1121,
+   "om": 553,
+   "ins": 772,
+   "neg": 56
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital9-11_MID--AUDIO_09_R1_2018_wav--2",
+   "n": 2644,
+   "sub": 328,
+   "om": 154,
+   "ins": 179,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_Recital9-11_MID--AUDIO_09_R1_2018_wav--5",
+   "n": 1095,
+   "sub": 124,
+   "om": 54,
+   "ins": 96,
+   "neg": 6
+  },
+  {
+   "piece": "MIDI-Unprocessed_SMF_02_R1_2004_01-05_ORIG_MID--AUDIO_02_R1_2004_08_Track08_wav",
+   "n": 2850,
+   "sub": 336,
+   "om": 151,
+   "ins": 225,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_SMF_02_R1_2004_01-05_ORIG_MID--AUDIO_02_R1_2004_10_Track10_wav",
+   "n": 6369,
+   "sub": 716,
+   "om": 363,
+   "ins": 513,
+   "neg": 36
+  },
+  {
+   "piece": "MIDI-Unprocessed_SMF_17_R1_2004_03-06_ORIG_MID--AUDIO_20_R2_2004_12_Track12_wav--1",
+   "n": 1897,
+   "sub": 235,
+   "om": 97,
+   "ins": 142,
+   "neg": 12
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_03_R1_2004_01-02_ORIG_MID--AUDIO_03_R1_2004_01_Track01_wav",
+   "n": 2809,
+   "sub": 344,
+   "om": 151,
+   "ins": 207,
+   "neg": 17
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_04_R1_2004_03-05_ORIG_MID--AUDIO_04_R1_2004_06_Track06_wav",
+   "n": 1820,
+   "sub": 225,
+   "om": 80,
+   "ins": 150,
+   "neg": 11
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_08_R1_2004_04-06_ORIG_MID--AUDIO_08_R1_2004_05_Track05_wav--1",
+   "n": 2641,
+   "sub": 305,
+   "om": 148,
+   "ins": 207,
+   "neg": 15
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_11_R1_2004_01-02_ORIG_MID--AUDIO_11_R1_2004_02_Track02_wav",
+   "n": 11310,
+   "sub": 1283,
+   "om": 621,
+   "ins": 924,
+   "neg": 64
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_14_R1_2004_04_ORIG_MID--AUDIO_14_R1_2004_04_Track04_wav",
+   "n": 2571,
+   "sub": 303,
+   "om": 142,
+   "ins": 198,
+   "neg": 15
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_14_R1_2004_04_ORIG_MID--AUDIO_14_R1_2004_05_Track05_wav",
+   "n": 875,
+   "sub": 103,
+   "om": 51,
+   "ins": 65,
+   "neg": 5
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_15_R1_2004_03_ORIG_MID--AUDIO_15_R1_2004_03_Track03_wav",
+   "n": 10263,
+   "sub": 1239,
+   "om": 536,
+   "ins": 791,
+   "neg": 62
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_18_R1_2004_01-02_ORIG_MID--AUDIO_18_R1_2004_03_Track03_wav",
+   "n": 2655,
+   "sub": 311,
+   "om": 145,
+   "ins": 208,
+   "neg": 16
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_18_R1_2004_01-02_ORIG_MID--AUDIO_18_R1_2004_05_Track05_wav",
+   "n": 4435,
+   "sub": 498,
+   "om": 255,
+   "ins": 356,
+   "neg": 25
+  },
+  {
+   "piece": "MIDI-Unprocessed_XP_19_R1_2004_01-02_ORIG_MID--AUDIO_19_R1_2004_02_Track02_wav",
+   "n": 1601,
+   "sub": 183,
+   "om": 103,
+   "ins": 114,
+   "neg": 9
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_10_13_Group_MID--AUDIO_07_R3_2013_wav--1",
+   "n": 3271,
+   "sub": 361,
+   "om": 189,
+   "ins": 268,
+   "neg": 18
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_01_R1_2013_wav--4",
+   "n": 6104,
+   "sub": 724,
+   "om": 341,
+   "ins": 461,
+   "neg": 36
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_03_R1_2013_wav--1",
+   "n": 1359,
+   "sub": 156,
+   "om": 77,
+   "ins": 107,
+   "neg": 8
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_04_R1_2013_wav--1",
+   "n": 1559,
+   "sub": 171,
+   "om": 95,
+   "ins": 124,
+   "neg": 9
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_04_R1_2013_wav--3",
+   "n": 3947,
+   "sub": 450,
+   "om": 221,
+   "ins": 316,
+   "neg": 22
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_6_13_Group__MID--AUDIO_04_R1_2013_wav--4",
+   "n": 5525,
+   "sub": 645,
+   "om": 295,
+   "ins": 441,
+   "neg": 32
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_11_R1_2013_wav--1",
+   "n": 2006,
+   "sub": 225,
+   "om": 104,
+   "ins": 173,
+   "neg": 11
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_11_R1_2013_wav--4",
+   "n": 6143,
+   "sub": 740,
+   "om": 287,
+   "ins": 509,
+   "neg": 37
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_13_R1_2013_wav--3",
+   "n": 4869,
+   "sub": 554,
+   "om": 265,
+   "ins": 398,
+   "neg": 28
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_7_13_Group__MID--AUDIO_14_R1_2013_wav--2",
+   "n": 2273,
+   "sub": 259,
+   "om": 128,
+   "ins": 181,
+   "neg": 13
+  },
+  {
+   "piece": "ORIG-MIDI_01_7_8_13_Group__MID--AUDIO_07_R2_2013_wav--2",
+   "n": 2642,
+   "sub": 313,
+   "om": 172,
+   "ins": 175,
+   "neg": 16
+  },
+  {
+   "piece": "ORIG-MIDI_02_7_10_13_Group_MID--AUDIO_12_R3_2013_wav--2",
+   "n": 2372,
+   "sub": 251,
+   "om": 150,
+   "ins": 192,
+   "neg": 13
+  },
+  {
+   "piece": "ORIG-MIDI_02_7_10_13_Group_MID--AUDIO_14_R3_2013_wav--2",
+   "n": 11826,
+   "sub": 1411,
+   "om": 617,
+   "ins": 928,
+   "neg": 71
+  },
+  {
+   "piece": "ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--4",
+   "n": 2787,
+   "sub": 302,
+   "om": 134,
+   "ins": 261,
+   "neg": 15
+  },
+  {
+   "piece": "ORIG-MIDI_02_7_6_13_Group__MID--AUDIO_08_R1_2013_wav--5",
+   "n": 3105,
+   "sub": 372,
+   "om": 164,
+   "ins": 240,
+   "neg": 19
+  },
+  {
+   "piece": "ORIG-MIDI_02_7_7_13_Group__MID--AUDIO_16_R1_2013_wav--2",
+   "n": 4355,
+   "sub": 515,
+   "om": 232,
+   "ins": 342,
+   "neg": 26
+  },
+  {
+   "piece": "ORIG-MIDI_02_7_7_13_Group__MID--AUDIO_19_R1_2013_wav--2",
+   "n": 2266,
+   "sub": 242,
+   "om": 138,
+   "ins": 186,
+   "neg": 12
+  },
+  {
+   "piece": "ORIG-MIDI_03_7_10_13_Group_MID--AUDIO_17_R3_2013_wav--1",
+   "n": 2873,
+   "sub": 321,
+   "om": 172,
+   "ins": 225,
+   "neg": 16
+  },
+  {
+   "piece": "ORIG-MIDI_03_7_6_13_Group__MID--AUDIO_09_R1_2013_wav--3",
+   "n": 1832,
+   "sub": 230,
+   "om": 97,
+   "ins": 131,
+   "neg": 12
+  },
+  {
+   "piece": "ORIG-MIDI_03_7_8_13_Group__MID--AUDIO_19_R2_2013_wav--4",
+   "n": 6146,
+   "sub": 700,
+   "om": 301,
+   "ins": 535,
+   "neg": 35
+  }
+ ],
+ "_provenance": {
+  "run": "inject_maestro_ei.py on gilbreth 2026-08-31, anaenv python, seed 20260831",
+  "corpus": "/scratch/gilbreth/dcharapa/mer/run/data/MAESTRO-EI (score/mistake/label/manifest per piece)",
+  "design": "research/notes/synthetic-error-corpus-generation.md: authentic mix 46.6/31.7/21.7 target, lambda=0.25, per-injection manifest with pairing edges, 5% negative controls, correct notes verbatim (no timing mutation)"
+ }
+}

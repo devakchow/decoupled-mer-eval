@@ -1,0 +1,21 @@
+{
+ "B_laddersym_maestro_ei_unprompted": {
+  "_gate": "confusion identical to scorer artifact: run/results/B_laddersym_maestro_ei_unprompted_shipped.json",
+  "_n_merges_pred": 105689,
+  "extra->wrong": {
+   "n": 34364,
+   "manifest_genuine": 606,
+   "manifest_genuine_rate": 0.017634734023978582
+  },
+  "wrong->wrong": {
+   "n": 67426,
+   "manifest_genuine": 57775,
+   "manifest_genuine_rate": 0.8568653041853291
+  },
+  "missed->wrong": {
+   "n": 1164,
+   "manifest_genuine": 745,
+   "manifest_genuine_rate": 0.6400343642611683
+  }
+ }
+}

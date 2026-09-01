@@ -129,8 +129,7 @@ Merge Rates Differ Across Rows, So No Entry Is Marked Best, and [5] Labels the
 Two LadderSym Rows \\emph{{Ladder}} and \\emph{{LadderSym}}. \\emph{{Raw}} Charges
 Every Off-Diagonal Event; \\emph{{Genuine}} Charges One Only If Unmerged or Its
 Deletion Claim Names an Omitted Score Note, Over $|M|-|A|-|U|$;
-\\emph{{Unfounded}} Is $|U|/|M|$ Over \\emph{{All}} Localized Errors---a Separate
-Diagnostic, Not a Component of \\emph{{Genuine}}
+\\emph{{Unfounded}} Is $|U|/|M|$ Over \\emph{{All}} Localized Errors
 (Sec.~\\ref{{sec:experiments}})}}
 \\label{{tab:main}}
 \\begin{{tabular}}{{@{{}}l c c c c c@{{}}}}
@@ -169,10 +168,12 @@ def table_ablation() -> str:
 \\begin{{table}}[!tb]
 \\centering
 \\caption{{Score Conditioning on LadderSym, Per-Piece Paired
-($n={S.ablation()['n_used']}$, $\\tau=50$\\,ms). $\\Delta$ Is
-Prompted$-$Unprompted ($10^4$-Resample Interval); $p$ From Two-Sided Wilcoxon
-on Nonzero Differences ($n={n_nz_hm}$, ${n_nz_f}$); $\\delta$ Is Cliff's
-Dominance on the Marginals. The Contrast Is Scorer-Internal}}
+($n={S.ablation()['n_used']}$, $\\tau=50$\\,ms). Prompt./Unpr.\\ Are
+Per-Piece Means of Raw $\\mathrm{{HM}}$ and $F$ and So Differ From
+Table~\\ref{{tab:main}}'s Pooled Values. $\\Delta$ Is Prompted$-$Unprompted
+($10^4$-Resample Interval); $p$ From Two-Sided Wilcoxon on Nonzero Differences
+($n={n_nz_hm}$, ${n_nz_f}$); $\\delta$ Is Cliff's Dominance on the Marginals.
+The Contrast Is Scorer-Internal}}
 \\label{{tab:ablation}}
 \\footnotesize
 \\setlength{{\\tabcolsep}}{{3.5pt}}

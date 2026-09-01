@@ -1,0 +1,31 @@
+{
+ "A_polytune_maestro": {
+  "n_pieces": 177,
+  "point": 0.44727560204329847,
+  "ci95": [
+   0.435862701904437,
+   0.45881092860973327
+  ]
+ },
+ "B_laddersym_maestro_unprompted": {
+  "n_pieces": 177,
+  "point": 0.3555770693589655,
+  "ci95": [
+   0.34173503241536124,
+   0.37061596273951863
+  ]
+ },
+ "B_laddersym_maestro_prompted": {
+  "n_pieces": 177,
+  "point": 0.2694689957547498,
+  "ci95": [
+   0.25770056574301775,
+   0.2804636644797389
+  ]
+ },
+ "_provenance": {
+  "run": "uk_ci.py on gilbreth 2026-08-31 (anaenv python), retrieved via scp",
+  "gate": "reuses collapse_validation.py's verified helpers; point estimates must equal tide_bins' unfounded/|K| exactly",
+  "protocol": "per-piece cluster bootstrap of |U|/|K|, percentile, 1000 resamples, seed 20260831"
+ }
+}

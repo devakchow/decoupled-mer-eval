@@ -815,7 +815,7 @@ def check_letter_prose() -> None:
     assert_in("unfounded share",
               "$%.1f\\%%$, $%.1f\\%%$, $%.1f\\%%$" % tuple(u * 100 for u in unf))
     assert_in("positive control",
-              "$%.2f$/$%.2f$/$%.2f$" % tuple(pos))
+              "$%.2f/%.2f/%.2f$" % tuple(pos))
     assert_in("suspect-cell genuine rate",
               "$%.3f$--$%.3f$" % (min(susp), max(susp)))
     assert_in("mu_p merges",
@@ -840,7 +840,7 @@ def check_letter_prose() -> None:
                         "spl_supplementary_v5.tex")
     if os.path.exists(supp):
         with open(supp, "r", encoding="utf-8") as fh:
-            stex = fh.read()
+            stex = re.sub(r"\s+", " ", fh.read())
         v110 = os.path.join(HERE, "results", "gilbreth_v110")
         n_vals = n_tau = 0
         for fn in sorted(os.listdir(v110)):
@@ -851,7 +851,8 @@ def check_letter_prose() -> None:
                 n_vals += 2  # point_hm, point_loc_f1
             n_tau += len((d or {}).get("decoupled", {}).get("per_tau", []))
         for label, printed in ((f"rescore value count", f"(${n_vals}$ values)"),
-                               (f"guard tau-point count", f"${n_tau}$ $(\\tau,")):
+                               (f"guard tau-point count",
+                                f"holds at all ${n_tau}$ $(\\tau,\\text")):
             if printed in stex:
                 ok(f"supplement {label}: '{printed}' artifact-derived")
             else:
@@ -900,6 +901,88 @@ def check_letter_prose() -> None:
     else:
         fail(f"tie-break moves HM by {dmax:.4f}; the letter claims <= 0.002")
     assert_in("tie-break bound", "$\\le0.002$")
+
+    # |U|/|K| bootstrap: points must equal tide_bins' conditional exactly, the
+    # three intervals must be pairwise disjoint, and the prose must say so.
+    uk = _load(os.path.join(HERE, "results", "cluster", "uk_ci.json"))
+    _iv = [uk[st]["ci95"] for st in stems]
+    for st in stems:
+        c = cv[st]
+        K = sum(c[k]["n"] for k in ("extra->wrong", "wrong->wrong", "missed->wrong"))
+        U = sum(c[k]["absent_from_score"]
+                for k in ("extra->wrong", "wrong->wrong", "missed->wrong"))
+        if abs(uk[st]["point"] - U / K) > 1e-12:
+            fail(f"uk_ci point for {st} != U/K from adjudication cells")
+    disj = all(_iv[i][1] < _iv[i+1][0] or _iv[i+1][1] < _iv[i][0] for i in range(2))
+    disj = disj and (_iv[0][1] < _iv[2][0] or _iv[2][1] < _iv[0][0])
+    if disj:
+        ok("uk_ci: |U|/|K| intervals pairwise disjoint, points match adjudication")
+        assert_in("|U|/|K| disjoint clause", "orders the systems alone with disjoint")
+    else:
+        fail("uk_ci intervals no longer pairwise disjoint; prose claims they are")
+
+    # Sub-tolerance oracle variant: recovery must include tau=50 ms as printed.
+    oj = _load(os.path.join(HERE, "oracle_smalljitter.json"))
+    pj = round(oj["planted_hm"], 4)
+    if all(r["hm"] == pj for r in oj["sweep"]) and any(
+            r["tau_ms"] == 50 for r in oj["sweep"]):
+        ok(f"sub-tolerance oracle: HM*={pj} recovered at all "
+           f"{len(oj['sweep'])} tolerances incl. 50 ms")
+    else:
+        fail("sub-tolerance oracle no longer recovers at every tolerance")
+    assert_in("oracle 50 ms clause",
+              "including $50$~ms, once the jitter is sub-tolerance")
+
+    # Anchor-window sweep of the unfounded share: the ordering claim in the
+    # supplement must match the artifact's worst-case flag, and the printed
+    # Polytune endpoints must be the derived ones (outward-rounded).
+    uw = _load(os.path.join(HERE, "results", "cluster",
+                            "unfounded_window_sweep.json"))
+    if uw["worst_case_ordering_holds_at_every_window"]:
+        ok("unfounded ordering holds at every anchor window (worst-case bounds)")
+    else:
+        fail("unfounded ordering no longer window-robust; supplement claims it is")
+    import math as _m
+    lo25, hi25 = uw["per_window"]["w25_exact"]["A_polytune_maestro"]
+    lo500, hi500 = uw["per_window"]["w500_exact"]["A_polytune_maestro"]
+    _supp2 = os.path.join(os.path.dirname(HERE), "proposal",
+                          "spl_supplementary_v5.tex")
+    if os.path.exists(_supp2):
+        with open(_supp2, encoding="utf-8") as fh:
+            s2 = re.sub(r"\s+", " ", fh.read())
+        want = ("$%.2f$--$%.2f$ at $25$~ms to $%.2f$--$%.2f$ at $500$~ms"
+                % (_m.floor(lo25*100)/100, _m.ceil(hi25*100)/100,
+                   _m.floor(lo500*100)/100, _m.ceil(hi500*100)/100))
+        if want in s2:
+            ok("supplement window-sweep endpoints artifact-derived")
+        else:
+            fail(f"supplement window-sweep endpoints should read '{want}'")
+        # diagonal splits of A and U, derived from the adjudication cells
+        Ad = "/".join(str(cv[st]["wrong->wrong"]["in_score_correct"]) for st in stems)
+        Ud = "/".join("{:,}".format(cv[st]["wrong->wrong"]["absent_from_score"])
+                      .replace(",", "{,}") for st in stems)
+        if f"${Ad}$" in s2 and f"${Ud}$" in s2:
+            ok("supplement A/U diagonal splits artifact-derived")
+        else:
+            fail(f"supplement A/U diagonal splits should be ${Ad}$ and ${Ud}$")
+        # 0.574 constituents from the replication artifact
+        r_u = rep_m["systems"]["laddersym_unprompted"]
+        cons = "%.3f/%.3f" % (r_u["pooled_f1_missed"], r_u["pooled_f1_extra"])
+        if cons in s2:
+            ok(f"supplement Published=0.574 constituents ({cons}) present")
+        else:
+            fail(f"supplement missing 0.574 constituents {cons}")
+        # band instantiation from the printed per-class counts
+        T = 7088 + 27650
+        X = min(24039, 6888) + min(18829, 15999)
+        if ("$T=%s$" % "{:,}".format(T).replace(",", "{,}")) in s2 and            ("%.3f" % (X / (T + X))) in s2:
+            ok(f"supplement band instantiated: T={T}, X={X}, X/(T+X)={X/(T+X):.3f}")
+        else:
+            fail("supplement band instantiation missing or wrong")
+
+    # Remark 1's old final claim was mathematically false (marginals pin |M| only)
+    if "would all be pinned" in tex:
+        fail("Remark 1's false 'would all be pinned' claim reintroduced")
 
     # Bibliographic details verified against Crossref, pinned so a hand-edit
     # cannot silently reintroduce a wrong locator.
