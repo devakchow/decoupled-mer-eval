@@ -932,7 +932,7 @@ def check_letter_prose() -> None:
     else:
         fail("sub-tolerance oracle no longer recovers at every tolerance")
     assert_in("oracle 50 ms clause",
-              "including $50$~ms, once the jitter is sub-tolerance")
+              "(all six once the jitter is sub-tolerance)")
 
     # Anchor-window sweep of the unfounded share: the ordering claim in the
     # supplement must match the artifact's worst-case flag, and the printed
@@ -987,12 +987,14 @@ def check_letter_prose() -> None:
 
     # Bibliographic details verified against Crossref, pinned so a hand-edit
     # cannot silently reintroduce a wrong locator.
-    BIB = {"10.1109/LSP.2026.3702515": "pp.~2740--2744"}
+    BIB = {}  # DeRA-MOS aside removed 2026-09-01; add DOI->pages pins here
     for doi, page in BIB.items():
         if page in tex:
             ok(f"bib page range for {doi} matches Crossref")
         else:
             fail(f"bib page range for {doi} should be '{page}' (Crossref)")
+    if "wang2026deramos" in tex:
+        fail("DeRA-MOS aside reintroduced without its Crossref page pin")
 
     # Verbatim quotations. Each entry is the exact wording of the VERSION WE
     # CITE, verified against the version of record; a paraphrase or a wording
@@ -1120,7 +1122,8 @@ def check_letter_prose() -> None:
               % "{:,}".format(neg_n).replace(",", "{,}"))
     assert_in("EI decoy merges", "merges $%d$ decoys ($%.2f\\%%$)"
               % (neg_m, 100 * neg_m / neg_n))
-    assert_in("EI adjudication ceiling", "$%.3f$ of merged\nevents at substitution sites".replace("\n", " ")
+    assert_in("EI adjudication ceiling",
+              "$%.3f$ of label-stream merges at substitution sites"
               % val["adjudication"]["genuine_rate"])
     cvei = {}
     for suf in ("A", "Bu", "Bp"):
@@ -1227,8 +1230,10 @@ def check_letter_prose() -> None:
         s_in("EI achieved mix", "$%.2f/%.2f/%.2f\\%%$ of $%s$"
              % (mix["substitution"] * 100, mix["insertion"] * 100,
                 mix["omission"] * 100, inj_str))
-        s_in("EI planted flips", "$%s$ planted class-flips"
-             % "{:,}".format(val["planted_flips"]).replace(",", "{,}"))
+        s_in("EI planted flips", "$q=%.1f$ of the $%s$ non-substitution label events: all $%s$ flips"
+             % (val["_provenance"]["q_planted"],
+                "{:,}".format(val["flippable"]).replace(",", "{,}"),
+                "{:,}".format(val["planted_flips"]).replace(",", "{,}")))
         f_ = val["recovery"]["flip_fate"]
         s_in("EI flip fate",
              "($%s$ matched off-diagonal, $%d$ diagonal, $%s$ collapse-absorbed, $%s$ unmatched)"
@@ -1247,6 +1252,79 @@ def check_letter_prose() -> None:
              (guards[1]["n_pass"], guards[1]["n_pieces"]))
         s_in("EI Polytune guard", "$%d/%d$ plus pooled" %
              (guards[0]["n_pass"], guards[0]["n_pieces"]))
+
+    # 9d. Round-10 discharges: every added number derives from an artifact.
+    # Prop. 1 interval X/(T+X) per configuration from the published-protocol counts
+    xt = []
+    for stem in stems:
+        s50 = _load(os.path.join(gil, f"{stem}_shipped.json"))["shipped_50ms"]
+        m_, e_ = s50["missed"], s50["extra"]
+        T_ = m_["tp"] + e_["tp"]
+        X_ = min(m_["fp"], e_["fn"]) + min(e_["fp"], m_["fn"])
+        xt.append(X_ / (T_ + X_))
+    assert_in("Prop. 1 interval per configuration",
+              "$X/(T{+}X)=%.3f/%.3f/%.3f$" % tuple(xt))
+    # pitch-blind bound: raw HM times the equal-pitch share of the off-diagonal
+    eqs, bnd = [], []
+    for tag in ("polytune", "laddersym_unprompted", "laddersym_prompted"):
+        st = _load(os.path.join(HERE, "results", "revision",
+                                f"M2_pitch_{tag}.json"))["stratified"]
+        eq = st["overall_off_diagonal"]["equal_pitch"]["fraction"]
+        eqs.append(eq * 100); bnd.append(st["hm_observed"] * eq)
+    assert_in("equal-pitch shares", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal pairs" % tuple(eqs))
+    assert_in("pitch-blind HM bound", "$\\mathrm{HM}\\ge%.3f/%.3f/%.3f$" % tuple(bnd))
+    if not (bnd[0] > bnd[1] > bnd[2]):
+        fail("pitch-blind bound no longer preserves the ordering; the letter says it does")
+    # anchor-window level in the main text, outward-rounded like the supplement
+    assert_in("anchor level in letter",
+              "$%.2f$--$%.2f$ at $25$~ms to $%.2f$--$%.2f$ at $500$~ms"
+              % (_m.floor(lo25*100)/100, _m.ceil(hi25*100)/100,
+                 _m.floor(lo500*100)/100, _m.ceil(hi500*100)/100))
+    # span endpoints consistent: the raw upper endpoint everywhere
+    hm_raw_poly = round([x for x in _load(os.path.join(gil, "A_polytune_maestro_shipped.json"))
+                         ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"], 3)
+    assert_in("conclusion span upper endpoint", "$0.063$ to $%.3f$ for the weakest" % hm_raw_poly)
+    if "$0.063$ to $0.242$" in tex:
+        fail("conclusion still prints the charge-U endpoint 0.242 as the span's upper end")
+    # replication clause: Ladder-row residual from the macro artifact
+    mac_u = _load(os.path.join(gil, "replication_macro.json"))["systems"]["laddersym_unprompted"]
+    lad_gap = max(abs(mac_u["macro_f1_missed"] - 0.460), abs(mac_u["macro_f1_extra"] - 0.820))
+    assert_in("Ladder-row residual", "within $%.3f$ of the two for the \\emph{Ladder}" % (_m.ceil(lad_gap*1000)/1000))
+    if os.path.exists(supp):
+        with open(supp, encoding="utf-8") as fh:
+            s4 = re.sub(r"\s+", " ", fh.read())
+        want = "%.3f/%.3f" % (mac_u["macro_f1_missed"], mac_u["macro_f1_extra"])
+        if want in s4:
+            ok(f"supplement prints the unprompted per-piece replication {want}")
+        else:
+            fail(f"supplement must print the unprompted per-piece replication {want}")
+    # the Polytune quotation is pinned to its location in the cited version
+    # collapse-free functional: scored without the collapse, must sit inside
+    # Prop. 1's interval for every configuration, with the printed CI bound.
+    nc, hw = [], 0.0
+    for stem, bound in zip(stems, xt):
+        d = _load(os.path.join(gil, f"{stem}_nocollapse.json"))
+        t = [x for x in d["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
+        b = d["bootstrap"]["50"]
+        nc.append(t["hm"]); hw = max(hw, b["hm_ci95"][1] - t["hm"], t["hm"] - b["hm_ci95"][0])
+        if not (0.0 <= t["hm"] <= bound):
+            fail(f"collapse-free HM {t['hm']:.4f} for {stem} outside Prop. 1 interval [0,{bound:.3f}]")
+        if not all(x["mass_conserved"] for x in d["decoupled"]["per_tau"]):
+            fail(f"collapse-free arm {stem}: mass conservation failed")
+    assert_in("collapse-free HM", "puts at $%.3f/%.3f/%.3f$" % tuple(nc))
+    if hw <= 0.007:
+        ok(f"collapse-free per-piece intervals within +/-{hw:.4f} <= printed 0.007")
+    else:
+        fail(f"collapse-free CI half-width {hw:.4f} exceeds printed 0.007")
+    if os.path.exists(supp):
+        with open(supp, encoding="utf-8") as fh:
+            s5 = re.sub(r"\s+", " ", fh.read())
+        if ("gives $%.3f/%.3f/%.3f$, inside" % tuple(nc)) in s5:
+            ok("supplement collapse-free arm artifact-derived")
+        else:
+            fail("supplement collapse-free arm values should be %.3f/%.3f/%.3f" % tuple(nc))
+    assert_in("quote location", "simultaneously'' (its Fig.~1)")
+    assert_in("LadderSym availability wording", "were absent from the released repository (accessed")
 
 
 def check_cluster_parity() -> None:

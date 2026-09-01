@@ -40,7 +40,10 @@ experiments/
   evidence/                      CocoChorales ground-truth join + census
                                  (provenance for the 85.6%/43.2% selection-bias
                                  figures in the supplementary material)
-  results/gilbreth/              scored artifacts cited in the letter
+  results/gilbreth/              scored artifacts cited in the letter, incl.
+                                 the collapse-free arm (*_nocollapse.json:
+                                 --collapse none, the two-class functional
+                                 Proposition 1 bounds)
   results/cluster/               adjudication of merged wrong-events against
                                  the score (genuine/ambiguous/unfounded), the
                                  per-piece bootstrap for those columns, the

@@ -322,8 +322,11 @@ def collapse_wrong(events: Sequence[Event],
     A collapsed ``wrong`` event carries the played (extra) onset and pitch,
     exactly as in the oracle. Non-(missed|extra) events pass through.
     """
-    if mode not in ("strict", "pitch_aware"):
-        raise ValueError("collapse mode must be 'strict' or 'pitch_aware', got %r" % mode)
+    if mode not in ("strict", "pitch_aware", "none"):
+        raise ValueError("collapse mode must be 'strict', 'pitch_aware', or 'none', got %r" % mode)
+    if mode == "none":
+        # Collapse-free two-class scoring: the functional Prop. 1 bounds.
+        return list(events)
     missed = [e for e in events if e.etype == "missed"]
     extra = [e for e in events if e.etype == "extra"]
     passthrough = [e for e in events if e.etype not in ("missed", "extra")]
@@ -965,7 +968,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     ap.add_argument("--eps", type=float, default=DEFAULT_EPSILON_S,
                     help="wrong-note collapse radius; >1 = ms, <=1 = s "
                          "(default 0.05 s; independent of tau)")
-    ap.add_argument("--collapse", choices=("strict", "pitch_aware"),
+    ap.add_argument("--collapse", choices=("strict", "pitch_aware", "none"),
                     default="strict", help="collapse rule (default strict)")
     ap.add_argument("--out", default="results.json", help="output JSON path")
     ap.add_argument("--shipped", action="store_true",

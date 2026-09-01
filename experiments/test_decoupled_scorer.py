@@ -389,6 +389,12 @@ class TestCollapse:
         out = ds.collapse_wrong(pair, epsilon=0.0)
         assert sorted(e.etype for e in out) == ["extra", "missed"]
 
+    def test_collapse_none_passes_events_through(self):
+        pair = [ds.Event(1.00, 60, "missed"), ds.Event(1.00, 64, "extra")]
+        out = ds.collapse_wrong(pair, epsilon=0.05, mode="none")
+        assert [e.etype for e in out] == ["missed", "extra"]
+        assert len(out) == 2
+
     def test_chord_resolution_strict_min_onset_distance(self):
         """Two missed + two extra in a chord: strict pairing must be the
         min-total-onset-distance max-cardinality assignment."""
