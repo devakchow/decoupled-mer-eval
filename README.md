@@ -51,7 +51,43 @@ experiments/
                                  scorer is deterministic and timestamp-free, so
                                  byte-identity with results/gilbreth/ is the
                                  expected outcome of the parity check
+  results/gilbreth_ei/           MAESTRO-EI campaign: all three configurations
+                                 scored under the 4-variant x 6-tolerance grid
+                                 (with per-piece bootstrap), dominance guard,
+                                 track census, and manifest adjudication
+                                 (collapse_validation_ei_{A,Bu,Bp}.json)
+  setup/                         MAESTRO-EI toolchain: inject_maestro_ei.py
+                                 (generator), validate_maestro_ei.py (label-
+                                 stream validation), collapse_validation_ei.py
+                                 (manifest adjudication), gen_gt_meta.py
 ```
+
+## MAESTRO-EI
+
+MAESTRO-EI re-injects the 177 MAESTRO-E test scores at the authentic beginner
+error mix (46.58 / 31.65 / 21.76 % substitution / insertion / omission;
+185,346 injections) with a per-injection manifest whose substitutions carry an
+explicit pairing edge (removed -> inserted), plus 4,320 flagged decoy
+deletion-insertion pairs placed >= 2 s apart. Correct notes are copied
+verbatim. The generator is deterministic (seed 20260831; per-piece RNG from the
+SHA-1 of the piece name), so the corpus is reproducible from the MAESTRO-E
+scores alone:
+
+```bash
+cd experiments/setup
+python inject_maestro_ei.py --help      # writes label/, manifest/, corpus_summary.json
+python validate_maestro_ei.py           # decoys, planted flips, adjudication ceiling
+python collapse_validation_ei.py        # manifest-genuine rates per confusion cell
+```
+
+The label MIDIs and manifests as used in the letter are published as a release
+asset (`maestro-ei-labels-manifests.tgz`, sha256
+`e3fec707032c0ebf93faea24a092cf5e4bf285e6f883f2071d95d8fcf336f85c`) at
+<https://github.com/devakchow/decoupled-mer-eval/releases/tag/maestro-ei-v1>.
+Audio is not distributed: render the mistake and score performances with the
+release corpus's own recipe (FluidSynth, the release soundfont, 16 kHz mono
+PCM-24) as in `render_ei.py`; `results/cluster/maestro_ei_summary.json` and
+`maestro_ei_validate.json` hold the corpus census and label-stream validation.
 
 ## Reproducing the letter's numbers
 
