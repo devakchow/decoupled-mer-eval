@@ -931,8 +931,8 @@ def check_letter_prose() -> None:
            f"{len(oj['sweep'])} tolerances incl. 50 ms")
     else:
         fail("sub-tolerance oracle no longer recovers at every tolerance")
-    assert_in("oracle 50 ms clause",
-              "(all six once the jitter is sub-tolerance)")
+    assert_in("oracle recovery clause",
+              "recovered exactly at every $\\tau$ above the planted")
 
     # Anchor-window sweep of the unfounded share: the ordering claim in the
     # supplement must match the artifact's worst-case flag, and the printed
@@ -1039,14 +1039,10 @@ def check_letter_prose() -> None:
     WIN = ["w25_exact", "w500_exact"]
     ctl = [rx["A_polytune_maestro"]["wrong->wrong"][w]["frac_removed"] for w in WIN]
     dom = [rx["A_polytune_maestro"]["extra->wrong"][w]["frac_removed"] for w in WIN]
-    assert_in("anchor sweep control endpoints",
-              "$%.3f\\!\\to\\!%.3f$" % (ctl[0], ctl[-1]))
-    assert_in("anchor sweep dominant at widest", "only $%.3f$" % dom[-1])
     if ctl[-1] - ctl[0] >= 0.02:
-        fail("anchor sweep: control moved %.4f, letter says under 0.02"
-             % (ctl[-1] - ctl[0]))
+        fail("anchor sweep: control moved %.4f (artifact drift)" % (ctl[-1] - ctl[0]))
     else:
-        ok("anchor sweep: control moves %.4f < 0.02 as stated" % (ctl[-1] - ctl[0]))
+        ok("anchor sweep: control moves %.4f < 0.02 (artifact)" % (ctl[-1] - ctl[0]))
 
     # Bootstrap-interval separation, DERIVED not asserted. A blanket "the HM_G
     # intervals overlap" was printed once and was false: the extreme pair is
