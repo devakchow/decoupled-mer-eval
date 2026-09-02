@@ -83,6 +83,7 @@ lazily); mir_eval (optional cross-check only, imported lazily).
 from __future__ import annotations
 
 import argparse
+import bisect
 import json
 import os
 import sys
@@ -105,6 +106,7 @@ __all__ = [
     "collapse_wrong",
     "decoupled_scores",
     "shipped_scores",
+    "score_consistency_filter",
     "sweep",
     "bootstrap_piece_ci",
     "load_pred_events",
@@ -579,6 +581,43 @@ def shipped_scores(pred: Sequence[Event], ref: Sequence[Event],
     return out
 
 
+def score_consistency_filter(pred: Sequence[Event], ref: Sequence[Event],
+                             anchor: float = 0.050) -> Tuple[List[Event], int]:
+    """Drop every predicted ``missed`` claim that names no score note.
+
+    A deletion claim (pitch p at onset t) is kept only if the score holds a
+    note of pitch p with an onset within ``anchor`` of t, in the same piece.
+    The score is the reference ``correct`` plus ``missed`` (removed) tracks:
+    every note the performer was meant to play, whether played or omitted.
+    No reference *error* label is consulted, so a score-informed system can
+    apply the same rule at inference time. Every other event type passes
+    through unchanged. Returns (kept events, number dropped). The anchor
+    semantics (closed window, no slack) mirror the unfounded-claim
+    adjudication in setup/collapse_validation_ei.py.
+    """
+    _validate_events(pred, "predicted")
+    _validate_events(ref, "reference")
+    score: Dict[Tuple[str, int], List[float]] = defaultdict(list)
+    for e in ref:
+        if e.etype in ("correct", "missed"):
+            score[(e.piece, e.pitch_midi)].append(e.onset_s)
+    for onsets in score.values():
+        onsets.sort()
+    kept: List[Event] = []
+    dropped = 0
+    for e in pred:
+        if e.etype != "missed":
+            kept.append(e)
+            continue
+        onsets = score.get((e.piece, e.pitch_midi))
+        i = bisect.bisect_left(onsets, e.onset_s - anchor) if onsets else 0
+        if onsets and i < len(onsets) and onsets[i] <= e.onset_s + anchor:
+            kept.append(e)
+        else:
+            dropped += 1
+    return kept, dropped
+
+
 def mir_eval_track_prf(pred: Sequence[Event], ref: Sequence[Event],
                        tau: float = 0.050) -> Tuple[float, float, float]:
     """Direct mir_eval cross-check for ONE track's event lists (all events are
@@ -978,6 +1017,10 @@ def build_arg_parser() -> argparse.ArgumentParser:
                     help="per-piece bootstrap replicates for 95%% CIs (0 = off)")
     ap.add_argument("--seed", type=int, default=20260718,
                     help="bootstrap RNG seed")
+    ap.add_argument("--score_filter", type=float, default=0.0, metavar="ANCHOR",
+                    help="drop predicted missed claims naming no score note "
+                         "within ANCHOR (>1 = ms, <=1 = s; 0 = off) before "
+                         "scoring; every mode below sees the filtered claims")
     ap.add_argument("--self-check", action="store_true",
                     help="run the built-in oracle regression and exit")
     return ap
@@ -998,6 +1041,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     ref = load_ref_events(args.gt_meta)
     pieces = sorted({e.piece for e in pred} | {e.piece for e in ref})
 
+    score_filter: Optional[Dict[str, object]] = None
+    if args.score_filter > 0:
+        anchor = _to_seconds(args.score_filter)
+        n_missed_before = sum(1 for e in pred if e.etype == "missed")
+        pred, n_dropped = score_consistency_filter(pred, ref, anchor)
+        score_filter = dict(anchor_s=anchor, n_missed_before=n_missed_before,
+                            n_missed_after=n_missed_before - n_dropped,
+                            n_dropped=n_dropped)
+
     sw = sweep(pred, ref, taus=taus, epsilon=eps, collapse=args.collapse)
     results: List[DecoupledResult] = sw["results"]  # type: ignore[assignment]
 
@@ -1016,6 +1068,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         n_pieces=len(pieces),
         n_pred_events=len(pred),
         n_ref_events=len(ref),
+        score_filter=score_filter,
         decoupled=dict(
             per_tau=[r.to_jsonable() for r in results],
             mean_loc_f1_over_tau_grid=sw["mean_loc_f1_over_tau_grid"],

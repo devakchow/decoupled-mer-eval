@@ -395,6 +395,23 @@ class TestCollapse:
         assert [e.etype for e in out] == ["missed", "extra"]
         assert len(out) == 2
 
+    def test_score_consistency_filter_keeps_only_score_named_deletions(self):
+        ref = [ds.Event(1.00, 60, "correct"), ds.Event(2.00, 62, "missed"),
+               ds.Event(3.00, 64, "extra")]
+        pred = [
+            ds.Event(1.04, 60, "missed"),   # names a played score note: keep
+            ds.Event(2.05, 62, "missed"),   # names an omitted score note: keep
+            ds.Event(2.06, 62, "missed"),   # 60 ms from it: drop
+            ds.Event(1.00, 61, "missed"),   # pitch absent from score: drop
+            ds.Event(3.00, 64, "missed"),   # names only a reference extra: drop
+            ds.Event(3.00, 64, "extra"),    # non-missed claims pass through
+            ds.Event(9.00, 99, "correct"),
+        ]
+        kept, dropped = ds.score_consistency_filter(pred, ref, anchor=0.05)
+        assert dropped == 3
+        assert [(e.onset_s, e.etype) for e in kept] == [
+            (1.04, "missed"), (2.05, "missed"), (3.00, "extra"), (9.00, "correct")]
+
     def test_chord_resolution_strict_min_onset_distance(self):
         """Two missed + two extra in a chord: strict pairing must be the
         min-total-onset-distance max-cardinality assignment."""
