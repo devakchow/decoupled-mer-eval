@@ -918,7 +918,7 @@ def check_letter_prose() -> None:
     disj = disj and (_iv[0][1] < _iv[2][0] or _iv[2][1] < _iv[0][0])
     if disj:
         ok("uk_ci: |U|/|K| intervals pairwise disjoint, points match adjudication")
-        assert_in("|U|/|K| disjoint clause", "orders the systems alone with disjoint")
+        assert_in("|U|/|K| disjoint clause", "ordering the systems alone with disjoint")
     else:
         fail("uk_ci intervals no longer pairwise disjoint; prose claims they are")
 
@@ -981,6 +981,15 @@ def check_letter_prose() -> None:
         else:
             fail("supplement band instantiation missing or wrong")
 
+    # A-retained charging endpoint (A in the denominator, uncharged) for Polytune
+    c0 = cv["A_polytune_maestro"]
+    U0 = sum(c0[k]["absent_from_score"] for k in ("extra->wrong", "wrong->wrong", "missed->wrong"))
+    M0 = [x for x in _load(os.path.join(gil, "A_polytune_maestro_shipped.json"))
+          ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
+    hm_a = (1173 + 136) / (M0["n_localized"] - U0)
+    assert_in("A-retained endpoint", "uncharged gives $%.3f$ for Polytune" % hm_a)
+    ww0 = M0["confusion_sparse"]["wrong->wrong"]
+    assert_in("diagonal total beside 1,881", "(of\n$%s$)".replace("\n", " ") % "{:,}".format(ww0).replace(",", "{,}"))
     # Remark 1's old final claim was mathematically false (marginals pin |M| only)
     if "would all be pinned" in tex:
         fail("Remark 1's false 'would all be pinned' claim reintroduced")
@@ -1067,11 +1076,30 @@ def check_letter_prose() -> None:
     else:
         fail("unfounded intervals are NOT disjoint for every pair; prose says they are")
     if not any(hm_adjacent) and hm_extreme:
-        assert_in("HM_G separates only the extremes",
-                  "separate only the extremes and overlap for both adjacent pairs")
+        assert_in("HM_G marginal overlap acknowledged",
+                  "intervals overlap for both adjacent pairs")
     else:
-        fail("HM_G separation pattern changed (adjacent=%s extreme=%s); "
-             "the prose describes only-extremes separation" % (hm_adjacent, hm_extreme))
+        fail("HM_G marginal separation pattern changed (adjacent=%s extreme=%s)"
+             % (hm_adjacent, hm_extreme))
+    # Paired per-piece resampling: every adjacent difference must exclude zero
+    # for raw HM, HM_G, and the unfounded share, else the prose overclaims.
+    pc_ = _load(os.path.join(HERE, "results", "cluster", "paired_ci.json"))
+    for st in stems:
+        pt_ = pc_["point"][st]
+        if abs(pt_["hm_g"] - boot[st]["point"]["hm_g"]) > 1e-9 or \
+           abs(pt_["unfounded"] - boot[st]["point"]["unfounded"]) > 1e-9:
+            fail(f"paired_ci point estimates for {st} disagree with boot_bins")
+    adj = [f"{stems[0]} - {stems[1]}", f"{stems[1]} - {stems[2]}"]
+    all_pos = all(pc_["paired_diff_ci95"][a][k][0] > 0
+                  for a in adj for k in ("raw_hm", "hm_g", "unfounded"))
+    if all_pos:
+        ok("paired resampling: every adjacent difference in raw HM, HM_G, unfounded "
+           "excludes zero")
+        assert_in("paired ordering clause",
+                  "puts every adjacent difference above zero for raw $\\mathrm{HM}$, "
+                  "$\\mathrm{HM}_G$, and the unfounded share alike")
+    else:
+        fail("paired adjacent differences no longer all exclude zero; prose says they do")
 
     # |U|/|M| decomposition: the ordering must not be carried by the merge share
     # alone, so both factors are derived and their monotonicity is checked.
@@ -1126,9 +1154,11 @@ def check_letter_prose() -> None:
     # reference-side collapse precision against the manifest (tolerance-matched)
     cp = _load(os.path.join(HERE, "results", "cluster", "maestro_ei_collapse_precision.json"))
     assert_in("EI collapse precision",
-              "merges $%s$ pairs, $%.1f\\%%$ of them manifest substitutions (recall $%.4f$)"
+              "merges $%s$ pairs, $%.1f\\%%$ of them manifest substitutions (recall $%.4f$;"
               % ("{:,}".format(cp["n_reference_merges"]).replace(",", "{,}"),
                  100 * cp["precision"], cp["recall"]))
+    assert_in("EI false-merge rate", "the $%.1f\\%%$ remainder, coincidental"
+              % (100 * (1 - cp["precision"])))
     if cp["merges_that_are_substitutions"] != round(cp["precision"] * cp["n_reference_merges"]):
         fail("EI collapse precision artifact internally inconsistent")
     if "exactkey" in val["_provenance"]["run"] or val["flippable"] > 200000:
@@ -1240,10 +1270,14 @@ def check_letter_prose() -> None:
         s_in("EI achieved mix", "$%.2f/%.2f/%.2f\\%%$ of $%s$"
              % (mix["substitution"] * 100, mix["insertion"] * 100,
                 mix["omission"] * 100, inj_str))
-        s_in("EI planted flips", "$q=%.1f$ of the $%s$ non-substitution label events, planting $%s$"
+        s_in("EI flippable population", "$q=%.1f$ of the $%s$ non-substitution label events"
              % (val["_provenance"]["q_planted"],
-                "{:,}".format(val["flippable"]).replace(",", "{,}"),
-                "{:,}".format(val["planted_flips"]).replace(",", "{,}")))
+                "{:,}".format(val["flippable"]).replace(",", "{,}")))
+        s_in("EI planted flips", "planting $%s$ misclassifications"
+             % "{:,}".format(val["planted_flips"]).replace(",", "{,}"))
+        n_nonsub = summ["totals"]["ins"] + summ["totals"]["om"] + 2 * summ["totals"]["neg"]
+        s_in("EI non-substitution event total", "($%s$ insertion, omission, and decoy"
+             % "{:,}".format(n_nonsub).replace(",", "{,}"))
         s_in("EI measured off-diagonal", "measured off-diagonal is $%s$"
              % "{:,}".format(val["off_diagonal"]).replace(",", "{,}"))
         s_in("EI reference merges", "merges $%s$ pairs, $%s$ of them manifest"
