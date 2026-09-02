@@ -1,0 +1,21 @@
+{
+ "_provenance": {
+  "run": "collapse_precision_ei.py on gilbreth 2026-09-01",
+  "corpus": "run/data/MAESTRO-EI",
+  "epsilon_s": 0.05,
+  "mode": "strict",
+  "match_tol_s": 0.005
+ },
+ "n_reference_merges": 91678,
+ "n_manifest_substitutions": 86343,
+ "merges_that_are_substitutions": 86327,
+ "precision": 0.9416326708697834,
+ "recall": 0.999814692563381,
+ "decoys_merged": 467,
+ "onset_gap_quantiles_s": {
+  "p50": 0.0005918560606232859,
+  "p90": 0.0010890151515070556,
+  "p99": 31.164299242424235,
+  "max": 885.4252840909091
+ }
+}

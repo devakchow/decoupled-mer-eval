@@ -1,6 +1,6 @@
 {
  "_provenance": {
-  "run": "validate_ei.py on gilbreth 2026-08-31",
+  "run": "validate_maestro_ei.py on gilbreth 2026-09-01 (tolerance-matched)",
   "corpus": "run/data/MAESTRO-EI",
   "q_planted": 0.1,
   "seed": 20260831,
@@ -8,27 +8,27 @@
  },
  "n_ref_events": 280289,
  "n_pred_events": 280289,
- "n_matched": 187620,
- "off_diagonal": 26927,
- "planted_flips": 27768,
- "flippable": 276886,
+ "n_matched": 187686,
+ "off_diagonal": 10337,
+ "planted_flips": 10317,
+ "flippable": 103838,
  "recovery": {
-  "measured_off_diagonal": 26927,
-  "planted": 27768,
+  "measured_off_diagonal": 10337,
+  "planted": 10317,
   "flip_fate": {
-   "matched_offdiag": 16409,
-   "matched_diag": 28,
-   "merged": 4125,
-   "unmatched": 7206
+   "matched_offdiag": 8774,
+   "matched_diag": 3,
+   "merged": 1112,
+   "unmatched": 428
   }
  },
  "negative_controls": {
   "total": 4320,
-  "merged_by_collapse": 7
+  "merged_by_collapse": 449
  },
  "adjudication": {
-  "wrong_wrong_merged": 75838,
-  "genuine": 74706,
-  "genuine_rate": 0.9850734460296948
+  "wrong_wrong_merged": 90690,
+  "genuine": 90605,
+  "genuine_rate": 0.9990627412063072
  }
 }

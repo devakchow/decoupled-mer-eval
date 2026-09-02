@@ -33,6 +33,13 @@ def load_track(path, piece, etype):
             for inst in pm.instruments for n in inst.notes]
 
 
+def near_onset(xs, onset, tol):
+    # Label-MIDI onsets are tick-quantized (median 0.6 ms from the manifest
+    # float), so membership must be tolerance-based, never exact.
+    i = bisect.bisect_left(xs, onset - tol)
+    return i < len(xs) and xs[i] <= onset + tol
+
+
 def anchored(idx, piece, pitch, onset, tol=TAU):
     xs = idx.get((piece, pitch))
     if not xs:
@@ -56,10 +63,10 @@ def main():
         refs.extend(ex); refs.extend(rm)
         for e in rm:
             removed_idx[(pc, e.pitch_midi)].append(e.onset_s)
-        sub_onsets = {round(i['onset'], 6) for i in man['injections']
-                      if i['type'] == 'substitution'}
+        sub_onsets = sorted(i['onset'] for i in man['injections']
+                            if i['type'] == 'substitution')
         for e in ex + rm:
-            if round(e.onset_s, 6) not in sub_onsets:
+            if not near_onset(sub_onsets, e.onset_s, 0.005):
                 flippable += 1
                 if rng.random() < Q:
                     planted_flips += 1
@@ -103,10 +110,10 @@ def main():
         man2 = json.load(open(os.path.join(ROOT, 'manifest', pc2 + '.json')))
         ex2 = load_track(os.path.join(ROOT, 'label', 'extra_notes', pc2, 'stems_midi', 'mix.mid'), pc2, 'extra')
         rm2 = load_track(os.path.join(ROOT, 'label', 'removed_notes', pc2, 'stems_midi', 'mix.mid'), pc2, 'missed')
-        sub_on2 = {round(i['onset'], 6) for i in man2['injections']
-                   if i['type'] == 'substitution'}
+        sub_on2 = sorted(i['onset'] for i in man2['injections']
+                         if i['type'] == 'substitution')
         for e in ex2 + rm2:
-            if round(e.onset_s, 6) not in sub_on2:
+            if not near_onset(sub_on2, e.onset_s, 0.005):
                 if rng2.random() < Q:
                     sib = 'extra' if e.etype == 'missed' else 'missed'
                     flip_keys.add((pc2, round(e.onset_s, 6), e.pitch_midi, sib))
@@ -137,12 +144,12 @@ def main():
             wrong_by_piece[e.piece].append((e.onset_s, e.pitch_midi))
     for pc, n in neg_controls:
         for on, pit in wrong_by_piece.get(pc, ()):
-            if abs(on - n['inserted_onset']) < 1e-6 and pit == n['inserted_pitch']:
+            if abs(on - n['inserted_onset']) < 0.005 and pit == n['inserted_pitch']:
                 paired_neg += 1
                 break
 
     out = dict(
-        _provenance=dict(run='validate_ei.py on gilbreth 2026-08-31',
+        _provenance=dict(run='validate_maestro_ei.py on gilbreth 2026-09-01 (tolerance-matched)',
                          corpus=ROOT, q_planted=Q, seed=SEED,
                          degraded_system='labels with q of non-substitution '
                                          'events class-flipped'),

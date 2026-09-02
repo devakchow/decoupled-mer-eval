@@ -1120,10 +1120,21 @@ def check_letter_prose() -> None:
     neg_m = val["negative_controls"]["merged_by_collapse"]
     assert_in("EI decoy count", "$%s$ decoy"
               % "{:,}".format(neg_n).replace(",", "{,}"))
-    assert_in("EI decoy merges", "merges $%d$ decoys ($%.2f\\%%$)"
-              % (neg_m, 100 * neg_m / neg_n))
+    if "decoys ($" in tex:
+        fail("EI: the vacuous decoy-merge count is printed again; the decoy control "
+             "cannot fail by construction (pairs >= 2 s apart, epsilon = 50 ms)")
+    # reference-side collapse precision against the manifest (tolerance-matched)
+    cp = _load(os.path.join(HERE, "results", "cluster", "maestro_ei_collapse_precision.json"))
+    assert_in("EI collapse precision",
+              "merges $%s$ pairs, $%.1f\\%%$ of them manifest substitutions (recall $%.4f$)"
+              % ("{:,}".format(cp["n_reference_merges"]).replace(",", "{,}"),
+                 100 * cp["precision"], cp["recall"]))
+    if cp["merges_that_are_substitutions"] != round(cp["precision"] * cp["n_reference_merges"]):
+        fail("EI collapse precision artifact internally inconsistent")
+    if "exactkey" in val["_provenance"]["run"] or val["flippable"] > 200000:
+        fail("EI validator JSON is the superseded exact-key run (flippable %d)" % val["flippable"])
     assert_in("EI adjudication ceiling",
-              "$%.3f$ of label-stream merges at substitution sites"
+              "$%.3f$ of merges at substitution sites"
               % val["adjudication"]["genuine_rate"])
     cvei = {}
     for suf in ("A", "Bu", "Bp"):
@@ -1184,14 +1195,13 @@ def check_letter_prose() -> None:
               "$%.2f$--$%.2f$ of" % (min(ww), max(ww)))
     # MAESTRO-E paired decomposition, derived from the paired artifact
     pa = _load(os.path.join(gil, "paired_prompted_vs_unprompted.json"))
-    assert_in("paired delta on F",
-              "$\\delta=%.2f$ on $F$ ($%d/%d$ pieces)"
-              % (pa["loc_f1"]["cliffs_delta"], pa["loc_f1"]["n_pieces_favouring_a"],
-                 pa["n_used"]))
-    assert_in("paired delta on HM",
-              "$\\delta=%.2f$ on $\\mathrm{HM}$ ($%d/%d$)"
-              % (pa["hm"]["cliffs_delta"], pa["hm"]["n_pieces_favouring_b"],
-                 pa["n_used"]))
+    assert_in("Cliff's delta on F and HM",
+              "is $%.2f$ on $F$ and $%.2f$ on $\\mathrm{HM}$"
+              % (pa["loc_f1"]["cliffs_delta"], pa["hm"]["cliffs_delta"]))
+    assert_in("paired wins",
+              "paired wins in $%d/%d$ and $%d/%d$ pieces"
+              % (pa["loc_f1"]["n_pieces_favouring_a"], pa["n_used"],
+                 pa["hm"]["n_pieces_favouring_b"], pa["n_used"]))
     mono = True
     for var in ("shipped", "strict_eps05", "strict_eps0", "pitchaware_eps05"):
         seq = []
@@ -1230,10 +1240,15 @@ def check_letter_prose() -> None:
         s_in("EI achieved mix", "$%.2f/%.2f/%.2f\\%%$ of $%s$"
              % (mix["substitution"] * 100, mix["insertion"] * 100,
                 mix["omission"] * 100, inj_str))
-        s_in("EI planted flips", "$q=%.1f$ of the $%s$ non-substitution label events: all $%s$ flips"
+        s_in("EI planted flips", "$q=%.1f$ of the $%s$ non-substitution label events, planting $%s$"
              % (val["_provenance"]["q_planted"],
                 "{:,}".format(val["flippable"]).replace(",", "{,}"),
                 "{:,}".format(val["planted_flips"]).replace(",", "{,}")))
+        s_in("EI measured off-diagonal", "measured off-diagonal is $%s$"
+             % "{:,}".format(val["off_diagonal"]).replace(",", "{,}"))
+        s_in("EI reference merges", "merges $%s$ pairs, $%s$ of them manifest"
+             % ("{:,}".format(cp["n_reference_merges"]).replace(",", "{,}"),
+                "{:,}".format(cp["merges_that_are_substitutions"]).replace(",", "{,}")))
         f_ = val["recovery"]["flip_fate"]
         s_in("EI flip fate",
              "($%s$ matched off-diagonal, $%d$ diagonal, $%s$ collapse-absorbed, $%s$ unmatched)"

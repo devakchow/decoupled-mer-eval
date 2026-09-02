@@ -122,9 +122,9 @@ def table_main() -> str:
 \\centering
 \\caption{{Main Results on the MAESTRO-E Test Split ($\\tau=50$\\,ms,
 $\\epsilon=50$\\,ms; Per-Piece Bootstrap 95\\% CIs, $10^3$ Resamples, $n=177$).
-\\emph{{Published}} Is Our Replication's Pooled Mean of the Two Per-Class
-Missed/Extra $F_1$ Under the Systems' Protocol, Not a Number [4] or [5]
-Prints.
+\\emph{{Repl.\\ $\\bar F_1$}} Is Our Replication's Pooled Mean of the Two
+Per-Class Missed/Extra $F_1$ Under the Systems' Protocol, Not a Number [4] or
+[5] Prints.
 Merge Rates Differ Across Rows, So No Entry Is Marked Best, and [5] Labels the
 Two LadderSym Rows \\emph{{Ladder}} and \\emph{{LadderSym}}. \\emph{{Raw}} Charges
 Every Off-Diagonal Event; \\emph{{Genuine}} Charges One Only If Unmerged or Its
@@ -136,7 +136,7 @@ Deletion Claim Names an Omitted Score Note, Over $|M|-|A|-|U|$;
 \\toprule
  & & \\multicolumn{{2}}{{c}}{{$\\mathrm{{HM}}\\!\\downarrow$}} & & \\\\
 \\cmidrule(lr){{3-4}}
-System & Published & raw & genuine & unfounded$\\!\\downarrow$ & $F\\!\\uparrow$ \\\\
+System & Repl.\\ $\\bar F_1$ & raw & genuine & unfounded$\\!\\downarrow$ & $F\\!\\uparrow$ \\\\
 \\midrule
 {body}
 \\bottomrule

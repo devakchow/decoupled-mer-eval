@@ -1,0 +1,34 @@
+{
+ "_provenance": {
+  "run": "validate_ei.py on gilbreth 2026-08-31",
+  "corpus": "run/data/MAESTRO-EI",
+  "q_planted": 0.1,
+  "seed": 20260831,
+  "degraded_system": "labels with q of non-substitution events class-flipped"
+ },
+ "n_ref_events": 280289,
+ "n_pred_events": 280289,
+ "n_matched": 187620,
+ "off_diagonal": 26927,
+ "planted_flips": 27768,
+ "flippable": 276886,
+ "recovery": {
+  "measured_off_diagonal": 26927,
+  "planted": 27768,
+  "flip_fate": {
+   "matched_offdiag": 16409,
+   "matched_diag": 28,
+   "merged": 4125,
+   "unmatched": 7206
+  }
+ },
+ "negative_controls": {
+  "total": 4320,
+  "merged_by_collapse": 7
+ },
+ "adjudication": {
+  "wrong_wrong_merged": 75838,
+  "genuine": 74706,
+  "genuine_rate": 0.9850734460296948
+ }
+}
