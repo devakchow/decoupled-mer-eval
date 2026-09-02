@@ -92,6 +92,25 @@ release corpus's own recipe (FluidSynth, the release soundfont, 16 kHz mono
 PCM-24) as in `render_ei.py`; `results/cluster/maestro_ei_summary.json` and
 `maestro_ei_validate.json` hold the corpus census and label-stream validation.
 
+## Score-consistency filter (the diagnosis, acted on)
+
+`decoupled_scorer.py --score_filter 50` drops every predicted *missed* claim
+whose pitch has no score note (reference `correct` or `removed` track, same
+piece) within 50 ms, before any scoring mode runs. It consults the score only,
+never a reference error label, so a score-informed system could apply it at
+inference. Artifacts `experiments/results/{gilbreth,gilbreth_ei}/*_scorefilter50.json`
+carry the strict eps=0.05 sweep, shipped-mode per-track F1 and 10^3 per-piece
+bootstrap on the filtered claims (`setup/gilbreth_score_filter.sbatch`);
+`experiments/results/cluster/score_filter_paired_ci.json` is the paired
+per-piece bootstrap (10^4, shared draws) of filtered minus unfiltered
+(`setup/score_filter_paired_ci.py`).
+
+On MAESTRO-E the filter removes 61/54/42% of the systems' deletion claims with
+missed recall unchanged to four decimals, raising published missed-class F1
+from 0.261/0.386/0.485 to 0.404/0.552/0.629 and lowering raw HM from
+0.293/0.199/0.175 to 0.184/0.133/0.111, ordering intact; every paired
+difference excludes zero.
+
 ## Reproducing the letter's numbers
 
 Every printed number traces to an artifact in `experiments/results/`:
