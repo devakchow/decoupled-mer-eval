@@ -49,7 +49,8 @@ def panel_hm(ax) -> None:
                 label=S.LABEL[sysname])
     # competing reading of the dominant cell, at the 50 ms operating point
     lows = [_hm_lower(x) for x in S.SYSTEMS]
-    ax.scatter([50] * len(lows), lows, s=22, facecolors="none",
+    # open markers spread +-5% about 50 ms so the three do not overprint
+    ax.scatter([47.5, 50.0, 52.6][:len(lows)], lows, s=22, facecolors="none",
                edgecolors=[S.COLOR[x] for x in S.SYSTEMS], linewidths=1.1,
                zorder=5, label="genuine only")
     # Prop. 1's band is deliberately NOT drawn here. It is an inner bound over
