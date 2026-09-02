@@ -1,0 +1,56 @@
+{
+ "_provenance": {
+  "run": "released_eval_driver.py on gilbreth 2026-09-01",
+  "evaluator": "LadderSYM evaluate_errors.py (verbatim), per-piece mean of per-track mir_eval onset F1",
+  "tracks": {
+   "0": "extra",
+   "1": "removed/missed",
+   "2": "correct"
+  }
+ },
+ "A_polytune_maestro": {
+  "Onset precision": 0.960624625750117,
+  "Onset recall": 0.8757654986808582,
+  "Onset F1": 0.9154989308312813,
+  "Track 0 precision": 0.632840653822295,
+  "Track 0 recall": 0.823663778070825,
+  "Track 0 F1": 0.7127775786309021,
+  "Track 1 precision": 0.2574718103516064,
+  "Track 1 recall": 0.33081691209569636,
+  "Track 1 F1": 0.28656892978694315,
+  "Track 2 precision": 0.9852754285134778,
+  "Track 2 recall": 0.8663877947007887,
+  "Track 2 F1": 0.9210282266023204,
+  "n_pieces": 177
+ },
+ "B_laddersym_maestro_unprompted": {
+  "Onset precision": 0.9712483105768503,
+  "Onset recall": 0.8940257635935414,
+  "Onset F1": 0.9303817669287212,
+  "Track 0 precision": 0.7347151886482235,
+  "Track 0 recall": 0.8675028502482965,
+  "Track 0 F1": 0.7939824662807649,
+  "Track 1 precision": 0.4013847062519489,
+  "Track 1 recall": 0.4816373664618013,
+  "Track 1 F1": 0.43462067704845814,
+  "Track 2 precision": 0.9898101858638134,
+  "Track 2 recall": 0.8890965708885523,
+  "Track 2 F1": 0.9359212031331676,
+  "n_pieces": 177
+ },
+ "B_laddersym_maestro_prompted": {
+  "Onset precision": 0.9780480371203154,
+  "Onset recall": 0.9043290888262603,
+  "Onset F1": 0.93926355454793,
+  "Track 0 precision": 0.8155838776036328,
+  "Track 0 recall": 0.8990642618342086,
+  "Track 0 F1": 0.8543468533036104,
+  "Track 1 precision": 0.49767996837154554,
+  "Track 1 recall": 0.571877184118641,
+  "Track 1 F1": 0.5299556630066304,
+  "Track 2 precision": 0.9928220943189473,
+  "Track 2 recall": 0.9023714441491202,
+  "Track 2 F1": 0.9448120455194897,
+  "n_pieces": 177
+ }
+}

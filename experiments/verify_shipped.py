@@ -833,7 +833,7 @@ def check_letter_prose() -> None:
         row = rep_m["systems"][k]
         dev = max(dev, abs(row["macro_f1_missed"] - pm),
                   abs(row["macro_f1_extra"] - pe))
-    assert_in("replication agreement", "within $%.3f$" % dev)
+    assert_in("replication agreement", "($%.3f$ for Polytune" % dev)
 
     # 9c. supplement's reproducibility counts, derived from results/gilbreth_v110
     supp = os.path.join(os.path.dirname(HERE), "proposal",
@@ -1042,15 +1042,6 @@ def check_letter_prose() -> None:
     assert_in("anchor sweep control endpoints",
               "$%.3f\\!\\to\\!%.3f$" % (ctl[0], ctl[-1]))
     assert_in("anchor sweep dominant at widest", "only $%.3f$" % dom[-1])
-    # chance ratios are on the IN-SCORE fraction, not the removed fraction
-    rat = [rx[c]["extra->wrong"]["w50_exact"]["frac_in_score"]
-           / rx[c]["extra->wrong"]["w50_exact"]["null_frac_in_score"] for c in stems]
-    assert_in("dominant chance ratio",
-              "$%.1f$--$%.1f\\times$" % (min(rat), max(rat)))
-    crat = [rx[c]["wrong->wrong"]["w50_exact"]["frac_in_score"]
-            / rx[c]["wrong->wrong"]["w50_exact"]["null_frac_in_score"] for c in stems]
-    assert_in("control chance ratio",
-              "$%.1f$--$%.1f\\times$" % (min(crat), max(crat)))
     if ctl[-1] - ctl[0] >= 0.02:
         fail("anchor sweep: control moved %.4f, letter says under 0.02"
              % (ctl[-1] - ctl[0]))
@@ -1146,8 +1137,6 @@ def check_letter_prose() -> None:
                              "maestro_ei_validate.json"))
     neg_n = val["negative_controls"]["total"]
     neg_m = val["negative_controls"]["merged_by_collapse"]
-    assert_in("EI decoy count", "$%s$ decoy"
-              % "{:,}".format(neg_n).replace(",", "{,}"))
     if "decoys ($" in tex:
         fail("EI: the vacuous decoy-merge count is printed again; the decoy control "
              "cannot fail by construction (pairs >= 2 s apart, epsilon = 50 ms)")
@@ -1278,7 +1267,7 @@ def check_letter_prose() -> None:
         n_nonsub = summ["totals"]["ins"] + summ["totals"]["om"] + 2 * summ["totals"]["neg"]
         s_in("EI non-substitution event total", "($%s$ insertion, omission, and decoy"
              % "{:,}".format(n_nonsub).replace(",", "{,}"))
-        s_in("EI measured off-diagonal", "measured off-diagonal is $%s$"
+        s_in("EI measured off-diagonal", "measured off-diagonal of $%s$"
              % "{:,}".format(val["off_diagonal"]).replace(",", "{,}"))
         s_in("EI reference merges", "merges $%s$ pairs, $%s$ of them manifest"
              % ("{:,}".format(cp["n_reference_merges"]).replace(",", "{,}"),
@@ -1338,7 +1327,28 @@ def check_letter_prose() -> None:
     # replication clause: Ladder-row residual from the macro artifact
     mac_u = _load(os.path.join(gil, "replication_macro.json"))["systems"]["laddersym_unprompted"]
     lad_gap = max(abs(mac_u["macro_f1_missed"] - 0.460), abs(mac_u["macro_f1_extra"] - 0.820))
-    assert_in("Ladder-row residual", "within $%.3f$ of the two for the \\emph{Ladder}" % (_m.ceil(lad_gap*1000)/1000))
+    assert_in("Ladder-row residual", "$%.3f$ for the \\emph{Ladder}" % (_m.ceil(lad_gap*1000)/1000))
+    # The systems' released evaluator on our predictions must equal the
+    # backward-compatible per-piece (macro) values to 4 decimals, class by class.
+    rel = _load(os.path.join(gil, "released_evaluator.json"))
+    macro_all = _load(os.path.join(gil, "replication_macro.json"))["systems"]
+    pairs_ = (("A_polytune_maestro", "polytune"),
+              ("B_laddersym_maestro_unprompted", "laddersym_unprompted"),
+              ("B_laddersym_maestro_prompted", "laddersym_prompted"))
+    worst = 0.0
+    for st, sysname in pairs_:
+        r_ = rel[st]; m_ = macro_all[sysname]
+        worst = max(worst, abs(r_["Track 1 F1"] - m_["macro_f1_missed"]),
+                    abs(r_["Track 0 F1"] - m_["macro_f1_extra"]))
+        if r_["n_pieces"] != 177:
+            fail(f"released evaluator scored {r_['n_pieces']} pieces for {st}, not 177")
+    if worst < 5e-5:
+        ok(f"released evaluator == backward-compatible per-piece values (max |diff| {worst:.2e})")
+        assert_in("released-evaluator clause",
+                  "returns the backward-compatible mode's per-piece values to four decimals")
+    else:
+        fail(f"released evaluator differs from backward-compatible values by {worst:.4f}; "
+             "the letter claims four-decimal agreement")
     if os.path.exists(supp):
         with open(supp, encoding="utf-8") as fh:
             s4 = re.sub(r"\s+", " ", fh.read())
@@ -1347,6 +1357,10 @@ def check_letter_prose() -> None:
             ok(f"supplement prints the unprompted per-piece replication {want}")
         else:
             fail(f"supplement must print the unprompted per-piece replication {want}")
+        if "returns exactly these three per-piece pairs" in s4:
+            ok("supplement states the released-evaluator agreement")
+        else:
+            fail("supplement lost the released-evaluator agreement sentence")
     # the Polytune quotation is pinned to its location in the cited version
     # collapse-free functional: scored without the collapse, must sit inside
     # Prop. 1's interval for every configuration, with the printed CI bound.
@@ -1372,6 +1386,30 @@ def check_letter_prose() -> None:
             ok("supplement collapse-free arm artifact-derived")
         else:
             fail("supplement collapse-free arm values should be %.3f/%.3f/%.3f" % tuple(nc))
+    # Polytune's N at 50 ms printed as a smallmatrix; error-density ratio EI/E
+    cs0 = M0["confusion_sparse"]
+    rows = [[cs0[f"{r}->{c}"] for c in ("missed", "extra", "wrong")] for r in ("missed", "extra", "wrong")]
+    mat = "\\\\".join("&".join("{:,}".format(x).replace(",", "{,}") for x in row) for row in rows)
+    assert_in("Polytune N smallmatrix", "\\begin{smallmatrix}" + mat + "\\end{smallmatrix}")
+    dens = val["n_ref_events"] / (45367 + 12258)
+    assert_in("EI/E error-density ratio", "its $%.1f\\times$ error density" % dens)
+    ap_ = _load(os.path.join(HERE, "results", "cluster", "anchor_pitch_sensitivity.json"))
+    semi = [100 * ap_[st]["unfounded_share"]["semitone"] for st in stems]
+    octv = [100 * ap_[st]["unfounded_share"]["octave"] for st in stems]
+    exact = [100 * ap_[st]["unfounded_share"]["exact"] for st in stems]
+    if not all(abs(exact[i] - 100 * unf[i]) < 0.05 for i in range(3)):
+        fail("anchor_pitch_sensitivity exact-pitch shares disagree with tide_bins")
+    assert_in("pitch-tolerant unfounded shares",
+              "it to $%.1f/%.1f/%.1f\\%%$ ($%.1f/%.1f/%.1f\\%%$)" % (*semi, *octv))
+    if not (semi[0] > semi[1] > semi[2] and octv[0] > octv[1] > octv[2]):
+        fail("pitch-tolerant unfounded shares no longer preserve the ordering")
+    frac_moved = [1 - min(semi[i], octv[i]) / exact[i] for i in range(3)]
+    if not all(0.12 <= f <= 0.28 for f in frac_moved):
+        fail("'about a fifth of U' no longer describes the pitch-tolerant reduction %s" % frac_moved)
+    diag = [100 * ap_[st]["diag_equal_pitch_frac"] for st in stems]
+    assert_in("diagonal equal-pitch share", "($%.1f/%.1f/%.1f\\%%$ of its pairs join equal" % tuple(diag))
+    if "larger by construction" in tex:
+        fail("'larger by construction' reintroduced; the collapse's sign is not a theorem")
     assert_in("quote location", "simultaneously'' (its Fig.~1)")
     assert_in("LadderSym availability wording", "were absent from the released repository (accessed")
 

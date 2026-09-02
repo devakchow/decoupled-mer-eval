@@ -1,0 +1,51 @@
+{
+ "_protocol": "re-adjudication of merged predicted-wrong events under pitch-tolerant anchors (50 ms window unchanged); diagonal equal-pitch share of matched pairs",
+ "A_polytune_maestro": {
+  "M": 30460,
+  "K": 16444,
+  "U": {
+   "exact": 7355,
+   "semitone": 5952,
+   "octave": 6289
+  },
+  "unfounded_share": {
+   "exact": 0.24146421536441234,
+   "semitone": 0.1954038082731451,
+   "octave": 0.20646749835850295
+  },
+  "diag_pairs": 21532,
+  "diag_equal_pitch_frac": 0.9365130967861787
+ },
+ "B_laddersym_maestro_unprompted": {
+  "M": 33392,
+  "K": 14461,
+  "U": {
+   "exact": 5142,
+   "semitone": 4175,
+   "octave": 4406
+  },
+  "unfounded_share": {
+   "exact": 0.15398897939626258,
+   "semitone": 0.12502994729276473,
+   "octave": 0.1319477719214183
+  },
+  "diag_pairs": 26733,
+  "diag_equal_pitch_frac": 0.9536153817379269
+ },
+ "B_laddersym_maestro_prompted": {
+  "M": 35105,
+  "K": 14369,
+  "U": {
+   "exact": 3872,
+   "semitone": 3313,
+   "octave": 3290
+  },
+  "unfounded_share": {
+   "exact": 0.11029767839339126,
+   "semitone": 0.09437402079475858,
+   "octave": 0.09371884346959122
+  },
+  "diag_pairs": 28948,
+  "diag_equal_pitch_frac": 0.9681497858228548
+ }
+}

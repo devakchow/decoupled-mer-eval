@@ -126,11 +126,9 @@ $\\epsilon=50$\\,ms; Per-Piece Bootstrap 95\\% CIs, $10^3$ Resamples, $n=177$).
 Per-Class Missed/Extra $F_1$ Under the Systems' Protocol, Not a Number [4] or
 [5] Prints (Pooled, Not Per-Piece; Supplementary).
 No Entry Is Marked Best (Merge Rates Differ); [5] Labels the LadderSym Rows
-\\emph{{Ladder}} and \\emph{{LadderSym}}. \\emph{{Raw}} Charges
-Every Off-Diagonal Event; \\emph{{Genuine}} Charges One Only If Unmerged or Its
-Deletion Claim Names an Omitted Score Note, Over $|M|-|A|-|U|$;
-\\emph{{Unfounded}} Is $|U|/|M|$ Over \\emph{{All}} Localized Errors
-(Sec.~\\ref{{sec:experiments}})}}
+\\emph{{Ladder}} and \\emph{{LadderSym}}. \\emph{{Raw}},
+\\emph{{Genuine}} (Over $|M|-|A|-|U|$), and \\emph{{Unfounded}} ($|U|/|M|$) Are
+Defined in Sec.~\\ref{{sec:experiments}}}}
 \\label{{tab:main}}
 \\begin{{tabular}}{{@{{}}l c c c c c@{{}}}}
 \\toprule
