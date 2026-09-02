@@ -988,8 +988,17 @@ def check_letter_prose() -> None:
           ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
     hm_a = (1173 + 136) / (M0["n_localized"] - U0)
     assert_in("A-retained endpoint", "uncharged gives $%.3f$ for Polytune" % hm_a)
-    ww0 = M0["confusion_sparse"]["wrong->wrong"]
-    assert_in("diagonal total beside 1,881", "(of\n$%s$)".replace("\n", " ") % "{:,}".format(ww0).replace(",", "{,}"))
+    # post-collapse identification interval: X/(max_k TP_k + X) for Polytune
+    s50p = _load(os.path.join(gil, "A_polytune_maestro_shipped.json"))["shipped_50ms"]
+    Tmax = max(s50p["missed"]["tp"], s50p["extra"]["tp"])
+    Xp = min(s50p["missed"]["fp"], s50p["extra"]["fn"]) + min(s50p["extra"]["fp"], s50p["missed"]["fn"])
+    assert_in("post-collapse identification interval", "$[0,%.3f]$ for Polytune" % (Xp / (Tmax + Xp)))
+    nc0 = [x for x in _load(os.path.join(gil, "A_polytune_maestro_nocollapse.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"]
+    Tp = s50p["missed"]["tp"] + s50p["extra"]["tp"]
+    ratio0 = (Xp / (Tp + Xp)) / nc0
+    assert_in("ambiguity-to-measured ratio", "at least $%d\\times$ the measured value" % int(ratio0))
+    if "It bounds the collapse-free" in tex or "bounds $\\mathrm{HM}_0$" in tex:
+        fail("interval described as a bound on HM_0; it is an inner bound on the identified set")
     # Remark 1's old final claim was mathematically false (marginals pin |M| only)
     if "would all be pinned" in tex:
         fail("Remark 1's false 'would all be pinned' claim reintroduced")
