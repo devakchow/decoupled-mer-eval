@@ -122,18 +122,15 @@ def table_main() -> str:
 \\centering
 \\caption{{Main Results on the MAESTRO-E Test Split ($\\tau=50$\\,ms,
 $\\epsilon=50$\\,ms; Per-Piece Bootstrap 95\\% CIs, $10^3$ Resamples, $n=177$).
-\\emph{{Repl.\\ $\\bar F_1$}} Is Our Replication's Pooled Mean of the Two
-Per-Class Missed/Extra $F_1$ Under the Systems' Protocol, Not a Number [4] or
-[5] Prints (Pooled, Not Per-Piece; Supplementary).
-No Entry Is Marked Best (Merge Rates Differ). \\emph{{Raw}},
-\\emph{{Genuine}} (Over $|M|-|A|-|U|$), and \\emph{{Unfounded}} ($|U|/|M|$) Are
-Defined in Sec.~\\ref{{sec:experiments}}}}
+\\emph{{Repl.\\ $\\bar F_1$}}: Our Replication's Pooled Mean of the Two Per-Class
+Missed/Extra $F_1$ Under the Systems' Protocol. No Entry Is Marked Best. Columns
+Are Defined in Sec.~\\ref{{sec:experiments}}}}
 \\label{{tab:main}}
 \\begin{{tabular}}{{@{{}}l c c c c c@{{}}}}
 \\toprule
  & & & & \\multicolumn{{2}}{{c}}{{$\\mathrm{{HM}}\\!\\downarrow$}} \\\\
 \\cmidrule(lr){{5-6}}
-System & Repl.\\ $\\bar F_1$ & $F\\!\\uparrow$ & unfounded$\\!\\downarrow$ & genuine & raw \\\\
+System & Repl.\\ $\\bar F_1$ & $F\\!\\uparrow$ & unfounded$\\!\\downarrow$ & $\\mathrm{{HM}}_G$ & raw \\\\
 \\midrule
 {body}
 \\bottomrule

@@ -52,15 +52,15 @@ def panel_hm(ax) -> None:
     # open markers spread +-5% about 50 ms so the three do not overprint
     ax.scatter([47.5, 50.0, 52.6][:len(lows)], lows, s=22, facecolors="none",
                edgecolors=[S.COLOR[x] for x in S.SYSTEMS], linewidths=1.1,
-               zorder=5, label="genuine only")
+               zorder=5, label="$\\mathrm{HM}_G$")
     # Prop. 1's band is deliberately NOT drawn here. It is an inner bound over
     # collapse-free configurations, while these curves are measured under the
     # collapse; sharing an axis with them asserts a containment the proposition
     # does not license, and no caption disclaimer undoes that visually. The
     # bound is stated in Prop. 1 and in Sec. III instead.
     _tau_axis(ax)
-    ax.set_xlabel("onset tolerance  $\\tau$ (ms)")
-    ax.set_ylabel("hidden mass  $\\mathrm{HM}(\\tau)$")
+    ax.set_xlabel("onset tolerance  $\\tau$ (ms, log scale)")
+    ax.set_ylabel("$\\mathrm{HM}(\\tau)$")
     ax.set_ylim(0.0, 0.46)
     ax.legend(loc="upper left", bbox_to_anchor=(0.0, 1.0), ncol=2,
               fontsize=6.0, handlelength=1.5, labelspacing=0.22,
@@ -76,8 +76,8 @@ def panel_loc(ax) -> None:
         ax.plot(sw["tau_ms"], sw["loc"], color=S.COLOR[sysname],
                 linestyle=S.DASH[sysname], marker=S.MARKER[sysname])
     _tau_axis(ax)
-    ax.set_xlabel("onset tolerance  $\\tau$ (ms)")
-    ax.set_ylabel("localization  $F(\\tau)$")
+    ax.set_xlabel("onset tolerance  $\\tau$ (ms, log scale)")
+    ax.set_ylabel("$F(\\tau)$")
 
 
 def main() -> None:
