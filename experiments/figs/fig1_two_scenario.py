@@ -326,9 +326,9 @@ def main() -> None:
     notation_w = COL_W - LABEL_MARGIN - RIGHT_PAD
     top = 1.5 + FONT_PT + 1.0          # room for the "missed" labels above the top staff
     sys_h = sysm.placed_height(notation_w)
-    y_labels = top + sys_h + FONT_PT + 2.0       # (a)/(b)/(c) baseline
+    y_labels = top + sys_h + FONT_PT + 4.5       # (a)/(b)/(c) baseline
     box_h = FONT_PT + 5.0
-    box_top = y_labels + 3.0
+    box_top = y_labels + 5.0
     bottom = box_top + box_h + 1.5
     doc = fitz.open()
     page = doc.new_page(width=COL_W, height=bottom)
@@ -344,11 +344,13 @@ def main() -> None:
                          color=hex_rgb(color))
 
     def box(staff: int, measure: int, beat: int, color: str, pad: float = 0.0,
-            dashes: str | None = None, width: float = 0.7) -> fitz.Rect:
+            dashes: str | None = None, width: float = 0.7,
+            left_pad: float | None = None) -> fitz.Rect:
         ux, uy = sysm.head(staff, measure, beat)
         sp = sysm.geo.space
         has_accidental = staff == 1 and beat == 2
-        x0, y0 = sysm.pt(ux - (2.6 if has_accidental else 0.9) * sp - pad * sp, uy - (1.45 + pad) * sp)
+        lp = pad if left_pad is None else left_pad
+        x0, y0 = sysm.pt(ux - (2.6 if has_accidental else 0.9) * sp - lp * sp, uy - (1.45 + pad) * sp)
         x1, y1 = sysm.pt(ux + (1.7 + pad) * sp, uy + (1.45 + pad) * sp)
         r = fitz.Rect(x0, y0, x1, y1)
         page.draw_rect(r, color=hex_rgb(color), width=width, dashes=dashes)
@@ -359,7 +361,8 @@ def main() -> None:
     # played staff (dashed gray, drawn first so claim boxes sit on top of it)
     truth: Dict[int, fitz.Rect] = {}
     for measure in range(len(MEASURES)):
-        truth[measure] = box(1, measure, 2, C_GRAY, pad=0.35, dashes="[1.2 1.0] 0", width=0.6)
+        truth[measure] = box(1, measure, 2, C_GRAY, pad=0.35, left_pad=0.05,
+                             dashes="[1.2 1.0] 0", width=0.6)
     # staff labels, right-aligned in the left strip
     for staff, lab in ((0, "score"), (1, "played")):
         ys = sysm.geo.staves[staff]["lines"]
@@ -373,10 +376,10 @@ def main() -> None:
     boxes["c_extra"] = box(1, 2, 2, C_EXTRA)
     boxes["c_miss"] = box(0, 2, MEASURES[2], C_MISS)
     # bracket tying the two co-located claims in (c)
-    bx = max(boxes["c_extra"].x1, boxes["c_miss"].x1) + 2.5
+    bx = max(boxes["c_extra"].x1, boxes["c_miss"].x1) + 4.5
     for (p1, p2) in (((bx, boxes["c_miss"].y0), (bx, boxes["c_extra"].y1)),
-                     ((bx - 2, boxes["c_miss"].y0), (bx, boxes["c_miss"].y0)),
-                     ((bx - 2, boxes["c_extra"].y1), (bx, boxes["c_extra"].y1))):
+                     ((bx - 4, boxes["c_miss"].y0), (bx, boxes["c_miss"].y0)),
+                     ((bx - 4, boxes["c_extra"].y1), (bx, boxes["c_extra"].y1))):
         page.draw_line(p1, p2, color=hex_rgb(C_GRAY), width=0.6)
     # class labels: "extra" under its box, "missed" above the stem tip; the
     # truth box is named once, under measure (a)

@@ -1053,7 +1053,7 @@ def check_letter_prose() -> None:
     if disj:
         ok("uk_ci: |U|/|K| intervals pairwise disjoint, points match adjudication")
         assert_in_supp("|U|/|K| disjoint clause",
-                       "(per-piece $|U|/|K|$ intervals $[%.3f,\\,%.3f]/[%.3f,\\,%.3f]/[%.3f,\\,%.3f]$, disjoint)"
+                       "(per-piece $|U|/|K|$ intervals $[%.3f,\\,%.3f]/\\allowbreak[%.3f,\\,%.3f]/\\allowbreak[%.3f,\\,%.3f]$, disjoint)"
                        % tuple(v for iv in _iv for v in iv))
     else:
         fail("uk_ci intervals no longer pairwise disjoint; prose claims they are")
