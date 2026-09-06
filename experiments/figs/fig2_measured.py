@@ -71,7 +71,8 @@ def panel_hm(ax) -> None:
     ax.set_xlabel("onset tolerance  $\\tau$ (ms, log scale)")
     ax.set_ylabel("$\\mathrm{HM}(\\tau)$")
     ax.set_ylim(0.0, 0.46)
-    ax.set_yticks([0.0, 0.1, 0.2, 0.3, 0.4])
+    # three ticks: at this panel height five 8 pt labels would touch
+    ax.set_yticks([0.0, 0.2, 0.4])
     # the legend is drawn once, above both panels, by main(): an in-axes
     # legend at the IEEE 8 pt floor (FG-020) cannot avoid the curves
 
@@ -90,7 +91,7 @@ def panel_loc(ax) -> None:
 
 
 def main() -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.34))
+    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.26))
     panel_hm(axes[0])
     panel_loc(axes[1])
     # one shared legend row above both panels, outside the axes, 8 pt

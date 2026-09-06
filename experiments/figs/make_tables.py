@@ -121,17 +121,17 @@ def table_main() -> str:
 \\begin{{table*}}[!t]
 \\centering
 \\caption{{Main Results on the MAESTRO-E Test Split ($\\tau=50$\\,\\textup{{ms}},
-$\\epsilon=50$\\,\\textup{{ms}}; Per-Piece Bootstrap 95\\% CIs, $10^3$ Resamples, $n=177$).
-\\emph{{Repl.\\ $\\bar F_1$}}: Mean of the Missed- and Extra-Class $F_1$ Under the Systems' Protocol
+$\\epsilon=50$\\,\\textup{{ms}}; Per-Piece Bootstrap 95\\% CIs, $n=177$).
+\\emph{{Repl.\\ $\\bar F_1$}}: Mean of the Missed- and Extra-Class $F_1$ Under the Published Protocol
 (Our Replication); $F$: Localization $F_1$ (Sec.~\\ref{{sec:measure}});
-Unfounded: $|U|/|M|$, Claims Naming No Score Note; $\\mathrm{{HM}}$: Raw
-per~\\eqref{{eq:hm}} and Adjudicated $\\mathrm{{HM}}_G$ (Sec.~\\ref{{sec:experiments}})}}
+Unfounded: Share of Localized Events Naming No Score Note ($|U|/|M|$, Sec.~\\ref{{sec:experiments}}); $\\mathrm{{HM}}$: Raw
+per~\\eqref{{eq:hm}} and Adjudicated $\\mathrm{{HM}}_G$ (Sec.~\\ref{{sec:experiments}}); $\\uparrow$/$\\downarrow$: Higher/Lower Is Better}}
 \\label{{tab:main}}
 \\begin{{tabular}}{{@{{}}l c c c c c@{{}}}}
 \\toprule
  & & & & \\multicolumn{{2}}{{c}}{{$\\mathrm{{HM}}\\!\\downarrow$}} \\\\
 \\cmidrule(lr){{5-6}}
-System & Repl.\\ $\\bar F_1$ & $F\\!\\uparrow$ & unfounded$\\!\\downarrow$ & $\\mathrm{{HM}}_G$ & raw \\\\
+Configuration & Repl.\\ $\\bar F_1$ & $F\\!\\uparrow$ & unfounded$\\!\\downarrow$ & $\\mathrm{{HM}}_G$ & raw \\\\
 \\midrule
 {body}
 \\bottomrule
@@ -231,8 +231,8 @@ def table_null() -> str:
             S.GIL, f"null_colo_{S._STEM[sysname]}.json"))
         ot, nt = d["observed_matched_total"], d["null_matched_total"]["mean"]
         oo, no = d["observed_off_diagonal"], d["null_off_diagonal"]["mean"]
-        rows.append(f"{S.LABEL[sysname]} & {_n(ot)}/{_n(nt)} & "
-                    f"{d['enrichment_total']:.1f} & {_n(oo)}/{_n(no)} & "
+        rows.append(f"{S.LABEL[sysname]} & {_n(ot)} ({_n(nt)}) & "
+                    f"{d['enrichment_total']:.1f} & {_n(oo)} ({_n(no)}) & "
                     f"{d['enrichment_off']:.1f} \\\\")
     body = "\n".join(rows)
     n_perm = S._load(os.path.join(
@@ -247,7 +247,7 @@ def table_null() -> str:
 \\toprule
 Configuration & \\multicolumn{{2}}{{c}}{{matched total}} & \\multicolumn{{2}}{{c}}{{off-diagonal}} \\\\
 \\cmidrule(lr){{2-3}} \\cmidrule(lr){{4-5}}
- & obs./null mean & $\\times$ & obs./null mean & $\\times$ \\\\
+ & obs. (null mean) & ratio & obs. (null mean) & ratio \\\\
 \\midrule
 {body}
 \\bottomrule

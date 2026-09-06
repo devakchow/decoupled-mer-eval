@@ -635,7 +635,7 @@ def check_score_filter() -> None:
             fail("filter lowered F by more than 0.001")
     ok("filter: recall unchanged to 4 decimals, extra class identical, F unchanged or higher (6 configs)")
     drop = lambda rs: [100 * r["sf"]["n_dropped"] / r["sf"]["n_missed_before"] for r in rs]
-    pin("E drop shares", "removes $%d/%d/%d\\%%$ of the systems'" % tuple(round(x) for x in drop(e)))
+    pin("E drop shares", "removes $%d/%d/%d\\%%$ of the configurations'" % tuple(round(x) for x in drop(e)))
     pin("E missed F1 before/after", "(our replication) from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$"
         % (*[r["bs"]["missed"]["f1"] for r in e], *[r["fs"]["missed"]["f1"] for r in e]))
     pin("E mean error F1 before/after", "Repl.\\ $\\bar F_1$) from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$"
@@ -654,8 +654,7 @@ def check_score_filter() -> None:
     pin("EI drop shares", "removes $%d/%d/%d\\%%$ of missed claims, lifting" % tuple(round(x) for x in drop(ei)))
     pin("EI mean error F1 before/after", "from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$ and lowering"
         % (*[r["bs"]["_mean_error_f1"] for r in ei], *[r["fs"]["_mean_error_f1"] for r in ei]))
-    pin("EI filtered HM", "lowering raw $\\mathrm{HM}$ from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$."
-        % (*[r["rb"]["hm"] for r in ei], *[r["rf"]["hm"] for r in ei]))
+    pin("EI filtered HM", "lowering raw $\\mathrm{HM}$ to $%.3f/%.3f/%.3f$." % tuple(r["rf"]["hm"] for r in ei))
     gains = [r["fs"]["missed"]["f1"] - r["bs"]["missed"]["f1"] for r in e]
     pin("conclusion missed-F1 gain", "by $%.2f$ to $%.2f$" % (min(gains), max(gains)))
     pc = os.path.join(HERE, "results", "cluster", "score_filter_paired_ci.json")
@@ -699,7 +698,7 @@ def check_round17_supplement() -> None:
          % (pc[k1]["hm_g"][0], pc[k1]["hm_g"][1], pc[k2]["hm_g"][0], pc[k2]["hm_g"][1]))
     if not (pc[k1]["hm_g"][0] > 0 and pc[k2]["hm_g"][0] > 0):
         fail("paired HM_G intervals no longer exclude zero")
-    spin("dominance guard defined", "the dominance guard (a check that each output track carries its own class: the track's class mapping must be diagonal-dominant against the reference)")
+    spin("dominance guard defined", "the dominance guard (the systems emit one MIDI track per class; the guard checks that each output track's class mapping is diagonal-dominant against the reference)")
     spin("null coverage sentence", "in every test, the observed exceeds all 200 rotations.")
 
 
@@ -934,8 +933,6 @@ def check_letter_prose() -> None:
     assert_in("span endpoints", "$[%.3f,\\,%.3f]$" % (hm_t[0], raw[0]))
     assert_in("unfounded share",
               "$%.1f\\%%$, $%.1f\\%%$, $%.1f\\%%$" % tuple(u * 100 for u in unf))
-    assert_in("positive control",
-              "$%.2f/%.2f/%.2f$" % tuple(pos))
     assert_in("suspect-cell genuine rate",
               "$%.3f$--$%.3f$" % (min(susp), max(susp)))
     assert_in("mu_p merges",
@@ -983,7 +980,7 @@ def check_letter_prose() -> None:
                 n_vals += 2  # point_hm, point_loc_f1
             n_tau += len((d or {}).get("decoupled", {}).get("per_tau", []))
         for label, printed in ((f"rescore value count",
-                                f"bit-identically (${n_vals}$ $\\mathrm{{HM}}$/$F$ values)"),
+                                f"bit-identically (${n_vals}$ $\\mathrm{{HM}}$ and $F$ values)"),
                                (f"guard tau-point count",
                                 f"holds at all ${n_tau}$ $(\\text{{artifact}},\\tau)$ points")):
             if printed in stex:
@@ -1098,14 +1095,6 @@ def check_letter_prose() -> None:
             ok("supplement window-sweep endpoints artifact-derived")
         else:
             fail(f"supplement window-sweep endpoints should read '{want}'")
-        # diagonal splits of A and U, derived from the adjudication cells
-        Ad = "/".join(str(cv[st]["wrong->wrong"]["in_score_correct"]) for st in stems)
-        Ud = "/".join("{:,}".format(cv[st]["wrong->wrong"]["absent_from_score"])
-                      .replace(",", "{,}") for st in stems)
-        if f"${Ad}$" in s2 and f"${Ud}$" in s2:
-            ok("supplement A/U diagonal splits artifact-derived")
-        else:
-            fail(f"supplement A/U diagonal splits should be ${Ad}$ and ${Ud}$")
         # 0.574 constituents from the replication artifact
         r_u = rep_m["systems"]["laddersym_unprompted"]
         cons = "%.3f/%.3f" % (r_u["pooled_f1_missed"], r_u["pooled_f1_extra"])
@@ -1131,7 +1120,7 @@ def check_letter_prose() -> None:
     s50p = _load(os.path.join(gil, "A_polytune_maestro_shipped.json"))["shipped_50ms"]
     Tmax = max(s50p["missed"]["tp"], s50p["extra"]["tp"])
     Xp = min(s50p["missed"]["fp"], s50p["extra"]["fn"]) + min(s50p["extra"]["fp"], s50p["missed"]["fn"])
-    assert_in("post-collapse identification interval", "$[0,%.3f]$ for Polytune" % (Xp / (Tmax + Xp)))
+    assert_in_supp("post-collapse identification interval", "up to $%.3f$ for Polytune's counts" % (Xp / (Tmax + Xp)))
     nc0 = [x for x in _load(os.path.join(gil, "A_polytune_maestro_nocollapse.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"]
     Tp = s50p["missed"]["tp"] + s50p["extra"]["tp"]
     ratio0 = (Xp / (Tp + Xp)) / nc0
@@ -1247,8 +1236,8 @@ def check_letter_prose() -> None:
              ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
         kM.append(K / t["n_localized"]); uK.append(U / K)
     assert_in_supp("conditional unfounded share",
-                   "and $%d/%d/%d\\%%$ of those pairs are unfounded" % tuple(round(100 * x) for x in uK))
-    assert_in_supp("merged share", "Of localized events, $%d/%d/%d\\%%$ are co-located pairs" % tuple(round(100 * x) for x in kM))
+                   "and $%d/%d/%d\\%%$ of those are unfounded" % tuple(round(100 * x) for x in uK))
+    assert_in_supp("merged share", "Of localized events, $%d/%d/%d\\%%$ are matched pairs whose predicted event is merged" % tuple(round(100 * x) for x in kM))
     if uK[0] > uK[1] > uK[2]:
         ok("conditional share |U|/|K| orders the systems independently")
     else:
@@ -1302,10 +1291,10 @@ def check_letter_prose() -> None:
     mw = [cvei[c]["missed->wrong"]["manifest_genuine_rate"] for c in ei_cfgs]
     _cp = _load(os.path.join(HERE, "results", "cluster", "maestro_ei_collapse_precision.json"))
     site = [cvei[c]["wrong->wrong"]["manifest_genuine"] / _cp["merges_that_are_substitutions"] for c in ei_cfgs]
-    assert_in("EI site-level recall", "i.e.\\ $%.2f/%.2f/%.2f$ of all planted sites" % tuple(site))
+    assert_in("EI site-level recall", "over all planted sites rather than merged events, $%.2f/%.2f/%.2f$" % tuple(site))
     assert_in("EI genuine contrast",
               "deleted note in $%.3f/%.3f/%.3f$ of their merged" % tuple(ww))
-    assert_in("EI dominant-cell genuine rate", "only $%.3f/%.3f/%.3f$ of merged events name one" % tuple(ew))
+    assert_in("EI dominant-cell genuine rate", "only $%.3f/%.3f/%.3f$ of merged events name a deleted note" % tuple(ew))
     hm50, loc50, err50, mc_all = [], [], [], True
     for c in ei_cfgs:
         d = _load(os.path.join(gei, c + "_shipped.json"))
@@ -1410,7 +1399,7 @@ def check_letter_prose() -> None:
         s_in("EI planted flips", "planting $%s$ misclassifications"
              % "{:,}".format(val["planted_flips"]).replace(",", "{,}"))
         n_nonsub = summ["totals"]["ins"] + summ["totals"]["om"] + 2 * summ["totals"]["neg"]
-        s_in("EI non-substitution event total", "(the $%s$ insertion, omission, and decoy"
+        s_in("EI non-substitution event total", "The $%s$ insertion, omission, and decoy"
              % "{:,}".format(n_nonsub).replace(",", "{,}"))
         s_in("EI measured off-diagonal", "measured off-diagonal of $%s$"
              % "{:,}".format(val["off_diagonal"]).replace(",", "{,}"))
@@ -1454,8 +1443,7 @@ def check_letter_prose() -> None:
                                 f"M2_pitch_{tag}.json"))["stratified"]
         eq = st["overall_off_diagonal"]["equal_pitch"]["fraction"]
         eqs.append(eq * 100); bnd.append(st["hm_observed"] * eq)
-    assert_in("equal-pitch shares", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal pairs join equal pitches" % tuple(eqs))
-    assert_in_supp("equal-pitch shares (supplement)", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal and" % tuple(eqs))
+    assert_in_supp("equal-pitch shares", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal pairs join equal pitches" % tuple(eqs))
     assert_in("pitch-blind HM bound", "$\\mathrm{HM}\\ge%.3f/%.3f/%.3f$" % tuple(bnd))
     if not (bnd[0] > bnd[1] > bnd[2]):
         fail("pitch-blind bound no longer preserves the ordering; the letter says it does")
@@ -1541,7 +1529,7 @@ def check_letter_prose() -> None:
     _rows = {r: sum(cs0.get(f"{r}->{c}", 0) for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong")}
     _gam = (23087 - 12258, 34538 - 12258, 12258)  # post-collapse reference totals (gamma_m - mu_r, gamma_e - mu_r, mu_r)
     _rec = [100 * _rows["missed"] / _gam[0], 100 * _rows["extra"] / _gam[1], 100 * _rows["wrong"] / _gam[2]]
-    assert_in("N row localization rates", "show $%.1f\\%%$ of missed (omitted) notes localized against $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones" % tuple(_rec))
+    assert_in("N row localization rates", "show that $%.1f\\%%$ of missed (omitted) notes are localized, compared with $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones" % tuple(_rec))
     assert_in("Polytune dominant cell", "holds ${:,}$ of ${:,}$ off-diagonal events".format(cs0["extra->wrong"], off_all).replace(",", "{,}"))
     # pre-collapse reference label events, EI over E (the basis the letter names)
     dens = val["n_ref_events"] / (45367 + 12258)
@@ -1568,7 +1556,6 @@ def check_letter_prose() -> None:
                    "falls by $%d$--$%d\\%%$, relative, under"
               % (round(min(frac_moved)), round(max(frac_moved))))
     diag = [100 * ap_[st]["diag_equal_pitch_frac"] for st in stems]
-    assert_in_supp("diagonal equal-pitch share", "$%.1f/%.1f/%.1f\\%%$ of diagonal pairs join equal pitches" % tuple(diag))
     if "larger by construction" in tex:
         fail("'larger by construction' reintroduced; the collapse's sign is not a theorem")
     assert_in("quote location", "simultaneously'' (Fig.~1 of~")
