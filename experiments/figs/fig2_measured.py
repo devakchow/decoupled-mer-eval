@@ -27,7 +27,9 @@ def _tau_axis(ax) -> None:
     ax.xaxis.set_major_locator(FixedLocator(TAUS))
     ax.xaxis.set_major_formatter(FixedFormatter([str(t) for t in TAUS]))
     ax.xaxis.set_minor_locator(NullLocator())
-    ax.set_xlim(46, 560)
+    # left limit leaves clearance for the HM_G markers offset about 50 ms, so
+    # none of them sits on the y-axis spine
+    ax.set_xlim(41, 560)
 
 
 def _hm_lower(sysname):
@@ -47,10 +49,17 @@ def panel_hm(ax) -> None:
         ax.plot(sw["tau_ms"], sw["hm"], color=S.COLOR[sysname],
                 linestyle=S.DASH[sysname], marker=S.MARKER[sysname],
                 label=S.LABEL[sysname])
-    # competing reading of the dominant cell, at the 50 ms operating point
+    # the span at the 50 ms operating point: a thin vertical line from the raw
+    # HM down to its adjudicated lower endpoint HM_G (open marker), one per
+    # configuration; the three are spread +-5% about 50 ms so they do not
+    # overprint
     lows = [_hm_lower(x) for x in S.SYSTEMS]
-    # open markers spread +-5% about 50 ms so the three do not overprint
-    ax.scatter([47.5, 50.0, 52.6][:len(lows)], lows, s=22, facecolors="none",
+    xs = [47.5, 50.0, 52.6][:len(lows)]
+    for x, lo, sysname in zip(xs, lows, S.SYSTEMS):
+        raw50 = S.sweep(sysname)["hm"][0]
+        ax.plot([x, x], [lo, raw50], color=S.COLOR[sysname], linewidth=0.8,
+                linestyle="-", zorder=4)
+    ax.scatter(xs, lows, s=22, facecolors="white",
                edgecolors=[S.COLOR[x] for x in S.SYSTEMS], linewidths=1.1,
                zorder=5, label="$\\mathrm{HM}_G$")
     # Prop. 1's band is deliberately NOT drawn here. It is an inner bound over
@@ -62,10 +71,9 @@ def panel_hm(ax) -> None:
     ax.set_xlabel("onset tolerance  $\\tau$ (ms, log scale)")
     ax.set_ylabel("$\\mathrm{HM}(\\tau)$")
     ax.set_ylim(0.0, 0.46)
-    ax.legend(loc="upper left", bbox_to_anchor=(0.0, 1.0), ncol=2,
-              fontsize=6.0, handlelength=1.5, labelspacing=0.22,
-              borderpad=0.2, handletextpad=0.4, columnspacing=0.9,
-              framealpha=0.95)
+    ax.set_yticks([0.0, 0.1, 0.2, 0.3, 0.4])
+    # the legend is drawn once, above both panels, by main(): an in-axes
+    # legend at the IEEE 8 pt floor (FG-020) cannot avoid the curves
 
 
 def panel_loc(ax) -> None:
@@ -78,16 +86,22 @@ def panel_loc(ax) -> None:
     _tau_axis(ax)
     ax.set_xlabel("onset tolerance  $\\tau$ (ms, log scale)")
     ax.set_ylabel("$F(\\tau)$")
+    ax.set_yticks([0.65, 0.70, 0.75, 0.80])
 
 
 def main() -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.72))
+    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.52))
     panel_hm(axes[0])
     panel_loc(axes[1])
+    # one shared legend row above both panels, outside the axes, 8 pt
+    handles, labels = axes[0].get_legend_handles_labels()
+    fig.legend(handles, labels, loc="upper center", ncol=4, fontsize=8.0,
+               frameon=False, handlelength=1.6, columnspacing=1.4,
+               handletextpad=0.5, bbox_to_anchor=(0.5, 1.0))
     # reserve a band under the axes for the bare subfigure labels (FG-021:
     # "(a)"/"(b)" centered below each panel, 8 pt Times; descriptive
-    # wording lives in the LaTeX caption)
-    fig.tight_layout(w_pad=1.4, rect=(0, 0.085, 1, 1))
+    # wording lives in the LaTeX caption) and a band above for the legend
+    fig.tight_layout(w_pad=1.4, rect=(0, 0.08, 1, 0.9))
     for ax, lab in ((axes[0], "(a)"), (axes[1], "(b)")):
         pos = ax.get_position()
         fig.text((pos.x0 + pos.x1) / 2, 0.015, lab, fontsize=8.0,
