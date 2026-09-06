@@ -257,6 +257,31 @@ def check_bridge() -> None:
         fail(f"bridge_checks.py failed: {tail}")
 
 
+def check_printed_arithmetic() -> None:
+    """[6b] The prose -> prose direction: every relation a reader can form from
+    the printed numbers (matrix margins, K = G + A + U, each HM convention,
+    Prop. 1's interval from the published counts, filter gains, null ratios,
+    MAESTRO-EI recoveries, the abstract's rounded ranges) must hold. Skipped,
+    like the prose pins, when proposal/ is absent (public tree)."""
+    print("\n[6b] printed arithmetic (verify_printed_arithmetic.py)")
+    letter = os.path.join(os.path.dirname(HERE), "proposal", "spl_letter_v5.tex")
+    if not os.path.exists(letter):
+        print("  [skip] proposal/ absent")
+        return
+    p = os.path.join(HERE, "verify_printed_arithmetic.py")
+    if not os.path.exists(p):
+        fail("verify_printed_arithmetic.py missing")
+        return
+    r = subprocess.run([sys.executable, p], capture_output=True, text=True,
+                       cwd=HERE, timeout=300)
+    if r.returncode == 0 and "ALL PRINTED-ARITHMETIC CHECKS PASSED" in (r.stdout or ""):
+        n = (r.stdout or "").count("[PASS]")
+        ok(f"verify_printed_arithmetic.py: {n} relations hold")
+    else:
+        tail = [l for l in (r.stdout or r.stderr).strip().splitlines() if l.startswith("[FAIL]")][:4]
+        fail(f"verify_printed_arithmetic.py failed: {tail}")
+
+
 def _load(path: str):
     with open(path, encoding="utf-8") as fh:
         return json.load(fh)
@@ -1606,6 +1631,7 @@ def main() -> int:
     check_imports()
     check_tests()
     check_bridge()
+    check_printed_arithmetic()
     check_doc_numbers()
     check_rescore_v110()
     check_score_filter()
