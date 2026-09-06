@@ -90,7 +90,7 @@ def panel_loc(ax) -> None:
 
 
 def main() -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.52))
+    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.34))
     panel_hm(axes[0])
     panel_loc(axes[1])
     # one shared legend row above both panels, outside the axes, 8 pt

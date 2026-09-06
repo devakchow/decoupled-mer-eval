@@ -651,10 +651,11 @@ def check_score_filter() -> None:
     hm_f = [r["rf"]["hm"] for r in e]; f_f = [r["rf"]["localization"]["f1"] for r in e]
     if not (hm_f[0] > hm_f[1] > hm_f[2] and f_f[0] < f_f[1] < f_f[2]):
         fail("filtered ordering differs from Table I's")
-    pin("EI drop shares", "removes $%d/%d/%d\\%%$, lifting" % tuple(round(x) for x in drop(ei)))
+    pin("EI drop shares", "removes $%d/%d/%d\\%%$ of missed claims, lifting" % tuple(round(x) for x in drop(ei)))
     pin("EI mean error F1 before/after", "from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$ and lowering"
         % (*[r["bs"]["_mean_error_f1"] for r in ei], *[r["fs"]["_mean_error_f1"] for r in ei]))
-    pin("EI filtered HM", "lowering $\\mathrm{HM}$ to $%.3f/%.3f/%.3f$." % tuple(r["rf"]["hm"] for r in ei))
+    pin("EI filtered HM", "lowering raw $\\mathrm{HM}$ from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$."
+        % (*[r["rb"]["hm"] for r in ei], *[r["rf"]["hm"] for r in ei]))
     gains = [r["fs"]["missed"]["f1"] - r["bs"]["missed"]["f1"] for r in e]
     pin("conclusion missed-F1 gain", "by $%.2f$ to $%.2f$" % (min(gains), max(gains)))
     pc = os.path.join(HERE, "results", "cluster", "score_filter_paired_ci.json")
@@ -698,7 +699,7 @@ def check_round17_supplement() -> None:
          % (pc[k1]["hm_g"][0], pc[k1]["hm_g"][1], pc[k2]["hm_g"][0], pc[k2]["hm_g"][1]))
     if not (pc[k1]["hm_g"][0] > 0 and pc[k2]["hm_g"][0] > 0):
         fail("paired HM_G intervals no longer exclude zero")
-    spin("dominance guard defined", "the dominance guard, which requires each predicted track's class mapping to be diagonal-dominant against the reference")
+    spin("dominance guard defined", "the dominance guard (a check that each output track carries its own class: the track's class mapping must be diagonal-dominant against the reference)")
     spin("null coverage sentence", "in every test, the observed exceeds all 200 rotations.")
 
 
@@ -928,7 +929,7 @@ def check_letter_prose() -> None:
               "%d{,}%03d/%d{,}%03d=%.3f" % (num_p // 1000, num_p % 1000,
                                             den_p // 1000, den_p % 1000, hm_t[0]))
     assert_in("HM after binning (LadderSym)",
-              "$%.3f$ and $%.3f$ for LadderSym unprompted and prompted" % (hm_t[1], hm_t[2]))
+              "LadderSym unprompted and prompted give $%.3f$ and $%.3f$" % (hm_t[1], hm_t[2]))
     assert_in("HM charging U", "gives $%.3f/%.3f/%.3f$" % tuple(chg))
     assert_in("span endpoints", "$[%.3f,\\,%.3f]$" % (hm_t[0], raw[0]))
     assert_in("unfounded share",
@@ -1054,7 +1055,9 @@ def check_letter_prose() -> None:
     disj = disj and (_iv[0][1] < _iv[2][0] or _iv[2][1] < _iv[0][0])
     if disj:
         ok("uk_ci: |U|/|K| intervals pairwise disjoint, points match adjudication")
-        assert_in_supp("|U|/|K| disjoint clause", "(per-piece intervals disjoint)")
+        assert_in_supp("|U|/|K| disjoint clause",
+                       "(per-piece $|U|/|K|$ intervals $[%.3f,\\,%.3f]/[%.3f,\\,%.3f]/[%.3f,\\,%.3f]$, disjoint)"
+                       % tuple(v for iv in _iv for v in iv))
     else:
         fail("uk_ci intervals no longer pairwise disjoint; prose claims they are")
 
@@ -1300,10 +1303,9 @@ def check_letter_prose() -> None:
     _cp = _load(os.path.join(HERE, "results", "cluster", "maestro_ei_collapse_precision.json"))
     site = [cvei[c]["wrong->wrong"]["manifest_genuine"] / _cp["merges_that_are_substitutions"] for c in ei_cfgs]
     assert_in("EI site-level recall", "i.e.\\ $%.2f/%.2f/%.2f$ of all planted sites" % tuple(site))
-    assert_in("collapse absorption in letter", "flipping the class of $10{,}317$ planted labels shows the collapse absorbing $1{,}112$ of them")
     assert_in("EI genuine contrast",
-              "deleted note in $%.3f/%.3f/%.3f$ of cases, i.e." % tuple(ww))
-    assert_in("EI dominant-cell genuine rate", "where no omitted note exists, the rate is $%.3f/%.3f/%.3f$" % tuple(ew))
+              "deleted note in $%.3f/%.3f/%.3f$ of their merged" % tuple(ww))
+    assert_in("EI dominant-cell genuine rate", "only $%.3f/%.3f/%.3f$ of merged events name one" % tuple(ew))
     hm50, loc50, err50, mc_all = [], [], [], True
     for c in ei_cfgs:
         d = _load(os.path.join(gei, c + "_shipped.json"))
@@ -1353,17 +1355,15 @@ def check_letter_prose() -> None:
     kei = ["A_polytune_maestro_ei", "B_laddersym_maestro_ei_unprompted", "B_laddersym_maestro_ei_prompted"]
     hg = [bei[k]["point"]["hm_g"] for k in kei]; hgc = [bei[k]["ci95"]["hm_g"] for k in kei]
     uf = [100 * bei[k]["point"]["unfounded"] for k in kei]; ufc = [[100 * x for x in bei[k]["ci95"]["unfounded"]] for k in kei]
-    assert_in("EI adjudicated HM_G", "gives $\\mathrm{HM}_G=%.3f/%.3f/%.3f$ there (intervals overlapping)" % tuple(hg))
+    assert_in("EI adjudicated HM_G", "gives $\\mathrm{HM}_G=%.3f/%.3f/%.3f$ there (intervals overlapping, ordering unresolved)" % tuple(hg))
     if not (max(c[0] for c in hgc) <= min(c[1] for c in hgc)):
         fail("EI HM_G intervals do not all overlap; the letter says they do")
     assert_in("EI adjudicated unfounded share", "an unfounded share of $%.1f/%.1f/%.1f\\%%$ (disjoint" % tuple(uf))
     if not (ufc[0][0] > ufc[1][1] and ufc[1][0] > ufc[2][1]):
         fail("EI unfounded intervals are not pairwise disjoint in order")
     assert_in("EI abstract genuine range",
-              "name it %.2f to %.2f of the time"
-              % (min(ww), max(ww)))
-    assert_in("EI conclusion genuine range",
-              "$%.2f$--$%.2f$ of" % (min(ww), max(ww)))
+              "name the omitted note %d to %d percent of the time"
+              % (round(100 * min(ww)), round(100 * max(ww))))
     # MAESTRO-E paired decomposition, derived from the paired artifact
     pa = _load(os.path.join(gil, "paired_prompted_vs_unprompted.json"))
     mono = True
@@ -1454,7 +1454,8 @@ def check_letter_prose() -> None:
                                 f"M2_pitch_{tag}.json"))["stratified"]
         eq = st["overall_off_diagonal"]["equal_pitch"]["fraction"]
         eqs.append(eq * 100); bnd.append(st["hm_observed"] * eq)
-    assert_in("equal-pitch shares", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal and" % tuple(eqs))
+    assert_in("equal-pitch shares", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal pairs join equal pitches" % tuple(eqs))
+    assert_in_supp("equal-pitch shares (supplement)", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal and" % tuple(eqs))
     assert_in("pitch-blind HM bound", "$\\mathrm{HM}\\ge%.3f/%.3f/%.3f$" % tuple(bnd))
     if not (bnd[0] > bnd[1] > bnd[2]):
         fail("pitch-blind bound no longer preserves the ordering; the letter says it does")
@@ -1567,7 +1568,7 @@ def check_letter_prose() -> None:
                    "falls by $%d$--$%d\\%%$, relative, under"
               % (round(min(frac_moved)), round(max(frac_moved))))
     diag = [100 * ap_[st]["diag_equal_pitch_frac"] for st in stems]
-    assert_in("diagonal equal-pitch share", "$%.1f/%.1f/%.1f\\%%$ of diagonal pairs the two matched events have equal" % tuple(diag))
+    assert_in_supp("diagonal equal-pitch share", "$%.1f/%.1f/%.1f\\%%$ of diagonal pairs join equal pitches" % tuple(diag))
     if "larger by construction" in tex:
         fail("'larger by construction' reintroduced; the collapse's sign is not a theorem")
     assert_in("quote location", "simultaneously'' (Fig.~1 of~")
