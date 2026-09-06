@@ -1447,9 +1447,9 @@ def check_letter_prose() -> None:
         s_in("EI achieved mix", "$%.2f/%.2f/%.2f\\%%$ ($%s$"
              % (mix["substitution"] * 100, mix["insertion"] * 100,
                 mix["omission"] * 100, inj_str))
-        s_in("EI flippable population", "$q=%.1f$ of the $%s$ non-substitution label events"
-             % (val["_provenance"]["q_planted"],
-                "{:,}".format(val["flippable"]).replace(",", "{,}")))
+        s_in("EI flippable population", "each of the $%s$ non-substitution label events independently with probability $q=%.1f$"
+             % ("{:,}".format(val["flippable"]).replace(",", "{,}"),
+                val["_provenance"]["q_planted"]))
         s_in("EI planted flips", "planting $%s$ misclassifications"
              % "{:,}".format(val["planted_flips"]).replace(",", "{,}"))
         n_nonsub = summ["totals"]["ins"] + summ["totals"]["om"] + 2 * summ["totals"]["neg"]
@@ -1588,7 +1588,8 @@ def check_letter_prose() -> None:
     # pre-collapse reference label events, EI over E (the basis the letter names)
     dens = val["n_ref_events"] / (45367 + 12258)
     assert_in("EI/E reference-label ratio",
-              "and $%.1f\\times$ as many reference label events" % dens)
+              "and $%.1f\\times$ as many pre-collapse reference label events as MAESTRO-E ($%s$ vs $%s$)"
+              % (dens, "{:,}".format(val["n_ref_events"]).replace(",", "{,}"), "{:,}".format(45367 + 12258).replace(",", "{,}")))
     ap_ = _load(os.path.join(HERE, "results", "cluster", "anchor_pitch_sensitivity.json"))
     semi = [100 * ap_[st]["unfounded_share"]["semitone"] for st in stems]
     octv = [100 * ap_[st]["unfounded_share"]["octave"] for st in stems]

@@ -107,7 +107,7 @@ def panel_loc(ax) -> None:
 
 
 def main() -> None:
-    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.45))
+    fig, axes = plt.subplots(1, 2, figsize=(S.COL_DOUBLE, 1.36))
     for ax in axes:
         # the axes background patch defaults to edgecolor "none", which the PDF
         # backend writes as a stroke alpha of 0 (an ExtGState IEEE FG-026 rejects)
