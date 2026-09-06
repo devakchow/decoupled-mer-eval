@@ -220,7 +220,8 @@ def check_imports() -> None:
 def check_tests() -> None:
     print("\n[5] test suites")
     tests = [t for t in ("test_decoupled_scorer.py",
-                         "test_mass_conservation_real.py")
+                         "test_mass_conservation_real.py",
+                         "test_proposition1_construction.py")
              if os.path.exists(os.path.join(HERE, t))]
     if not tests:
         fail("no test files found")
@@ -255,6 +256,29 @@ def check_bridge() -> None:
     else:
         tail = (r.stdout or r.stderr).strip().splitlines()[-2:]
         fail(f"bridge_checks.py failed: {tail}")
+
+
+def check_independent_rescore() -> None:
+    """[6c] Second implementation of the measure (mido + SciPy assignment, no
+    shared code) re-derives the MAESTRO-E numbers from the raw prediction
+    MIDI and label stems. Needs the raw data, which are not in the repo:
+    set MER_RAW_DIR to a directory holding the three prediction folders,
+    label/{correct,extra,removed}_notes and gt_meta_maestro.json (pulled
+    from the cluster's run/preds and run/data/MAESTRO-E/label)."""
+    print("\n[6c] independent re-score from raw MIDI (independent_rescore.py)")
+    raw = os.environ.get("MER_RAW_DIR")
+    if not raw:
+        print("  [skip] MER_RAW_DIR not set (raw predictions live on the cluster)")
+        return
+    p = os.path.join(HERE, "independent_rescore.py")
+    r = subprocess.run([sys.executable, p, "--raw", raw], capture_output=True, text=True,
+                       cwd=HERE, timeout=3600)
+    if r.returncode == 0 and "ALL INDEPENDENT RESCORE CHECKS PASSED" in (r.stdout or ""):
+        n = (r.stdout or "").count("\nOK ")
+        ok(f"independent_rescore.py: {n} printed numbers reproduced from raw MIDI")
+    else:
+        tail = [l for l in (r.stdout or r.stderr).strip().splitlines() if l.startswith("FAIL")][:4]
+        fail(f"independent_rescore.py: {tail or (r.stderr or '').strip().splitlines()[-1:]}")
 
 
 def check_printed_arithmetic() -> None:
@@ -725,7 +749,7 @@ def check_round17_supplement() -> None:
          % (pc[k1]["hm_g"][0], pc[k1]["hm_g"][1], pc[k2]["hm_g"][0], pc[k2]["hm_g"][1]))
     if not (pc[k1]["hm_g"][0] > 0 and pc[k2]["hm_g"][0] > 0):
         fail("paired HM_G intervals no longer exclude zero")
-    spin("dominance guard defined", "the dominance guard (the systems emit one MIDI track per class; the guard checks that each output track's class mapping is diagonal-dominant against the reference)")
+    spin("dominance guard defined", "the dominance guard (the systems emit one MIDI track per class; each track's class mapping must be diagonal-dominant against the reference)")
     spin("null coverage sentence", "in every test, the observed exceeds all 200 rotations.")
 
 
@@ -1632,6 +1656,7 @@ def main() -> int:
     check_tests()
     check_bridge()
     check_printed_arithmetic()
+    check_independent_rescore()
     check_doc_numbers()
     check_rescore_v110()
     check_score_filter()
