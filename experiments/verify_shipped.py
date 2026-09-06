@@ -749,7 +749,7 @@ def check_round17_supplement() -> None:
          % (pc[k1]["hm_g"][0], pc[k1]["hm_g"][1], pc[k2]["hm_g"][0], pc[k2]["hm_g"][1]))
     if not (pc[k1]["hm_g"][0] > 0 and pc[k2]["hm_g"][0] > 0):
         fail("paired HM_G intervals no longer exclude zero")
-    spin("dominance guard defined", "the dominance guard (the systems emit one MIDI track per class; each track's class mapping must be diagonal-dominant against the reference)")
+    spin("dominance guard defined", "the dominance guard (one MIDI track per class; each track's class mapping must be diagonal-dominant against the reference)")
     spin("null coverage sentence", "in every test, the observed exceeds all 200 rotations.")
 
 
