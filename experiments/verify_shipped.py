@@ -652,6 +652,8 @@ def check_score_filter() -> None:
     if not (hm_f[0] > hm_f[1] > hm_f[2] and f_f[0] < f_f[1] < f_f[2]):
         fail("filtered ordering differs from Table I's")
     pin("EI drop shares", "removes $%d/%d/%d\\%%$ of missed claims, lifting" % tuple(round(x) for x in drop(ei)))
+    pin("EI missed F1 before/after", "missed-class $F_1$ from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$ and mean error"
+        % (*[r["bs"]["missed"]["f1"] for r in ei], *[r["fs"]["missed"]["f1"] for r in ei]))
     pin("EI mean error F1 before/after", "from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$ and lowering"
         % (*[r["bs"]["_mean_error_f1"] for r in ei], *[r["fs"]["_mean_error_f1"] for r in ei]))
     pin("EI filtered HM", "lowering raw $\\mathrm{HM}$ to $%.3f/%.3f/%.3f$." % tuple(r["rf"]["hm"] for r in ei))
@@ -892,7 +894,8 @@ def check_letter_prose() -> None:
         off_max.append(d["observed_off_diagonal"] / d["null_off_diagonal"]["max"])
         tot_max.append(d["observed_matched_total"] / d["null_matched_total"]["max"])
     assert_in("null total vs mean",
-              f"${min(tot_mean):.1f}$--${max(tot_mean):.1f}\\times$")
+              f"${min(tot_mean):.1f}$--${max(tot_mean):.1f}\\times$ and off-diagonal counts "
+              f"${min(off_mean):.1f}$--${max(off_mean):.1f}\\times$ above chance")
     # 9b. TIDE three-way bins and the collapse census
     #     (results/cluster/collapse_validation.json, cells checksummed there)
     sys.path.insert(0, os.path.join(HERE, "figs"))
@@ -1068,7 +1071,7 @@ def check_letter_prose() -> None:
     else:
         fail("sub-tolerance oracle no longer recovers at every tolerance")
     assert_in("oracle recovery clause",
-              "is recovered exactly while the mean error $F_1$ stays at")
+              "is recovered exactly ($\\tau\\ge75$~ms; every $\\tau$ under sub-tolerance jitter) while the mean error $F_1$ stays at")
     assert_in_supp("oracle tolerance clause", "and $F=1$ at every $\\tau\\ge75$~ms")
 
     # Anchor-window sweep of the unfounded share: the ordering claim in the
@@ -1095,6 +1098,8 @@ def check_letter_prose() -> None:
             ok("supplement window-sweep endpoints artifact-derived")
         else:
             fail(f"supplement window-sweep endpoints should read '{want}'")
+        assert_in("letter window-sweep endpoints",
+                  "depends on the anchor window (" + want + " for Polytune)")
         # 0.574 constituents from the replication artifact
         r_u = rep_m["systems"]["laddersym_unprompted"]
         cons = "%.3f/%.3f" % (r_u["pooled_f1_missed"], r_u["pooled_f1_extra"])

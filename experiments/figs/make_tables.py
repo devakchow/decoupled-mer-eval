@@ -122,7 +122,7 @@ def table_main() -> str:
 \\centering
 \\caption{{Main Results on the MAESTRO-E Test Split ($\\tau=50$\\,\\textup{{ms}},
 $\\epsilon=50$\\,\\textup{{ms}}; Per-Piece Bootstrap 95\\% CIs, $n=177$).
-Repl.\\ $\\bar F_1$: Mean of the Missed- and Extra-Class $F_1$ Under the Published Protocol
+Repl.\\ $\\bar F_1$: Pooled Mean of the Missed- and Extra-Class $F_1$ Under the Published Protocol
 (Our Replication); $F$: Localization $F_1$;
 Unfounded: Share of Localized Events Naming No Score Note ($|U|/|M|$); $\\mathrm{{HM}}$: Raw
 per~\\eqref{{eq:hm}} and Adjudicated $\\mathrm{{HM}}_G$ (Sec.~\\ref{{sec:experiments}}); $\\uparrow$/$\\downarrow$: Higher/Lower Is Better}}
