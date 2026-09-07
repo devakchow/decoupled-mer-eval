@@ -155,7 +155,7 @@ def table_main() -> str:
 $=50$\\,\\textup{{ms}}; Brackets: Per-Piece Bootstrap 95\\% CIs, $n=177$).
 Repl.\\ $\\bar F_1$: Mean Missed-/Extra-Class $F_1$ Under the Published Protocol
 (Our Replication); $F$: Localization $F_1$;
-Unfounded: Share of Localized Events Naming No Score Note ($|U|/|M|$, Sec.~\\ref{{sec:experiments}}); $\\mathrm{{HM}}$: Raw
+Unfounded: Merged Claims Naming No Score Note per Localized Event ($|U|/|M|$, Sec.~\\ref{{sec:experiments}}); $\\mathrm{{HM}}$: Raw
 per~\\eqref{{eq:hm}} and Adjudicated $\\mathrm{{HM}}_G$ (Sec.~\\ref{{sec:experiments}});
 $X/(T{{+}}X)$: Prop.~1's Interval Width;
 $\\mathrm{{HM}}_0$: Collapse-Free Hidden Mass (Sec.~\\ref{{sec:setup}}); $\\uparrow$/$\\downarrow$: Higher/Lower Is Better}}
@@ -304,9 +304,9 @@ def table_null() -> str:
 \\begin{{table}}[!t]
 \\centering
 \\caption{{MAESTRO-E Test-Split Counts per Configuration ($\\tau$, $\\epsilon$, Anchor
-Window $=50$\\,\\textup{{ms}}). LS unpr./pr.: LadderSym Unprompted/Prompted; Parentheses
-(as Labeled): Null Mean Over {n_perm} Circular Shifts, or Genuine Count;
-$\\mathrm{{HM}}_U$: Excludes Only $A$; Equal-Pitch Share: of Off-Diagonal Pairs}}
+Window $=50$\\,\\textup{{ms}}). LS unpr./pr.: LadderSym Unprompted/Prompted; Parentheses,
+as Labeled: Null Mean ({n_perm} Circular Shifts) or Genuine Count;
+$\\mathrm{{HM}}_U$: Excludes Only $A$; Equal-Pitch Share of Off-Diagonal Pairs}}
 \\label{{tab:snull}}
 \\footnotesize
 \\setlength{{\\tabcolsep}}{{3pt}}

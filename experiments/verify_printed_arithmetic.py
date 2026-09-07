@@ -68,6 +68,13 @@ def triple(s: str) -> tuple[float, float, float]:
     return num(a), num(b), num(c)
 
 
+def hull(vals, nd: int):
+    """Outward-rounded range at nd decimals: every summarized value lies inside
+    the printed range under any reading (lower end down, upper end up)."""
+    f = 10 ** nd
+    return math.floor(min(vals) * f) / f, math.ceil(max(vals) * f) / f
+
+
 def _report() -> int:
     for p in PASSES:
         print("[PASS]", p)
@@ -161,20 +168,20 @@ def main() -> int:
     check("raw HM = 8,928 / 30,460", off / M, num(raw_val), 5e-4)
     lo, hi = grab(tex, r"the convention span \$([\d.]+)\$--\$([\d.]+)\$ for Polytune", "span")
     check("span endpoints = (HM_G, raw HM)", (num(lo), num(hi)), (num(hm_val), num(raw_val)))
-    h_lo, h_hi = grab(tex, r"The hidden mass spans \$([\d.]+)\$--\$([\d.]+)\$ by convention", "convention-span heading")
-    check("heading's span = the printed span endpoints at two decimals",
-          (round(num(lo), 2), round(num(hi), 2)), (num(h_lo), num(h_hi)))
+    h_lo, h_hi = grab(tex, r"Polytune's hidden mass spans \$([\d.]+)\$--\$([\d.]+)\$ by convention", "convention-span heading")
+    check("heading's span = the printed span endpoints", (num(lo), num(hi)), (num(h_lo), num(h_hi)))
     dom, dom_of = grab(tex, r"holds \$" + N_ + r"\$ of \$" + N_ + r"\$ off-diagonal events", "dominant cell")
     check("dominant cell = N[extra][wrong]", N[1][2], num(dom))
     check("dominant cell denominator = off-diagonal count", off, num(dom_of))
     d_lo, d_hi = grab(tex, r"which carries \$([\d.]+)\$--\$([\d.]+)\\%\$ of the raw hidden mass", "dominant share range")
-    check("Polytune dominant-cell share 82.1% is the range's upper end", round(100 * N[1][2] / off, 1), num(d_hi))
-    # the range's ends are the smallest and largest configuration shares at the
-    # one-decimal precision the letter prints (the same rule as every printed
-    # triple), so each configuration's one-decimal share lies inside it
+    check("Polytune dominant-cell share 82.11% lies below the range's upper end", 100 * N[1][2] / off <= num(d_hi), True)
+    # every printed multi-configuration range is rounded outward (lower end
+    # down, upper end up) at the printed precision, so each value lies inside
     dom_sh = [100 * ew[i] / offs[i] for i in range(3)]
+    check("dominant-cell share range = outward-rounded min/max of Table II's extra->wrong / off-diagonal",
+          hull(dom_sh, 1), (num(d_lo), num(d_hi)))
     for i in range(3):
-        check(f"dominant-cell share inside the printed range (configuration {i + 1})", num(d_lo) <= round(dom_sh[i], 1) <= num(d_hi), True)
+        check(f"dominant-cell share inside the printed range (configuration {i + 1})", num(d_lo) <= dom_sh[i] <= num(d_hi), True)
     # the letter prints Polytune's |A| and |U| beside HM_G's denominator
     a_l, u_l = grab(tex, r"\(\$\|A\|=" + N_ + r"\$, \$\|U\|=" + N_ + r"\$ for Polytune;", "letter |A|, |U|")
     check("letter's |A| (Polytune) = Table II's", A[0], num(a_l))
@@ -182,7 +189,12 @@ def main() -> int:
 
     # ---- row localization rates against the post-collapse reference totals -
     t1, t2, t3, s1, s2, s3, r1, r2, r3 = grab(
-        tex, r"reference totals \(\$" + N_ + r"\$, \$" + N_ + r"\$, \$" + N_ + r"\$\), its row sums \(\$" + N_ + r"\$, \$" + N_ + r"\$, \$" + N_ + r"\$\) show that \$([\d.]+)\\%\$ .*? \$([\d.]+)\\%\$ of extra .*? \$([\d.]+)\\%\$ of wrong", "row rates")
+        tex, r"reference totals \(\$" + N_ + r"\$, \$" + N_ + r"\$, \$" + N_ + r"\$\), its row sums \(\$" + N_ + r"\$, \$" + N_ + r"\$, \$" + N_ + r"\$\) show that \$([\d.]+)\\%\$ of missed .*? \$([\d.]+)\\%\$ of extra .*? \$([\d.]+)\\%\$ of wrong", "row rates")
+    ls_m1, ls_m2, ls_e1, ls_e2, ls_w1, ls_w2 = grab(
+        tex, r"\(LadderSym: \$([\d.]+)/([\d.]+)\\%\$, \$([\d.]+)/([\d.]+)\\%\$, and \$([\d.]+)/([\d.]+)\\%\$\)", "LadderSym row rates")
+    for lab, m_, e_, w_ in (("unprompted", ls_m1, ls_e1, ls_w1), ("prompted", ls_m2, ls_e2, ls_w2)):
+        check(f"LadderSym {lab}: omissions are the least-localized class (missed < wrong < extra)", num(m_) < num(w_) < num(e_), True)
+    check("Polytune: omissions are the least-localized class (missed < wrong < extra)", num(r1) < num(r3) < num(r2), True)
     for i, (t, s, r) in enumerate(((t1, s1, r1), (t2, s2, r2), (t3, s3, r3))):
         check(f"printed row sum {i} = sum of N's row", sum(N[i]), num(s))
         check(f"row {i} localized share = row sum / post-collapse total", 100 * sum(N[i]) / num(t), num(r), 0.05)
@@ -223,15 +235,16 @@ def main() -> int:
     # open is than the realized collapse-free hidden mass, printed as integers
     # by standard rounding (from Table I's cells: 5.84/6.91/7.86 -> 6/7/8; the
     # artifact-exact 5.86/6.95/7.99 round the same way, checked in verify_shipped)
-    f_lo, f_hi = grab(tex, r"The report leaves a \$(\d+)\$--\$(\d+)\\times\$ interval open", "interval-factor heading")
-    g_lo_f, g_hi_f = grab(tex, r"the report leaves open \$(\d+)\$--\$(\d+)\\times\$ what is realized", "interval-factor sentence")
+    f_lo, f_hi = grab(tex, r"The report leaves a \$([\d.]+)\$--\$([\d.]+)\\times\$ interval open", "interval-factor heading")
+    g_lo_f, g_hi_f = grab(tex, r"the report leaves open \$([\d.]+)\$--\$([\d.]+)\\times\$ what is realized", "interval-factor sentence")
     check("heading and sentence print the same interval factor", (f_lo, f_hi), (g_lo_f, g_hi_f))
+    # the range is the outward hull of the artifact-exact factors (checked in
+    # verify_shipped); here: the factors a reader forms from Table I's rounded
+    # cells must lie inside it
     factors = [widths[i] / hm0[i] for i in range(3)]
-    check("interval factor range = rounded min/max of (X/(T+X)) / HM_0 from Table I",
-          (round(min(factors)), round(max(factors))), (num(f_lo), num(f_hi)))
     for i in range(3):
-        check(f"interval factor inside the printed range (configuration {i + 1})",
-              num(f_lo) - 0.5 <= factors[i] <= num(f_hi) + 0.5, True)
+        check(f"interval factor from Table I's cells inside the printed range (configuration {i + 1})",
+              num(f_lo) <= factors[i] <= num(f_hi), True)
     pc = grab(sup, r"up to \$([\d.]+)\$ for Polytune's counts", "post-collapse bound")[0]
     check("post-collapse bound X/(max TP + X) Polytune", X / (max(pub["Polytune"][0], pub["Polytune"][3]) + X), num(pc), 5e-4)
     # post-collapse totals: gamma' = (gamma_m - mu_r, gamma_e - mu_r, mu_r)
@@ -253,13 +266,13 @@ def main() -> int:
         tex, r"matched totals at \$([\d.]+)\$--\$([\d.]+)\$ and off-diagonal counts at \$([\d.]+)\$--\$([\d.]+)\$ times their null means", "null ratios")
     tot_r = [Ms[i] / Ms_null[i] for i in range(3)]
     off_r = [offs[i] / offs_null[i] for i in range(3)]
-    check("null matched-total ratio range", (round(min(tot_r), 1), round(max(tot_r), 1)), (num(tot_lo), num(tot_hi)))
-    check("null off-diagonal ratio range", (round(min(off_r), 1), round(max(off_r), 1)), (num(off_lo), num(off_hi)))
+    check("null matched-total ratio range = outward hull", hull(tot_r, 1), (num(tot_lo), num(tot_hi)))
+    check("null off-diagonal ratio range = outward hull", hull(off_r, 1), (num(off_lo), num(off_hi)))
     for i in range(3):
         check(f"Table II matched/null ratio inside the printed range (configuration {i + 1})",
-              num(tot_lo) - 0.05 <= tot_r[i] <= num(tot_hi) + 0.05, True)
+              num(tot_lo) <= tot_r[i] <= num(tot_hi), True)
         check(f"Table II off-diagonal/null ratio inside the printed range (configuration {i + 1})",
-              num(off_lo) - 0.05 <= off_r[i] <= num(off_hi) + 0.05, True)
+              num(off_lo) <= off_r[i] <= num(off_hi), True)
     # Table II's merged-cell rows close the letter's ranges and LadderSym's
     # HM_G values, which the letter states but does not derive
     check("Table II extra->wrong (Polytune) = N[extra][wrong]", ew[0], N[1][2])
@@ -268,9 +281,8 @@ def main() -> int:
     for i in range(3):
         check(f"the two merged cells fit inside the off-diagonal (configuration {i + 1})",
               ew[i] + mw[i] <= offs[i], True)
-    shares = [ew[i] / offs[i] for i in range(3)]
-    check("dominant-cell share range = one-decimal min/max of extra->wrong / off-diagonal",
-          (round(100 * min(shares), 1), round(100 * max(shares), 1)), (num(d_lo), num(d_hi)))
+    shares = [100 * ew[i] / offs[i] for i in range(3)]
+    check("dominant-cell share range (second derivation) = outward hull", hull(shares, 1), (num(d_lo), num(d_hi)))
     g_lo, g_hi = grab(tex, r"genuine for only \$([\d.]+)\$--\$([\d.]+)\$ of that cell's merged events", "dominant-cell genuine range")
     rates = [ewg[i] / ew[i] for i in range(3)]
     check("dominant-cell genuine range = rounded min/max of genuine / extra->wrong",
@@ -287,8 +299,8 @@ def main() -> int:
     mb, ma = (triple(x) for x in grab(sup, r"mean error \$F_1\$ from \$([\d./]+)\$ to \$([\d./]+)\$ on MAESTRO-E", "mean F1 before/after (supplement)"))
     r_lo, r_hi = grab(tex, r"Repl\.\\ \$\\bar F_1\$\) by \$([\d.]+)\$--\$([\d.]+)\$", "mean F1 gain range")
     mgains = [ma[i] - mb[i] for i in range(3)]
-    check("letter's mean-F1 gain range = rounded min/max of the supplement's before/after",
-          (round(min(mgains), 2), round(max(mgains), 2)), (num(r_lo), num(r_hi)))
+    check("letter's mean-F1 gain range = outward hull of the supplement's before/after gains",
+          hull(mgains, 2), (num(r_lo), num(r_hi)))
     g_lo, g_hi = grab(tex, r"rais(?:es|ing) missed-class \$F_1\$ under the published protocol by \$([\d.]+)\$ to \$([\d.]+)\$ on MAESTRO-E", "conclusion gain")
     tp_lost = grab(tex, r"\$(\d+)/(\d+)/(\d+)\$ of the \$([\d{,}/]+)\$ missed-class true positives \(\$(\d+)/(\d+)/(\d+)\$ on MAESTRO-EI\)", "filter TP losses")
     tp_of = triple(tp_lost[3])
@@ -296,7 +308,7 @@ def main() -> int:
         check(f"filter's TP base = published TP_m ({name})", tp_of[i], pub[name][0])
         check(f"TP losses are non-negative ({name})", num(tp_lost[i]) >= 0 and num(tp_lost[4 + i]) >= 0, True)
     gains = [a[i] - b[i] for i in range(3)]
-    check("conclusion gain range = min/max of the three filter gains", (round(min(gains), 2), round(max(gains), 2)), (num(g_lo), num(g_hi)))
+    check("conclusion gain range = outward hull of the three filter gains", hull(gains, 2), (num(g_lo), num(g_hi)))
     pooled = re.findall(r"([\d.]+)/([\d.]+) \((?:Polytune|LadderSym unprompted|LadderSym prompted)", sup)[:3]
     for i in range(3):
         check(f"mean error F1 = mean of pooled missed/extra F1 (configuration {i + 1})", (num(pooled[i][0]) + num(pooled[i][1])) / 2, mb[i], 5e-4)
@@ -328,20 +340,19 @@ def main() -> int:
         check(f"EI wrong->wrong naming rate = genuine / cell (configuration {i + 1})", ww_gen[i] / cells[i], rate[i], 5e-4)
         check(f"EI extra->wrong naming rate = genuine / cell (configuration {i + 1})", ew_gen[i] / ew_cells[i], dom_rate[i], 5e-4)
     r_lo_ei, r_hi_ei = grab(tex, r"name the manifest's deleted note in \$([\d.]+)\$--\$([\d.]+)\$ of their merged", "EI naming range")
-    check("letter's wrong->wrong naming range = rounded min/max of the supplement's rates",
-          (round(min(rate), 2), round(max(rate), 2)), (num(r_lo_ei), num(r_hi_ei)))
+    check("letter's wrong->wrong naming range = outward hull of the supplement's rates",
+          hull(rate, 2), (num(r_lo_ei), num(r_hi_ei)))
     d_lo_ei, d_hi_ei = grab(tex, r"only \$([\d.]+)\$--\$([\d.]+)\$ of merged events name a deleted note", "EI dominant-cell naming range")
-    check("letter's extra->wrong naming range = rounded min/max of the supplement's rates",
-          (round(min(dom_rate), 2), round(max(dom_rate), 2)), (num(d_lo_ei), num(d_hi_ei)))
+    check("letter's extra->wrong naming range = outward hull of the supplement's rates (2 dp)",
+          hull(dom_rate, 2), (num(d_lo_ei), num(d_hi_ei)))
     s_lo, s_hi, s_den = grab(tex, r"\$([\d.]+)\$--\$([\d.]+)\$ of the \$" + N_ + r"\$ planted sites", "EI site-level range")
     planted = num(grab(tex, r"recovers \$([\d.]+)\$ of the \$" + N_ + r"\$ planted substitutions", "planted substitutions")[1])
     check("site-level denominator = the planted substitutions", planted, num(s_den))
     site = [rate[i] * cells[i] / planted for i in range(3)]
-    check("EI site-level range = rounded min/max of rate x cell / planted",
-          (round(min(site), 2), round(max(site), 2)), (num(s_lo), num(s_hi)))
+    check("EI site-level range = outward hull of rate x cell / planted", hull(site, 2), (num(s_lo), num(s_hi)))
     for i in range(3):
         check(f"EI site-level recovery inside the printed range (configuration {i + 1})",
-              num(s_lo) - 0.005 <= site[i] <= num(s_hi) + 0.005, True)
+              num(s_lo) <= site[i] <= num(s_hi), True)
     merges, manifest, rec_s, planted_s, prec = grab(
         sup, r"collapse merges \$" + N_ + r"\$ pairs, \$" + N_ + r"\$ of them manifest substitutions \(recall \$([\d.]+)\$ of the \$" + N_ + r"\$ planted; precision \$([\d.]+)\$", "EI recall and precision")
     check("EI collapse precision = manifest merges / all merges", num(manifest) / num(merges), num(prec), 5e-4)
@@ -388,34 +399,37 @@ def main() -> int:
     u_lo, u_hi = grab(ab, r"that share is (\d+) to (\d+) percent of localized", "abstract unfounded range")
     unf_ei = triple(grab(tex, r"an unfounded share of \$([\d./]+)\\%\$", "EI unfounded shares")[0])
     all_unf = [num(x) for x in unf] + list(unf_ei)
-    check("abstract unfounded range = rounded min/max over both corpora", (round(min(all_unf)), round(max(all_unf))), (num(u_lo), num(u_hi)))
+    check("abstract unfounded range = outward hull over both corpora", hull(all_unf, 0), (num(u_lo), num(u_hi)))
     c_lo, c_hi, c_spread = grab(tex, r"it is \$([\d.]+)\$--\$([\d.]+)\$ on both corpora \(differing by at most \$([\d.]+)\$ across configurations on MAESTRO-E\)", "conclusion HM_G levels")
     bound_l = triple(grab(tex, r"raw \$\\mathrm\{HM\}\\ge([\d./]+)\$", "pitch-blind bound")[0])
     # the equal-pitch shares are Table II's last row
     hm_tab = [offs[i] / Ms[i] for i in range(3)]   # raw HM per configuration
     for i in range(3):
         check(f"pitch-blind lower bound <= raw HM x equal-pitch share (configuration {i + 1})", bound_l[i] <= hm_tab[i] * eq_share[i] / 100, True)
-    hg_lo, hg_hi = grab(ab, r"misclassification (\d+) to (\d+) percent", "abstract HM_G range")
+    hg_lo, hg_hi = grab(ab, r"misclassification is (\d+) to (\d+) percent", "abstract HM_G range")
     hmg_E = [num(hm_val)] + [num(x) for x in grab(tex, r"LadderSym unprompted and prompted give \$([\d.]+)\$ and \$([\d.]+)\$", "HM_G LadderSym")]
     hmg_EI = triple(grab(tex, r"\\mathrm\{HM\}_G=([\d./]+)\$ there", "EI HM_G")[0])
     allg = hmg_E + list(hmg_EI)
-    check("abstract HM_G range = rounded min/max over both corpora (percent)", (round(100 * min(allg)), round(100 * max(allg))), (num(hg_lo), num(hg_hi)))
+    check("abstract HM_G range = outward hull over both corpora (percent)", hull([100 * g for g in allg], 0), (num(hg_lo), num(hg_hi)))
     raw_all = [offs[i] / Ms[i] for i in range(3)]
     for i in range(3):
         check(f"charge-U HM lies strictly between HM_G and raw HM (configuration {i + 1})", hmg_E[i] < cu_vals[i] < raw_all[i], True)
     n_lo, n_hi = grab(ab, r"substitutions, (\d+) to (\d+) percent name the omitted note", "abstract naming range")
-    check("abstract naming range = rounded min/max of EI naming rates", (round(100 * min(rate)), round(100 * max(rate))), (num(n_lo), num(n_hi)))
+    check("abstract naming range = outward hull of EI naming rates", hull([100 * r for r in rate], 0), (num(n_lo), num(n_hi)))
     ag_lo, ag_hi = grab(ab, r"by ([\d.]+) to ([\d.]+)\.", "abstract gain range")
     all_gains = gains + [ea[i] - eb[i] for i in range(3)]
-    check("abstract gain range = rounded min/max of the six filter gains (both corpora)", (round(min(all_gains), 2), round(max(all_gains), 2)), (num(ag_lo), num(ag_hi)))
+    check("abstract gain range = outward hull of the six filter gains (both corpora)", hull(all_gains, 2), (num(ag_lo), num(ag_hi)))
     check("abstract gain upper end = conclusion's MAESTRO-E upper end", num(ag_hi), num(g_hi))
-    check("conclusion HM_G range = rounded min/max of the six values (both corpora)", (round(min(allg), 2), round(max(allg), 2)), (num(c_lo), num(c_hi)))
-    check("conclusion HM_G MAESTRO-E spread", round(max(hmg_E) - min(hmg_E), 3), num(c_spread))
+    check("conclusion HM_G range = outward hull of the six values (both corpora)", hull(allg, 2), (num(c_lo), num(c_hi)))
+    check("conclusion HM_G spread bound covers the printed values' spread", 0 <= num(c_spread) - (max(hmg_E) - min(hmg_E)) <= 0.001 + 1e-9, True)
     for i in range(3):
         check(f"conclusion HM_G range holds the MAESTRO-EI value (configuration {i + 1})", num(c_lo) <= round(hmg_EI[i], 2) <= num(c_hi), True)
     check("conclusion HM_G range = the abstract's range (percent)", (round(100 * num(c_lo)), round(100 * num(c_hi))), (num(hg_lo), num(hg_hi)))
     spread = num(grab(tex, r"differs by at most \$([\d.]+)\$ across the three configurations", "HM_G spread")[0])
-    check("HM_G spread on MAESTRO-E = max - min", round(max(hmg_E) - min(hmg_E), 3), spread)
+    # "at most" is a bound: the printed value must be >= the spread of the
+    # printed HM_G values and within one unit of it
+    check("HM_G spread bound covers the printed values' spread", 0 <= spread - (max(hmg_E) - min(hmg_E)) <= 0.001 + 1e-9, True)
+    check("conclusion's HM_G spread = Sec. IV's", num(c_spread), spread)
     words = len(re.sub(r"\s+", " ", ab).strip().split(" "))
     check("abstract word count within SPL's 100-175", 100 <= words <= 175, True)
 
