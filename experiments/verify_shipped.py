@@ -702,7 +702,7 @@ def check_score_filter() -> None:
     if min(lost_e + lost_ei) < 0:
         fail("filter increased a TP count: %s %s" % (lost_e, lost_ei))
     pin("filter TP losses at the boundary",
-        "$%d/%d/%d$ true positives of $%s$ ($%d/%d/%d$ on MAESTRO-EI)"
+        "$%d/%d/%d$ of the $%s$ missed-class true positives ($%d/%d/%d$ on MAESTRO-EI)"
         % (*lost_e, "/".join("{:,}".format(r["bs"]["missed"]["tp"]).replace(",", "{,}") for r in e), *lost_ei))
     pin("abstract recall clause", "(recall unchanged to four decimals)")
     pin("conclusion recall clause", "leaves recall unchanged to four decimals and raises")
@@ -710,7 +710,7 @@ def check_score_filter() -> None:
     pin("abstract gain range (both corpora)", "by %.2f to %.2f. Of the merged" % (min(all_gains), max(all_gains)))
     drop = lambda rs: [100 * r["sf"]["n_dropped"] / r["sf"]["n_missed_before"] for r in rs]
     pin("E drop shares", "removes $%d/%d/%d\\%%$ of the configurations'" % tuple(round(x) for x in drop(e)))
-    pin("E missed F1 before/after", "(our replication) from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$"
+    pin("E missed F1 before/after", "protocol from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$"
         % (*[r["bs"]["missed"]["f1"] for r in e], *[r["fs"]["missed"]["f1"] for r in e]))
     mb_ = [r["bs"]["_mean_error_f1"] for r in e]
     ma_ = [r["fs"]["_mean_error_f1"] for r in e]
@@ -978,8 +978,30 @@ def check_letter_prose() -> None:
         else:
             fail(f"supplement {label}: derived '{printed}' NOT found in supplement")
 
+    # Sec. IV's per-configuration counts live in the two generated tables now
+    # (Table I: figs/tab_main.tex, Table II: figs/tab_null.tex), so the pins for
+    # those numbers assert the table cell rather than a sentence. [8] separately
+    # proves the committed tables are byte-identical to a regeneration from the
+    # artifacts; these pins state which artifact each moved cell came from.
+    def _table(name: str) -> str:
+        with open(os.path.join(HERE, "figs", name), encoding="utf-8") as fh:
+            return re.sub(r"\s+", " ", fh.read())
+
+    tab_main_tex, tab_null_tex = _table("tab_main.tex"), _table("tab_null.tex")
+
+    def assert_in_table(label: str, table: str, printed: str) -> None:
+        src = {"tab_main.tex": tab_main_tex, "tab_null.tex": tab_null_tex}[table]
+        if printed in src:
+            ok(f"{table} {label}: '{printed}' present and artifact-derived")
+        else:
+            fail(f"{table} {label}: derived '{printed}' NOT found in {table}")
+
+    # table cells print counts (and rounded null means) in LaTeX thousands form
+    _cn = lambda n: "{:,}".format(int(round(n))).replace(",", "{,}")
+
     # 9a. null-model enrichment, mean- and max-based (results/gilbreth/null_colo_*)
     off_mean, tot_mean, off_max, tot_max = [], [], [], []
+    obs_tot, nul_tot, obs_off, nul_off = [], [], [], []
     for stem in stems:
         p_ = os.path.join(gil, f"null_colo_{stem}.json")
         if not os.path.exists(p_):
@@ -990,9 +1012,21 @@ def check_letter_prose() -> None:
         tot_mean.append(d["enrichment_total"])
         off_max.append(d["observed_off_diagonal"] / d["null_off_diagonal"]["max"])
         tot_max.append(d["observed_matched_total"] / d["null_matched_total"]["max"])
+        obs_tot.append(d["observed_matched_total"])
+        nul_tot.append(d["null_matched_total"]["mean"])
+        obs_off.append(d["observed_off_diagonal"])
+        nul_off.append(d["null_off_diagonal"]["mean"])
     assert_in("null total vs mean",
               f"matched totals at ${min(tot_mean):.1f}$--${max(tot_mean):.1f}$ and off-diagonal counts at "
               f"${min(off_mean):.1f}$--${max(off_mean):.1f}$ times their null means")
+    # the counts those ratios are formed from: Table II's first two rows, which
+    # also supply |M| and the off-diagonal total to the printed-arithmetic gate
+    assert_in_table("null-model matched totals", "tab_null.tex",
+                    "Matched total, obs.\\ (null) & %s~(%s) & %s~(%s) & %s~(%s) \\\\"
+                    % tuple(_cn(x) for pair in zip(obs_tot, nul_tot) for x in pair))
+    assert_in_table("null-model off-diagonal counts", "tab_null.tex",
+                    "Off-diagonal, obs.\\ (null) & %s~(%s) & %s~(%s) & %s~(%s) \\\\"
+                    % tuple(_cn(x) for pair in zip(obs_off, nul_off) for x in pair))
     # 9b. TIDE three-way bins and the collapse census
     #     (results/cluster/collapse_validation.json, cells checksummed there)
     sys.path.insert(0, os.path.join(HERE, "figs"))
@@ -1029,14 +1063,55 @@ def check_letter_prose() -> None:
                                             den_p // 1000, den_p % 1000, hm_t[0]))
     assert_in("HM after binning (LadderSym)",
               "LadderSym unprompted and prompted give $%.3f$ and $%.3f$" % (hm_t[1], hm_t[2]))
-    assert_in_supp("HM charging U", "gives $%.3f/%.3f/%.3f$" % tuple(chg))
+    assert_in_table("HM charging U", "tab_null.tex",
+                    "$\\mathrm{HM}_U$ (denom.\\ $|M|-|A|$) & %.3f & %.3f & %.3f \\\\" % tuple(chg))
+    assert_in_table("HM_G per configuration", "tab_null.tex",
+                    "$\\mathrm{HM}_G$ & %.3f & %.3f & %.3f \\\\" % tuple(hm_t))
     assert_in("span endpoints", "convention span $%.3f$--$%.3f$ for Polytune" % (hm_t[0], raw[0]))
+    # the paragraph heading states the same span at two decimals
+    assert_in("convention-span heading",
+              "The hidden mass spans $%.2f$--$%.2f$ by convention." % (hm_t[0], raw[0]))
     assert_in("unfounded share",
               "$%.1f\\%%$, $%.1f\\%%$, $%.1f\\%%$" % tuple(u * 100 for u in unf))
     assert_in("suspect-cell genuine rate",
               "$%.3f$--$%.3f$" % (min(susp), max(susp)))
-    assert_in("mu_p merges",
-              "events ($%s/%s/%s$ pairs) and" % tuple(f"{m:,}".replace(",", "{,}") for m in mu_p))
+    assert_in_table("mu_p merges", "tab_null.tex",
+                    "$\\mu_p$ predicted-side merges & %s & %s & %s \\\\" % tuple(_cn(m) for m in mu_p))
+    # the K partition (letter: "counts in Table II of the supplement"): the three
+    # parts must exhaust the adjudicated cells, configuration by configuration
+    _cells3 = ("extra->wrong", "wrong->wrong", "missed->wrong")
+    _Gn = [sum(cv[s][k]["in_score_removed"] for k in _cells3) for s in stems]
+    _An = [sum(cv[s][k]["in_score_correct"] for k in _cells3) for s in stems]
+    _Un = [sum(cv[s][k]["absent_from_score"] for k in _cells3) for s in stems]
+    _Kn = [sum(cv[s][k]["n"] for k in _cells3) for s in stems]
+    for i, s in enumerate(stems):
+        if _Gn[i] + _An[i] + _Un[i] != _Kn[i]:
+            fail(f"K partition does not exhaust the adjudicated cells for {s}")
+        else:
+            ok(f"K partition |G|+|A|+|U| = |K| = {_Kn[i]} for {s} (adjudication cells)")
+    assert_in_table("K partition |G|", "tab_null.tex",
+                    "$|G|$ genuine & %s & %s & %s \\\\" % tuple(_cn(x) for x in _Gn))
+    assert_in_table("K partition |A|", "tab_null.tex",
+                    "$|A|$ ambiguous & %s & %s & %s \\\\" % tuple(_cn(x) for x in _An))
+    assert_in_table("K partition |U|", "tab_null.tex",
+                    "$|U|$ unfounded & %s & %s & %s \\\\" % tuple(_cn(x) for x in _Un))
+    # every abbreviation and parenthesis convention Table II uses is glossed in
+    # its own caption (the letter never defines "LS", "unpr.", "pr.", or HM_U's
+    # numerator), and both 50 ms windows the counts depend on are named
+    assert_in_table("column abbreviations glossed", "tab_null.tex",
+                    "LS unpr./pr.: LadderSym Unprompted/Prompted")
+    assert_in_table("parenthesis convention glossed", "tab_null.tex",
+                    "Parentheses (as Labeled): Null Mean Over 200 Circular Shifts, or Genuine Count")
+    assert_in_table("HM_U and equal-pitch denominators glossed", "tab_null.tex",
+                    "$\\mathrm{HM}_U$: Excludes Only $A$; Equal-Pitch Share: of Off-Diagonal Pairs")
+    assert_in_table("Table II names tau, epsilon, and the anchor window", "tab_null.tex",
+                    "($\\tau$, $\\epsilon$, Anchor Window $=50$\\,\\textup{ms})")
+    assert_in_table("Table I names tau, epsilon, and the anchor window", "tab_main.tex",
+                    "($\\tau$, $\\epsilon$, Anchor Window $=50$\\,\\textup{ms}; Brackets: Per-Piece Bootstrap 95\\% CIs, $n=177$)")
+    assert_in_table("Table I unfounded column carries its unit in the header", "tab_main.tex",
+                    "Unfounded (\\%)$\\!\\downarrow$")
+    assert_in_table("Table I sends HM_0 to Sec. II", "tab_main.tex",
+                    "$\\mathrm{HM}_0$: Collapse-Free Hidden Mass (Sec.~\\ref{sec:setup})")
     # dominant-cell (extra->wrong) share of the raw hidden mass, printed as the
     # standard-rounding hull over the three configurations
     dom = []
@@ -1047,9 +1122,16 @@ def check_letter_prose() -> None:
         off = sum(v for k, v in d50["confusion_sparse"].items()
                   if k.split("->")[0] != k.split("->")[1])
         dom.append(100 * d50["confusion_sparse"]["extra->wrong"] / off)
+    # printed at one decimal (the precision of every printed share triple):
+    # the range's ends are the smallest and largest one-decimal shares
     assert_in("dominant-cell share hull",
-              "which carries $%d$--$%d\\%%$ of the raw hidden mass"
-              % (round(min(dom)), round(max(dom))))
+              "which carries $%.1f$--$%.1f\\%%$ of the raw hidden mass"
+              % (round(min(dom), 1), round(max(dom), 1)))
+    # the letter prints Polytune's |A| and |U| so HM_G's denominator can be
+    # checked on the page against N's total
+    assert_in("letter |A|, |U| for Polytune",
+              "($|A|=%s$, $|U|=%s$ for Polytune; counts in Table~II of the supplement)"
+              % (_cn(_An[0]), _cn(_Un[0])))
     # 9b-2. replication agreement against the printed per-class F1 values.
     # LadderSym's abstract prints 0.563 for its missed note, but its own table
     # gives 0.563 as recall and 0.547 as F1; we compare against the F1.
@@ -1177,7 +1259,9 @@ def check_letter_prose() -> None:
     else:
         fail("sub-tolerance oracle no longer recovers at every tolerance")
     assert_in("oracle recovery clause",
-              "is recovered exactly ($\\tau\\ge75$~ms, the planted jitter being $60$~ms; every $\\tau$ under sub-tolerance jitter) while the mean error $F_1$ stays at")
+              "is recovered exactly ($\\tau\\ge75$~ms, the planted jitter being $60$~ms) while the mean error $F_1$ stays at")
+    assert_in_supp("sub-tolerance oracle clause (supplement)",
+                   "(with sub-tolerance jitter, at every $\\tau$)")
     assert_in_supp("oracle jitter (supplement)", "predicted onsets jittered $60$~ms")
     assert_in_supp("oracle tolerance clause", "and $F=1$ at every $\\tau\\ge75$~ms")
 
@@ -1206,7 +1290,7 @@ def check_letter_prose() -> None:
         else:
             fail(f"supplement window-sweep endpoints should read '{want}'")
         assert_in("letter window-sweep endpoints",
-                  "depends on the anchor window (" + want + " for Polytune, each range")
+                  "depends on the anchor window (" + want + " for Polytune; supplementary)")
         # 0.574 constituents from the replication artifact
         r_u = rep_m["systems"]["laddersym_unprompted"]
         cons = "%.3f/%.3f" % (r_u["pooled_f1_missed"], r_u["pooled_f1_extra"])
@@ -1233,10 +1317,29 @@ def check_letter_prose() -> None:
     Tmax = max(s50p["missed"]["tp"], s50p["extra"]["tp"])
     Xp = min(s50p["missed"]["fp"], s50p["extra"]["fn"]) + min(s50p["extra"]["fp"], s50p["missed"]["fn"])
     assert_in_supp("post-collapse identification interval", "up to $%.3f$ for Polytune's counts" % (Xp / (Tmax + Xp)))
-    nc0 = [x for x in _load(os.path.join(gil, "A_polytune_maestro_nocollapse.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"]
-    Tp = s50p["missed"]["tp"] + s50p["extra"]["tp"]
-    ratio0 = (Xp / (Tp + Xp)) / nc0
-    assert_in("ambiguity-to-measured ratio", "at least $%d\\times$ the realized $\\mathrm{HM}_0$" % int(ratio0))
+    # how much wider the interval a report leaves open is than the realized
+    # collapse-free HM_0, per configuration; Sec. IV prints the rounded hull as
+    # its paragraph heading and again in the paragraph
+    _factor = []
+    for stem in stems:
+        s50_ = _load(os.path.join(gil, f"{stem}_shipped.json"))["shipped_50ms"]
+        T_ = s50_["missed"]["tp"] + s50_["extra"]["tp"]
+        X_ = min(s50_["missed"]["fp"], s50_["extra"]["fn"]) + min(s50_["extra"]["fp"], s50_["missed"]["fn"])
+        hm0_ = [x for x in _load(os.path.join(gil, f"{stem}_nocollapse.json"))
+                ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"]
+        _factor.append((X_ / (T_ + X_)) / hm0_)
+    # integers by standard rounding: the exact factors 5.86/6.95/7.99 and the
+    # factors from Table I's rounded cells 5.84/6.91/7.86 both round to 6/7/8,
+    # so the printed range holds under either computation (a one-decimal range
+    # cannot: 5.9--8.0 exact vs 5.8--7.9 from the cells)
+    _flo, _fhi = round(min(_factor)), round(max(_factor))
+    for _f in _factor:
+        if not (_flo - 0.5 <= _f <= _fhi + 0.5):
+            fail(f"interval factor {_f:.3f} outside the printed integer range {_flo}--{_fhi}")
+    assert_in("ambiguity-to-measured ratio (heading)",
+              "The report leaves a $%d$--$%d\\times$ interval open." % (_flo, _fhi))
+    assert_in("ambiguity-to-measured ratio (paragraph)",
+              "the report leaves open $%d$--$%d\\times$ what is realized" % (_flo, _fhi))
     if "It bounds the collapse-free" in tex or "bounds $\\mathrm{HM}_0$" in tex:
         fail("interval described as a bound on HM_0; it is an inner bound on the identified set")
     # Remark 1's old final claim was mathematically false (marginals pin |M| only)
@@ -1347,8 +1450,8 @@ def check_letter_prose() -> None:
         t = [x for x in _load(os.path.join(gil, f"{stem}_shipped.json"))
              ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
         kM.append(K / t["n_localized"]); uK.append(U / K)
-    # per-configuration merged-cell counts (letter: "counts in the supplementary")
-    _c = lambda n: "{:,}".format(n).replace(",", "{,}")
+    # per-configuration merged-cell counts (letter: "counts in Table II of the
+    # supplement"), formatted with _cn above
     _ew = [cv[s]["extra->wrong"]["n"] for s in stems]
     _ewg = [cv[s]["extra->wrong"]["in_score_removed"] for s in stems]
     _mw = [cv[s]["missed->wrong"]["n"] for s in stems]
@@ -1359,11 +1462,19 @@ def check_letter_prose() -> None:
                ["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]
         _off.append(sum(v for k, v in t50["confusion_sparse"].items()
                         if k.split("->")[0] != k.split("->")[1]))
-    assert_in_supp("merged-cell counts (extra->wrong)",
-                   "extra$\\to$wrong $%s/%s/%s$ ($%d/%d/%d$ genuine) of $%s/%s/%s$ off-diagonal events"
-                   % (*map(_c, _ew), *_ewg, *map(_c, _off)))
-    assert_in_supp("merged-cell counts (missed->wrong)",
-                   "missed$\\to$wrong $%s/%s/%s$ ($%d/%d/%d$ genuine)" % (*map(_c, _mw), *_mwg))
+    assert_in_table("merged-cell counts (extra->wrong)", "tab_null.tex",
+                    "extra$\\to$wrong (genuine) & %s~(%s) & %s~(%s) & %s~(%s) \\\\"
+                    % tuple(_cn(x) for pair in zip(_ew, _ewg) for x in pair))
+    assert_in_table("merged-cell counts (missed->wrong)", "tab_null.tex",
+                    "missed$\\to$wrong (genuine) & %s~(%s) & %s~(%s) & %s~(%s) \\\\"
+                    % tuple(_cn(x) for pair in zip(_mw, _mwg) for x in pair))
+    # the off-diagonal totals these cells sit inside are Table II's second row
+    # (pinned in 9a); the containment is what the letter's shares are formed from
+    for i, s in enumerate(stems):
+        if _ew[i] + _mw[i] > _off[i]:
+            fail(f"merged predicted-wrong cells exceed the off-diagonal total for {s}")
+        else:
+            ok(f"merged cells {_ew[i]}+{_mw[i]} inside the {_off[i]} off-diagonal events for {s}")
     if uK[0] > uK[1] > uK[2]:
         ok("conditional share |U|/|K| orders the systems independently")
     else:
@@ -1422,17 +1533,23 @@ def check_letter_prose() -> None:
     ew = [cvei[c]["extra->wrong"]["manifest_genuine_rate"] for c in ei_cfgs]
     mw = [cvei[c]["missed->wrong"]["manifest_genuine_rate"] for c in ei_cfgs]
     _cp = _load(os.path.join(HERE, "results", "cluster", "maestro_ei_collapse_precision.json"))
-    site = [cvei[c]["wrong->wrong"]["manifest_genuine"] / _cp["merges_that_are_substitutions"] for c in ei_cfgs]
-    assert_in("EI site-level recall", "over all planted sites rather than merged events, $%.2f/%.2f/%.2f$" % tuple(site))
+    # site-level: named deleted notes over every planted substitution site
+    site = [cvei[c]["wrong->wrong"]["manifest_genuine"] / _cp["n_manifest_substitutions"] for c in ei_cfgs]
+    # the letter prints the rounded hulls; the exact per-configuration rates and
+    # the counts they come from live in the supplement's campaign sentence
+    assert_in("EI site-level recall",
+              "$%.2f$--$%.2f$ of the $%s$ planted sites"
+              % (min(site), max(site), _cn(_cp["n_manifest_substitutions"])))
     assert_in("EI genuine contrast",
-              "deleted note in $%.3f/%.3f/%.3f$ of their merged" % tuple(ww))
-    assert_in("EI dominant-cell genuine rate", "only $%.3f/%.3f/%.3f$ of merged events name a deleted note" % tuple(ew))
+              "deleted note in $%.2f$--$%.2f$ of their merged" % (min(ww), max(ww)))
+    assert_in("EI dominant-cell genuine rate",
+              "only $%.2f$--$%.2f$ of merged events name a deleted note" % (min(ew), max(ew)))
     _g = lambda n: "{:,}".format(n).replace(",", "{,}")
-    assert_in_supp("EI merged-cell genuine counts (supplement)",
-                   "(wrong$\\to$wrong; $%s/%s/%s$ name the deleted note) and $%s/%s/%s$ (extra$\\to$wrong; $%s/%s/%s$ name it)"
-                   % (*[_g(cvei[c]["wrong->wrong"]["manifest_genuine"]) for c in ei_cfgs],
+    assert_in_supp("EI merged-cell genuine counts and rates (supplement)",
+                   "(wrong$\\to$wrong; $%s/%s/%s$, i.e.\\ $%.3f/%.3f/%.3f$, name the deleted note) and $%s/%s/%s$ (extra$\\to$wrong; $%s/%s/%s$, i.e.\\ $%.3f/%.3f/%.3f$)"
+                   % (*[_g(cvei[c]["wrong->wrong"]["manifest_genuine"]) for c in ei_cfgs], *ww,
                       *[_g(cvei[c]["extra->wrong"]["n"]) for c in ei_cfgs],
-                      *[_g(cvei[c]["extra->wrong"]["manifest_genuine"]) for c in ei_cfgs]))
+                      *[_g(cvei[c]["extra->wrong"]["manifest_genuine"]) for c in ei_cfgs], *ew))
     hm50, loc50, err50, mc_all = [], [], [], True
     for c in ei_cfgs:
         d = _load(os.path.join(gei, c + "_shipped.json"))
@@ -1440,8 +1557,12 @@ def check_letter_prose() -> None:
         hm50.append(t["hm"]); loc50.append(t["localization"]["f1"])
         err50.append(d["shipped_50ms"]["_mean_error_f1"])
         mc_all &= all(x["mass_conserved"] for x in d["decoupled"]["per_tau"])
-    assert_in("EI published err-F1",
-              "published protocol's mean error $F_1$ does ($%.3f/%.3f/%.3f$ here)" % tuple(err50))
+    # the triple left Sec. IV (which now only claims the ordering) for the
+    # supplement's filter sentence, where it is the before-filter value
+    assert_in_supp("EI published err-F1",
+                   "mean error $F_1$ from $%.3f/%.3f/%.3f$ to" % tuple(err50))
+    assert_in("EI published err-F1 ordering claim",
+              "rank the configurations as the published protocol's mean error $F_1$ does")
     assert_in("EI localization F", "$F=%.3f/%.3f/%.3f$" % tuple(loc50))
     # HM with per-piece intervals from the bootstrap artifacts; the intervals
     # must be pairwise disjoint for HM and for F, else the prose overclaims.
@@ -1452,7 +1573,7 @@ def check_letter_prose() -> None:
             fail("EI bootstrap point HM != shipped HM for %s" % c)
         hm_ci.append(b["hm_ci95"]); f_ci.append(b["loc_f1_ci95"])
     assert_in("EI raw HM and F",
-              "raw $\\mathrm{HM}=%.3f/%.3f/%.3f$ and $F=%.3f/%.3f/%.3f$; both exceed"
+              "raw $\\mathrm{HM}=%.3f/%.3f/%.3f$ and $F=%.3f/%.3f/%.3f$, both above MAESTRO-E's"
               % (*hm50, *loc50))
     def _pd(iv):
         return all(iv[i][1] < iv[j][0] or iv[j][1] < iv[i][0]
@@ -1580,8 +1701,24 @@ def check_letter_prose() -> None:
         T_ = m_["tp"] + e_["tp"]
         X_ = min(m_["fp"], e_["fn"]) + min(e_["fp"], m_["fn"])
         xt.append(X_ / (T_ + X_))
-    assert_in("Prop. 1 interval per configuration",
-              "$X/(T{+}X)=%.3f/%.3f/%.3f$" % tuple(xt))
+    # Prop. 1's interval width is Table I's "$X/(T{+}X)$" column now (the
+    # letter's prose prints only the factor by which it exceeds the realized
+    # HM_0, checked with the collapse-free arm below)
+    def _tab_main_prop1() -> dict:
+        out = {}
+        for lab in ("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)"):
+            m = re.search(re.escape(lab) + r" & .*? & ([\d.]+) & ([\d.]+) \\\\",
+                          tab_main_tex, re.S)
+            out[lab] = (float(m.group(1)), float(m.group(2))) if m else None
+        return out
+
+    _p1 = _tab_main_prop1()
+    for i, lab in enumerate(("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)")):
+        cell = _p1[lab]
+        if cell is not None and abs(cell[0] - xt[i]) < 5e-4:
+            ok(f"Table I X/(T+X) for {lab}: {cell[0]:.3f} == artifact {xt[i]:.4f}")
+        else:
+            fail(f"Table I X/(T+X) for {lab} should be {xt[i]:.3f}, table has {cell}")
     # pitch-blind bound: raw HM times the equal-pitch share of the off-diagonal
     eqs, bnd = [], []
     for tag in ("polytune", "laddersym_unprompted", "laddersym_prompted"):
@@ -1589,7 +1726,8 @@ def check_letter_prose() -> None:
                                 f"M2_pitch_{tag}.json"))["stratified"]
         eq = st["overall_off_diagonal"]["equal_pitch"]["fraction"]
         eqs.append(eq * 100); bnd.append(st["hm_observed"] * eq)
-    assert_in_supp("equal-pitch shares", "$%.1f/%.1f/%.1f\\%%$ of off-diagonal pairs join equal pitches" % tuple(eqs))
+    assert_in_table("equal-pitch shares", "tab_null.tex",
+                    "Equal-pitch share (\\%%) & %.1f & %.1f & %.1f \\\\" % tuple(eqs))
     # a lower bound is printed rounded DOWN (0.2506 -> 0.250): "HM >= 0.251" would be false
     assert_in("pitch-blind HM bound", "$\\mathrm{HM}\\ge%.3f/%.3f/%.3f$" % tuple(math.floor(b * 1000) / 1000 for b in bnd))
     if not (bnd[0] > bnd[1] > bnd[2]):
@@ -1626,7 +1764,7 @@ def check_letter_prose() -> None:
     if worst < 5e-5:
         ok(f"released evaluator == backward-compatible per-piece values (max |diff| {worst:.2e})")
         assert_in("released-evaluator clause",
-                  "matches our backward-compatible per-piece values to four decimals")
+                  "reproduces our per-piece values to four decimals")
     else:
         fail(f"released evaluator differs from backward-compatible values by {worst:.4f}; "
              "the letter claims four-decimal agreement")
@@ -1652,18 +1790,19 @@ def check_letter_prose() -> None:
             fail(f"collapse-free HM {t['hm']:.4f} for {stem} outside Prop. 1 interval [0,{bound:.3f}]")
         if not all(x["mass_conserved"] for x in d["decoupled"]["per_tau"]):
             fail(f"collapse-free arm {stem}: mass conservation failed")
-    assert_in("collapse-free HM", "at $%.3f/%.3f/%.3f$, so the interval a report leaves open" % tuple(nc))
+    # the realized collapse-free values are Table I's "$\mathrm{HM}_0$" column
+    for i, lab in enumerate(("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)")):
+        cell = _p1[lab]
+        if cell is not None and abs(cell[1] - nc[i]) < 5e-4:
+            ok(f"Table I HM_0 for {lab}: {cell[1]:.3f} == artifact {nc[i]:.4f}")
+        else:
+            fail(f"Table I HM_0 for {lab} should be {nc[i]:.3f}, table has {cell}")
     if hw <= 0.007:
         ok(f"collapse-free per-piece intervals within +/-{hw:.4f} <= printed 0.007")
     else:
         fail(f"collapse-free CI half-width {hw:.4f} exceeds printed 0.007")
-    if os.path.exists(supp):
-        with open(supp, encoding="utf-8") as fh:
-            s5 = re.sub(r"\s+", " ", fh.read())
-        if ("gives $%.3f/%.3f/%.3f$, inside" % tuple(nc)) in s5:
-            ok("supplement collapse-free arm artifact-derived")
-        else:
-            fail("supplement collapse-free arm values should be %.3f/%.3f/%.3f" % tuple(nc))
+    # (the supplement's duplicate sentence for these values was retired; Table I's
+    # HM_0 column, checked above, is now their only printed home)
     # Polytune's N at 50 ms printed as a smallmatrix; error-density ratio EI/E
     cs0 = M0["confusion_sparse"]
     rows = [[cs0[f"{r}->{c}"] for c in ("missed", "extra", "wrong")] for r in ("missed", "extra", "wrong")]
@@ -1676,7 +1815,24 @@ def check_letter_prose() -> None:
     _rows = {r: sum(cs0.get(f"{r}->{c}", 0) for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong")}
     _gam = (23087 - 12258, 34538 - 12258, 12258)  # post-collapse reference totals (gamma_m - mu_r, gamma_e - mu_r, mu_r)
     _rec = [100 * _rows["missed"] / _gam[0], 100 * _rows["extra"] / _gam[1], 100 * _rows["wrong"] / _gam[2]]
-    assert_in("N row localization rates", "show that $%.1f\\%%$ of missed (omitted) notes are localized, compared with $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones" % tuple(_rec))
+    # LadderSym's missed-row shares (the letter prints them so the plural
+    # heading rests on all three configurations); the heading's claim, that
+    # omissions are the least-localized class, is checked for every configuration
+    _ls_rec = []
+    for _st in ("B_laddersym_maestro_unprompted", "B_laddersym_maestro_prompted"):
+        _cs = [x for x in _load(os.path.join(gil, f"{_st}_shipped.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["confusion_sparse"]
+        _r = {r: sum(_cs.get(f"{r}->{c}", 0) for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong")}
+        _sh = [100 * _r["missed"] / _gam[0], 100 * _r["extra"] / _gam[1], 100 * _r["wrong"] / _gam[2]]
+        if not (_sh[0] < _sh[2] < _sh[1]):
+            fail(f"{_st}: missed-row share {_sh[0]:.1f}% is not the least localized class")
+        _ls_rec.append(_sh[0])
+    if not (_rec[0] < _rec[2] < _rec[1]):
+        fail("Polytune: missed-row share is not the least localized class")
+    else:
+        ok("omissions are the least-localized class in every configuration (missed < wrong < extra row shares)")
+    assert_in("N row localization rates", "show that $%.1f\\%%$ of missed (omitted) notes are localized ($%.1f/%.1f\\%%$ for LadderSym), compared with $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones" % (_rec[0], *_ls_rec, _rec[1], _rec[2]))
+    assert_in("reference merges clause (matrix paragraph)",
+              "(predicted-side merges, Table~II of the supplement) and the $%s$ reference pairs above." % "{:,}".format(_gam[2]).replace(",", "{,}"))
     assert_in("Polytune dominant cell", "holds ${:,}$ of ${:,}$ off-diagonal events".format(cs0["extra->wrong"], off_all).replace(",", "{,}"))
     # pre-collapse reference label events, EI over E (the basis the letter names)
     dens = val["n_ref_events"] / (45367 + 12258)
@@ -1694,8 +1850,13 @@ def check_letter_prose() -> None:
         fail("EI pre-collapse count differs from the manifest by %d note-ons; the supplement explains 40" % _dropped)
     _f = lambda n: "{:,}".format(n).replace(",", "{,}")
     assert_in_supp("EI/E pre-collapse counts (supplement)",
-                   "holds $%s$ error events before the collapse: the manifest's $2\\times%s+%s=%s$ label note-ons less $%d$ that lack a note-off, which the MIDI reader drops (MAESTRO-E: $%s$)"
-                   % (_f(val["n_ref_events"]), _f(summ["totals"]["sub"]), _f(_nonsub), _f(_manifest_ons), _dropped, _f(45367 + 12258)))
+                   "holds $%s$ error events before the collapse (the manifest's $%s$ label note-ons less $%d$ lacking a note-off, which the MIDI reader drops; MAESTRO-E: $%s$)"
+                   % (_f(val["n_ref_events"]), _f(_manifest_ons), _dropped, _f(45367 + 12258)))
+    # the sentence no longer prints the 2*sub+non-sub sum itself; its summands
+    # stay pinned where they do print (the letter's planted-substitution count
+    # in "EI collapse precision", the non-substitution total in "EI
+    # non-substitution event total"), and verify_printed_arithmetic closes the
+    # arithmetic across the two pages.
     ap_ = _load(os.path.join(HERE, "results", "cluster", "anchor_pitch_sensitivity.json"))
     semi = [100 * ap_[st]["unfounded_share"]["semitone"] for st in stems]
     octv = [100 * ap_[st]["unfounded_share"]["octave"] for st in stems]
@@ -1725,13 +1886,21 @@ def check_letter_prose() -> None:
     assert_in("null tests counts, not the share", "times their null means (counts, not the share; supplementary)")
     assert_in("conclusion filter claim conditioned on timing",
               "Where score and performance onsets coincide, a score-consistency filter leaves recall unchanged to four decimals and raises")
-    # conclusion HM_G levels, scoped per corpus: MAESTRO-E range at 2 dp, and
-    # one MAESTRO-EI value only if all three configurations round to it
-    if len({round(v, 2) for v in hg}) != 1:
-        fail("EI HM_G values no longer round to one 2-dp value: %s" % hg)
-    assert_in("conclusion HM_G levels per corpus",
-              "it is $%.2f$--$%.2f$ on MAESTRO-E (differing by at most $%.3f$ across configurations) and $%.2f$ on MAESTRO-EI"
-              % (min(_hg), max(_hg), max(_hg) - min(_hg), hg[0]))
+    # conclusion HM_G levels: one 2-dp range over both corpora (the six values
+    # span 0.050--0.067, so a per-corpus split would manufacture a contrast the
+    # data do not support), with the MAESTRO-E spread at 3 dp
+    assert_in("conclusion HM_G levels (both corpora)",
+              "it is $%.2f$--$%.2f$ on both corpora (differing by at most $%.3f$ across configurations on MAESTRO-E)"
+              % (min(_hg + list(hg)), max(_hg + list(hg)), max(_hg) - min(_hg)))
+    # conclusion: raw HM's ordering agrees with the published protocol's mean
+    # error F1 ordering on MAESTRO-E (checked from the artifacts, then pinned)
+    _hm50 = [[x for x in _load(os.path.join(gil, f"{s}_shipped.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"] for s in stems]
+    _mef = [_load(os.path.join(gil, f"{s}_shipped.json"))["shipped_50ms"]["_mean_error_f1"] for s in stems]
+    if sorted(range(3), key=lambda i: -_hm50[i]) == sorted(range(3), key=lambda i: _mef[i]):
+        ok("raw HM (lower better) and published mean error F1 (higher better) order the configurations identically")
+    else:
+        fail("raw HM ordering disagrees with the published mean error F1 ordering: %s vs %s" % (_hm50, _mef))
+    assert_in("conclusion ordering agreement", "though the raw $\\mathrm{HM}$ ordering is stable and agrees with the published protocol's")
     assert_in("N row sums printed",
               "its row sums ($%s$, $%s$, $%s$) show that" % tuple("{:,}".format(_rows[r]).replace(",", "{,}") for r in ("missed", "extra", "wrong")))
     assert_in_supp("inner-bound example (X = 0, HM_0 = 1)",
@@ -1741,6 +1910,20 @@ def check_letter_prose() -> None:
                 "(per-piece intervals pairwise disjoint)", "the span $[0.063"):
         if bad in tex:
             fail("round-22 wording regression: '%s'" % bad)
+    # round-23 (fresh re-read of the claim-first Sec. IV): a heading that the
+    # counts contradict ("most" merged claims are not unfounded: 27--45%), ranges
+    # rounded inward (5.84x printed as 6; 74.83% printed as 75), a pointer to a
+    # table that did not hold the numbers, and a per-corpus HM_G contrast that
+    # separated 0.063 from 0.065
+    for bad in ("Most merged claims name no score note", "$5.8$--$7.9\\times", "$75$--$82\\%",
+                "over all planted sites rather than", "charging unfounded events too",
+                "each range spanning two treatments", "every $\\tau$ under sub-tolerance jitter",
+                "on MAESTRO-E (differing by at most $0.013$ across configurations) and $0.07$",
+                "reference pairs, the same for all three (Table~II"):
+        if bad in tex:
+            fail("round-23 wording regression: '%s'" % bad)
+    assert_in("dominant-cell heading", "\\emph{The dominant off-diagonal cell rarely names an omitted note.}")
+    assert_in("HM_U defined at its use", "$\\mathrm{HM}_U$, excluding only $A$, lies between (Table~II of the supplement)")
     assert_in("Sec. II to III bridge", "so the measure computes it while scoring, making the wrong class expressible first")
     for bad in ("by construction removing only false positives", "unfounded missed claims are",
                 "is model inference, not protocol", "the $\\mathrm{HM}_G$ intervals overlap"):
@@ -1749,6 +1932,19 @@ def check_letter_prose() -> None:
     assert_in_supp("released evaluator agreement (supplement)",
                    "reproduces these per-piece values to four decimals (\\texttt{released\\_evaluator.json})")
     assert_in("LadderSym availability wording", "not released; accessed 1~Sep.")
+    # Round-23: Sec. IV's per-configuration counts moved into Tables I and II and
+    # its EI rates into the supplement. Each retired wording is a value that now
+    # has exactly one home; printing it in the letter again means two homes, and
+    # the second one will drift. LETTER-only: the supplement legitimately prints
+    # $X/(T{+}X)=0.397$ and the 0.789/0.857/0.897 rates.
+    for bad in ("$|K|=16{,}444",                    # K partition -> Table II
+                "(1{,}173+136)",                    # HM_G numerator now spelled out
+                "0.789/0.857/0.897",                # EI naming rates -> supplement
+                "$X/(T{+}X)=0.397",                 # interval widths -> Table I
+                "at least $5\\times$",              # superseded by the 6--8 hull
+                "$0.616/0.697/0.759$ here"):        # EI published err-F1 -> supplement
+        if bad in tex:
+            fail("round-23 wording regression: '%s' is back in the letter" % bad)
 
 
 def check_cluster_parity() -> None:
