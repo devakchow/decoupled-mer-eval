@@ -1,0 +1,63 @@
+
+== A_polytune_maestro
+OK    |M|: independent 30460 vs printed 30460
+OK    raw HM (3 dp): independent 0.293 vs printed 0.293
+OK    |K| = matched merged predictions (0.1% of |M|): independent 16462 vs printed 16444
+OK    |G| (0.1% of |M|): independent 6679 vs printed 6678
+OK    |A| (0.1% of |M|): independent 2430 vs printed 2411
+OK    |U| (0.1% of |M|): independent 7353 vs printed 7355
+OK    HM_G (3 dp): independent 0.063 vs printed 0.063
+OK    unfounded share |U|/|M| (%): independent 24.1 vs printed 24.1
+OK    predicted-side merges: independent 29157 vs printed 29157
+OK    reference-side merges: independent 12258 vs printed 12258
+OK    N (Polytune), every cell within 0.1% of |M|: independent True vs printed True
+     N = [[535, 83, 425], [12, 12294, 7342], [12, 1062, 8695]] | max cell difference: 13
+OK    N row sums (reference classes) within 0.1% of |M|: independent True vs printed True
+OK    post-collapse reference totals: independent (10829, 22280, 12258) vs printed (10829, 22280, 12258)
+OK    published-protocol missed (TP,FP,FN): independent (7088, 24039, 15999) vs printed (7088, 24039, 15999)
+OK    pooled missed F1 (3 dp): independent 0.261 vs printed 0.261
+OK    published-protocol extra (TP,FP,FN): independent (27650, 18829, 6888) vs printed (27650, 18829, 6888)
+OK    pooled extra F1 (3 dp): independent 0.683 vs printed 0.683
+OK    score-consistency filter: missed F1 (3 dp): independent 0.403 vs printed 0.404
+OK    score-consistency filter: drop share (%): independent 61 vs printed 61
+OK    filter leaves the extra class untouched: independent (27650, 18829, 6888) vs printed (27650, 18829, 6888)
+
+== B_laddersym_maestro_unprompted
+OK    |M|: independent 33392 vs printed 33392
+OK    raw HM (3 dp): independent 0.199 vs printed 0.199
+OK    |K| = matched merged predictions (0.1% of |M|): independent 14468 vs printed 14461
+OK    |G| (0.1% of |M|): independent 7685 vs printed 7689
+OK    |A| (0.1% of |M|): independent 1643 vs printed 1630
+OK    |U| (0.1% of |M|): independent 5140 vs printed 5142
+OK    HM_G (3 dp): independent 0.054 vs printed 0.054
+OK    unfounded share |U|/|M| (%): independent 15.4 vs printed 15.4
+OK    predicted-side merges: independent 22376 vs printed 22376
+OK    reference-side merges: independent 12258 vs printed 12258
+OK    published-protocol missed (TP,FP,FN): independent (9975, 18592, 13112) vs printed (9975, 18592, 13112)
+OK    pooled missed F1 (3 dp): independent 0.386 vs printed 0.386
+OK    published-protocol extra (TP,FP,FN): independent (29166, 12914, 5372) vs printed (29166, 12914, 5372)
+OK    pooled extra F1 (3 dp): independent 0.761 vs printed 0.761
+OK    score-consistency filter: missed F1 (3 dp): independent 0.552 vs printed 0.552
+OK    score-consistency filter: drop share (%): independent 54 vs printed 54
+OK    filter leaves the extra class untouched: independent (29166, 12914, 5372) vs printed (29166, 12914, 5372)
+
+== B_laddersym_maestro_prompted
+OK    |M|: independent 35105 vs printed 35105
+OK    raw HM (3 dp): independent 0.175 vs printed 0.175
+OK    |K| = matched merged predictions (0.1% of |M|): independent 14371 vs printed 14369
+OK    |G| (0.1% of |M|): independent 8755 vs printed 8758
+OK    |A| (0.1% of |M|): independent 1740 vs printed 1739
+OK    |U| (0.1% of |M|): independent 3876 vs printed 3872
+OK    HM_G (3 dp): independent 0.05 vs printed 0.05
+OK    unfounded share |U|/|M| (%): independent 11.0 vs printed 11.0
+OK    predicted-side merges: independent 18644 vs printed 18644
+OK    reference-side merges: independent 12258 vs printed 12258
+OK    published-protocol missed (TP,FP,FN): independent (12135, 14782, 10952) vs printed (12135, 14782, 10952)
+OK    pooled missed F1 (3 dp): independent 0.485 vs printed 0.485
+OK    published-protocol extra (TP,FP,FN): independent (30414, 8475, 4124) vs printed (30414, 8475, 4124)
+OK    pooled extra F1 (3 dp): independent 0.828 vs printed 0.828
+OK    score-consistency filter: missed F1 (3 dp): independent 0.629 vs printed 0.629
+OK    score-consistency filter: drop share (%): independent 42 vs printed 42
+OK    filter leaves the extra class untouched: independent (30414, 8475, 4124) vs printed (30414, 8475, 4124)
+
+ALL INDEPENDENT RESCORE CHECKS PASSED
