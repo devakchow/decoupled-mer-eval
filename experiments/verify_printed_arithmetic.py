@@ -104,10 +104,7 @@ def main() -> int:
     a1, a2 = grab(tex, r"split \$(\d+)\$ extra\$\\to\$wrong and \$(\d+)\$ missed\$\\to\$wrong", "136 split")
     check("136 genuine off-diagonal = 37 + 99", num(a1) + num(a2), num(hm_gen))
 
-    cu_a, cu_b, cu_den, cu_vals = grab(
-        tex, r"numerator \$" + N_ + r"\+" + N_ + r"\$.*?denominator \$\|M\|-\|A\|=" + N_ + r"\$\) gives \$([\d./]+)\$", "charge-U convention")
-    check("charge-U denominator = |M| - |A|", M - A[0], num(cu_den))
-    check("charge-U HM (Polytune)", (num(cu_a) + num(cu_b)) / num(cu_den), triple(cu_vals)[0], 5e-4)
+    cu_vals = triple(grab(sup, r"Charging unfounded events as misclassification too \(denominator \$\|M\|-\|A\|\$\) gives \$([\d./]+)\$", "charge-U convention")[0])
     raw_off, raw_M, raw_val = grab(tex, r"\(\$" + N_ + r"\$ of \$\|M\|=" + N_ + r"\$\) gives the raw \$([\d.]+)\$", "raw convention")
     check("off-diagonal count of N = 8,928", off, num(raw_off))
     check("|M| = 30,460", M, num(raw_M))
@@ -161,8 +158,8 @@ def main() -> int:
     check("post-collapse missed total = TP_m + FN_m - merged pairs", pub["Polytune"][0] + pub["Polytune"][2] - num(mu_r), num(t1))
     check("post-collapse extra total = TP_e + FN_e - merged pairs", pub["Polytune"][3] + pub["Polytune"][5] - num(mu_r), num(t2))
     # predicted-side merges as a share of predicted missed events rho_m = TP_m + FP_m
-    mp = triple(grab(tex, r"merges \$([\d{,}/]+)\$ pairs on the predicted side", "predicted merges")[0])
-    ms = triple(grab(tex, r"\(\$([\d./]+)\\%\$ of predicted \\emph\{missed\} events\)", "merged share")[0])
+    ms = triple(grab(tex, r"merges \$([\d./]+)\\%\$ of predicted \\emph\{missed\} events", "merged share")[0])
+    mp = triple(grab(tex, r"events \(\$([\d{,}/]+)\$ pairs\) and", "predicted merges")[0])
     for i, name in enumerate(("Polytune", "unprompted", "prompted")):
         rho_m = pub[name][0] + pub[name][1]
         check(f"merged share of predicted missed {name}", 100 * mp[i] / rho_m, ms[i], 0.05)
@@ -186,25 +183,59 @@ def main() -> int:
     for i in range(3):
         check(f"Table II printed ratio (matched, row {i + 1})", round(tot_r[i], 1), num(rows[i][2]))
         check(f"Table II printed ratio (off-diagonal, row {i + 1})", round(off_r[i], 1), num(rows[i][5]))
-    # supplement's |K|/|M| and |U|/|K| shares
-    km, uk = grab(sup, r"Of localized events, \$([\d/]+)\\%\$ are matched pairs whose predicted event is merged .*? and \$([\d/]+)\\%\$ of those are unfounded", "K/M and U/K")
+    # supplement's per-configuration merged-cell counts close the letter's
+    # ranges and LadderSym's HM_G values, which the letter states but does
+    # not derive
+    ew_s, ewg1, ewg2, ewg3, off_s = grab(
+        sup, r"extra\$\\to\$wrong \$([\d{,}/]+)\$ \(\$(\d+)/(\d+)/(\d+)\$ genuine\) of \$([\d{,}/]+)\$ off-diagonal events", "extra->wrong cells")
+    mw_s, mwg1, mwg2, mwg3 = grab(sup, r"missed\$\\to\$wrong \$([\d{,}/]+)\$ \(\$(\d+)/(\d+)/(\d+)\$ genuine\)", "missed->wrong cells")
+    ew, offs, mw = triple(ew_s), triple(off_s), triple(mw_s)
+    ewg = tuple(num(x) for x in (ewg1, ewg2, ewg3))
+    mwg = tuple(num(x) for x in (mwg1, mwg2, mwg3))
+    check("supplement extra->wrong (Polytune) = N[extra][wrong]", ew[0], N[1][2])
+    check("supplement missed->wrong (Polytune) = N[missed][wrong]", mw[0], N[0][2])
+    check("supplement off-diagonal (Polytune) = N's off-diagonal", offs[0], off)
+    check("136 genuine off-diagonal = genuine extra->wrong + missed->wrong (Polytune)", ewg[0] + mwg[0], num(hm_gen))
     for i in range(3):
-        check(f"|K|/|M| (configuration {i + 1})", round(100 * K[i] / Ms[i]), triple(km)[i])
-        check(f"|U|/|K| (configuration {i + 1})", round(100 * U[i] / K[i]), triple(uk)[i])
+        check(f"Table II off-diagonal = supplement off-diagonal (configuration {i + 1})", num(rows[i][3]), offs[i])
+    shares = [ew[i] / offs[i] for i in range(3)]
+    check("dominant-cell share range = rounded min/max of extra->wrong / off-diagonal",
+          (round(100 * min(shares)), round(100 * max(shares))), (num(d_lo), num(d_hi)))
+    g_lo, g_hi = grab(tex, r"genuine for only \$([\d.]+)\$--\$([\d.]+)\$ of that cell's merged events", "dominant-cell genuine range")
+    rates = [ewg[i] / ew[i] for i in range(3)]
+    check("dominant-cell genuine range = rounded min/max of genuine / extra->wrong",
+          (round(min(rates), 3), round(max(rates), 3)), (num(g_lo), num(g_hi)))
+    hmg_l = [num(x) for x in grab(tex, r"LadderSym unprompted and prompted give \$([\d.]+)\$ and \$([\d.]+)\$", "HM_G LadderSym")]
+    for i in (1, 2):
+        val = (offs[i] - ew[i] - mw[i] + ewg[i] + mwg[i]) / (Ms[i] - A[i] - U[i])
+        check(f"HM_G (configuration {i + 1}) = (unmerged off-diagonal + genuine) / (|M| - |A| - |U|) from printed counts", val, hmg_l[i - 1], 5e-4)
 
     # ---- filter gains and the mean error F1 ---------------------------------
     b, a = (triple(x) for x in grab(tex, r"\(our replication\) from \$([\d./]+)\$ to \$([\d./]+)\$", "missed F1 before/after"))
-    mb, ma = (triple(x) for x in grab(tex, r"Repl\.\\ \$\\bar F_1\$\) from \$([\d./]+)\$ to \$([\d./]+)\$", "mean F1 before/after"))
-    g_lo, g_hi = grab(tex, r"raises missed-class \$F_1\$ under the published protocol by \$([\d.]+)\$ to \$([\d.]+)\$", "conclusion gain")
+    mb, ma = (triple(x) for x in grab(sup, r"mean error \$F_1\$ from \$([\d./]+)\$ to \$([\d./]+)\$ on MAESTRO-E", "mean F1 before/after (supplement)"))
+    r_lo, r_hi = grab(tex, r"Repl\.\\ \$\\bar F_1\$\) by \$([\d.]+)\$--\$([\d.]+)\$", "mean F1 gain range")
+    mgains = [ma[i] - mb[i] for i in range(3)]
+    check("letter's mean-F1 gain range = rounded min/max of the supplement's before/after",
+          (round(min(mgains), 2), round(max(mgains), 2)), (num(r_lo), num(r_hi)))
+    g_lo, g_hi = grab(tex, r"raising missed-class \$F_1\$ under the published protocol by \$([\d.]+)\$ to \$([\d.]+)\$ on MAESTRO-E", "conclusion gain")
     gains = [a[i] - b[i] for i in range(3)]
     check("conclusion gain range = min/max of the three filter gains", (round(min(gains), 2), round(max(gains), 2)), (num(g_lo), num(g_hi)))
     pooled = re.findall(r"([\d.]+)/([\d.]+) \((?:Polytune|LadderSym unprompted|LadderSym prompted)", sup)[:3]
     for i in range(3):
         check(f"mean error F1 = mean of pooled missed/extra F1 (configuration {i + 1})", (num(pooled[i][0]) + num(pooled[i][1])) / 2, mb[i], 5e-4)
         check(f"supplement pooled missed F1 = letter's before value (configuration {i + 1})", num(pooled[i][0]), b[i])
-    eb, ea = (triple(x) for x in grab(tex, r"missed-class \$F_1\$ from \$([\d./]+)\$ to \$([\d./]+)\$ and mean error", "EI missed F1"))
+        check(f"filtered mean F1 = mean of filtered missed F1 and the untouched extra F1 (configuration {i + 1})", (a[i] + num(pooled[i][1])) / 2, ma[i], 5e-4)
+    eb, ea, emb, ema = (triple(x) for x in grab(
+        sup, r"on MAESTRO-EI, missed-class \$F_1\$ from \$([\d./]+)\$ to \$([\d./]+)\$ and mean error \$F_1\$ from \$([\d./]+)\$ to \$([\d./]+)\$", "EI before/after (supplement)"))
+    eg_m, eg_e = grab(tex, r"raising missed-class \$F_1\$ by \$([\d.]+)\$ and mean error \$F_1\$ by \$([\d.]+)\$ in every configuration", "EI uniform gains")
     for i in range(3):
-        check(f"MAESTRO-EI filter raises missed F1 (configuration {i + 1})", ea[i] > eb[i], True)
+        check(f"MAESTRO-EI missed-F1 gain rounds to the printed uniform gain (configuration {i + 1})", round(ea[i] - eb[i], 2), num(eg_m))
+        check(f"MAESTRO-EI mean-F1 gain rounds to the printed uniform gain (configuration {i + 1})", round(ema[i] - emb[i], 2), num(eg_e))
+    c_ei = grab(tex, r"on MAESTRO-E and by \$([\d.]+)\$ on MAESTRO-EI", "conclusion EI gain")[0]
+    check("conclusion EI gain = Sec. IV's uniform missed-F1 gain", num(c_ei), num(eg_m))
+    ei_pub = triple(grab(tex, r"mean error \$F_1\$ does \(\$([\d./]+)\$ here\)", "EI published mean F1")[0])
+    for i in range(3):
+        check(f"EI published mean F1 in Sec. IV = supplement's before value (configuration {i + 1})", ei_pub[i], emb[i])
 
     # ---- MAESTRO-EI recoveries ---------------------------------------------
     rate = triple(grab(tex, r"name the manifest's deleted note in \$([\d./]+)\$", "EI naming rate")[0])
@@ -213,15 +244,33 @@ def main() -> int:
     planted = num(grab(tex, r"recovers \$([\d.]+)\$ of the \$" + N_ + r"\$ planted substitutions", "planted substitutions")[1])
     for i in range(3):
         check(f"EI site-level recovery = rate x cell / planted (configuration {i + 1})", rate[i] * cells[i] / planted, site[i], 5e-3)
-    merges, manifest, prec = grab(sup, r"collapse merges \$" + N_ + r"\$ pairs, \$" + N_ + r"\$ of them manifest substitutions \(precision \$([\d.]+)\$", "EI precision")
+    merges, manifest, rec_s, planted_s, prec = grab(
+        sup, r"collapse merges \$" + N_ + r"\$ pairs, \$" + N_ + r"\$ of them manifest substitutions \(recall \$([\d.]+)\$ of the \$" + N_ + r"\$ planted; precision \$([\d.]+)\$", "EI recall and precision")
     check("EI collapse precision = manifest merges / all merges", num(manifest) / num(merges), num(prec), 5e-4)
-    rem = grab(tex, r"at \$([\d.]+)\\%\$ precision, the \$([\d.]+)\\%\$ remainder", "EI remainder")
-    check("EI remainder = 100 - precision", round(100 - num(rem[0]), 1), num(rem[1]))
+    check("EI collapse recall = manifest merges / planted substitutions", num(manifest) / num(planted_s), num(rec_s), 5e-5)
+    check("supplement planted count = letter's planted count", num(planted_s), planted)
+    rec_l, _pl, prec_l = grab(tex, r"recovers \$([\d.]+)\$ of the \$" + N_ + r"\$ planted substitutions at precision \$([\d.]+)\$", "EI recall/precision (letter)")
+    check("letter recall = supplement recall", num(rec_l), num(rec_s))
+    check("letter precision = supplement precision", num(prec_l), num(prec))
+    rem = grab(sup, r"precision \$([\d.]+)\$; the \$([\d.]+)\\%\$ remainder", "EI remainder")
+    check("EI remainder = 100 - 100 x precision", round(100 - 100 * num(rem[0]), 1), num(rem[1]))
     tot, sub5, nonsub = grab(sup, r"The \$" + N_ + r"\$ insertion, omission, and decoy events .*? include \$" + N_ + r"\$ within \$5\$~ms .*? the other \$" + N_ + r"\$ are the non-substitution", "EI event totals")
     check("non-substitution events = all - within-5-ms", num(tot) - num(sub5), num(nonsub))
     f1, f2, f3, f4 = grab(sup, r"\(\$" + N_ + r"\$ matched off-diagonal, \$(\d+)\$ diagonal, \$" + N_ + r"\$ collapse-absorbed, \$" + N_ + r"\$ unmatched\)", "flip fates")
     flips = num(grab(sup, r"planting \$" + N_ + r"\$ misclassifications", "planted flips")[0])
     check("planted flips = sum of the four fates", num(f1) + num(f2) + num(f3) + num(f4), flips)
+    off_meas, f_off, coinc = grab(sup, r"measured off-diagonal of \$" + N_ + r"\$ holds those \$" + N_ + r"\$ plus \$" + N_ + r"\$ coincidental", "flip off-diagonal decomposition")
+    check("measured off-diagonal = matched flips + coincidental pairings", num(f_off) + num(coinc), num(off_meas))
+    check("matched off-diagonal flips = the first fate", num(f_off), num(f1))
+    ei_pre, e_pre = grab(sup, r"holds \$" + N_ + r"\$ error events before the collapse \(MAESTRO-E: \$" + N_ + r"\$\)", "pre-collapse reference counts")
+    ratio_pre = grab(tex, r"\$([\d.]+)\\times\$ as many pre-collapse reference label events", "pre-collapse ratio")[0]
+    check("MAESTRO-E pre-collapse reference events = post-collapse total + merged pairs", num(gamma_post) + num(mu_r), num(e_pre))
+    check("EI/E pre-collapse ratio", round(num(ei_pre) / num(e_pre), 1), num(ratio_pre))
+    jit_l = grab(tex, r"the planted jitter being \$(\d+)\$~ms", "letter jitter")[0]
+    jit_s = grab(sup, r"predicted onsets jittered \$(\d+)\$~ms", "supplement jitter")[0]
+    check("letter jitter = supplement jitter", num(jit_l), num(jit_s))
+    hm_rec = grab(sup, r"recovers \$\\mathrm\{HM\}=([\d.]+)\$", "recovered HM*")[0]
+    check("recovered HM* = 1/6 to four decimals", round(1 / 6, 4), num(hm_rec))
 
     # ---- abstract's rounded ranges -----------------------------------------
     ab = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", tex).group(1)
@@ -232,7 +281,10 @@ def main() -> int:
     hmg_EI = triple(grab(tex, r"\\mathrm\{HM\}_G=([\d./]+)\$ there", "EI HM_G")[0])
     allg = hmg_E + list(hmg_EI)
     check("abstract HM_G range = rounded min/max over both corpora (percent)", (round(100 * min(allg)), round(100 * max(allg))), (num(hg_lo), num(hg_hi)))
-    n_lo, n_hi = grab(ab, r"name the omitted note (\d+) to (\d+) percent", "abstract naming range")
+    raw_all = [num(rows[i][3]) / Ms[i] for i in range(3)]
+    for i in range(3):
+        check(f"charge-U HM lies strictly between HM_G and raw HM (configuration {i + 1})", hmg_E[i] < cu_vals[i] < raw_all[i], True)
+    n_lo, n_hi = grab(ab, r"substitutions, (\d+) to (\d+) percent name the omitted note", "abstract naming range")
     check("abstract naming range = rounded min/max of EI naming rates", (round(100 * min(rate)), round(100 * max(rate))), (num(n_lo), num(n_hi)))
     ag_lo, ag_hi = grab(ab, r"by ([\d.]+) to ([\d.]+)\.", "abstract gain range")
     check("abstract gain range = conclusion gain range", (num(ag_lo), num(ag_hi)), (num(g_lo), num(g_hi)))
