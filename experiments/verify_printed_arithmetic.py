@@ -135,14 +135,14 @@ def main() -> int:
         mloc.append(num(ml)); filt_f1.append(num(ff))
 
     # ---- Polytune's confusion matrix and its margins ----------------------
-    _row = lambda first: ((r"N: & " if first else r"& ") + N_ + " & " + N_ + " & " + N_
-                          + " & " + N_ + r"\\\\")
-    g = grab(tex, _row(True) + " " + _row(False) + " " + _row(False)
-             + r" \\cline\{2-5\} \\gamma': & " + N_ + " & " + N_ + " & " + N_ + r" & \\\\",
+    # each row: three N cells, its row sum, and its class's reference total
+    _row = lambda cls: (r"\\text\{" + cls + r"\} & " + N_ + " & " + N_ + " & " + N_
+                        + " & " + N_ + " & " + N_ + r"\\\\")
+    g = grab(tex, _row("missed") + " " + _row("extra") + " " + _row("wrong"),
              "confusion array with row sums and reference totals")
-    N = [[num(g[4 * i + j]) for j in range(3)] for i in range(3)]
-    sums_disp = [num(g[4 * i + 3]) for i in range(3)]      # the printed Sigma column
-    gam_disp = [num(g[12 + j]) for j in range(3)]          # the printed gamma' row
+    N = [[num(g[5 * i + j]) for j in range(3)] for i in range(3)]
+    sums_disp = [num(g[5 * i + 3]) for i in range(3)]      # the printed Sigma column
+    gam_disp = [num(g[5 * i + 4]) for i in range(3)]       # the printed gamma' column
     M = sum(map(sum, N))
     off = M - sum(N[i][i] for i in range(3))
     K_col = sum(N[i][2] for i in range(3))
@@ -195,7 +195,7 @@ def main() -> int:
     # ---- row localization rates against the post-collapse reference totals -
     r1, r2, r3 = grab(
         tex, r"so \$([\d.]+)\\%\$ of its missed .*? \$([\d.]+)\\%\$ of extra .*? \$([\d.]+)\\%\$ of wrong", "row rates")
-    ml1, ml2, ml3 = grab(tex, r"last column, \$([\d.]+)/([\d.]+)/([\d.]+)\\%\$", "letter's missed-localization triple")
+    ml1, ml2, ml3 = grab(tex, r"column, \$([\d.]+)/([\d.]+)/([\d.]+)\\%\$", "letter's missed-localization triple")
     le, lw = grab(tex, r"shares stay above \$([\d.]+)\$ and \$([\d.]+)\\%\$ for LadderSym", "LadderSym class lower bounds")
     check("letter's missed-localization triple = Table I's column", (num(ml1), num(ml2), num(ml3)), tuple(mloc))
     check("Polytune's missed rate is the triple's first entry", num(r1), num(ml1))

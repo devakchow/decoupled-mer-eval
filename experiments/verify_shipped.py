@@ -1879,13 +1879,14 @@ def check_letter_prose() -> None:
     # totals (gamma'), so the localization rates are checkable on the page
     # built as the prose reader sees it after whitespace normalization
     _mat_lines = []
-    for _r in ("missed", "extra", "wrong"):
-        _pre = "N: & " if _r == "missed" else "& "
-        _mat_lines.append(_pre
+    for _i, _r in enumerate(("missed", "extra", "wrong")):
+        _mat_lines.append("\\text{" + _r + "} & "
                           + " & ".join(_cn2(cs0[f"{_r}->{_c}"]) for _c in ("missed", "extra", "wrong"))
-                          + " & " + _cn2(_rowsum[_r]) + "\\\\")
+                          + " & " + _cn2(_rowsum[_r]) + " & " + _cn2(_gamma[_i]) + "\\\\")
     mat_b = " ".join(_mat_lines)
-    mat_g = "\\gamma': & " + " & ".join(_cn2(x) for x in _gamma) + " & \\\\"
+    # the reference total of each row's class sits in that row, so every
+    # localization rate reads across one row (a bottom row invited a crosswise read)
+    mat_g = "\\multicolumn{3}{c|}{N} & \\Sigma & \\gamma'"
     _bb = _load(os.path.join(HERE, "results", "cluster", "boot_bins.json"))
     _hg = [_bb[k]["point"]["hm_g"] for k in ("A_polytune_maestro", "B_laddersym_maestro_unprompted", "B_laddersym_maestro_prompted")]
     # "at most" is a bound: round up (exact spread 0.01324 -> 0.014, not 0.013)
@@ -1898,7 +1899,7 @@ def check_letter_prose() -> None:
         _e0.append(abs(_h0 - _h5))
     assert_in("epsilon-zero shift bound", "moves the $\\tau=50$~ms $\\mathrm{HM}$ by at most $%.3f$." % (math.ceil(max(_e0) * 1000) / 1000))
     assert_in("Polytune N array (with row sums)", mat_b)
-    assert_in("post-collapse reference totals row", mat_g)
+    assert_in("array header naming N, Sigma and gamma'", mat_g)
     _rows = {r: sum(cs0.get(f"{r}->{c}", 0) for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong")}
     _gam = (23087 - 12258, 34538 - 12258, 12258)  # post-collapse reference totals (gamma_m - mu_r, gamma_e - mu_r, mu_r)
     _rec = [100 * _rows["missed"] / _gam[0], 100 * _rows["extra"] / _gam[1], 100 * _rows["wrong"] / _gam[2]]
@@ -1925,8 +1926,13 @@ def check_letter_prose() -> None:
     assert_in("N row localization rates",
               "so $%.1f\\%%$ of its missed (omitted) notes are localized, against $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones"
               % (_rec[0], _rec[1], _rec[2]))
+    # Sec. IV must name Table I's columns, not their positions: two columns were
+    # appended after X/(T+X) and HM_0, which made "the last two columns" false
+    for bad in ("last two columns", "last column"):
+        if bad in tex:
+            fail(f"Sec. IV refers to Table I by column position ('{bad}'); name the column instead")
     assert_in("letter points at Table I's missed-localization column",
-              "the missed share is Table~\\ref{tab:main}'s last column, $%.1f/%.1f/%.1f\\%%$" % tuple(_rec_all))
+              "the missed share is Table~\\ref{tab:main}'s \\emph{Miss.\\ loc.} column, $%.1f/%.1f/%.1f\\%%$" % tuple(_rec_all))
     assert_in("LadderSym extra/wrong lower bounds",
               "the extra and wrong shares stay above $%.1f$ and $%.1f\\%%$ for LadderSym"
               % (min(_ls_rec[0][1], _ls_rec[1][1]), min(_ls_rec[0][2], _ls_rec[1][2])))
@@ -2002,7 +2008,7 @@ def check_letter_prose() -> None:
         fail("raw HM ordering disagrees with the published mean error F1 ordering: %s vs %s" % (_hm50, _mef))
     assert_in("conclusion ordering agreement", "though the raw $\\mathrm{HM}$ ordering is stable and agrees with the published protocol's")
     assert_in("row sums and reference totals labelled in the display",
-              "its row sums $\\Sigma$, and the post-collapse reference totals $\\gamma'$ are")
+              "its row sums $\\Sigma$, and the post-collapse reference total $\\gamma'$ of each row's class are")
     assert_in_supp("inner-bound example (X = 0, HM_0 = 1)",
                    "pairs each predicted event with the nearer cross-class event $100$~ms away, so $\\mathrm{HM}_0=1$.")
     for bad in ("every missed-class true positive survives", "removes only false positives", "off-distribution",
