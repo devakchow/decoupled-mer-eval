@@ -250,6 +250,11 @@ def main() -> int:
     # verify_shipped); here: the factors a reader forms from Table I's rounded
     # cells must lie inside it
     factors = [widths[i] / hm0[i] for i in range(3)]
+    # the printed range must be exactly what a reader gets by dividing the
+    # printed cells and rounding outward; "contains" is not enough, because an
+    # endpoint no cell division reaches reads as an arithmetic error
+    check("interval factor range = outward hull of the factors from Table I's cells",
+          hull(factors, 1), (num(f_lo), num(f_hi)))
     for i in range(3):
         check(f"interval factor from Table I's cells inside the printed range (configuration {i + 1})",
               num(f_lo) <= factors[i] <= num(f_hi), True)

@@ -728,7 +728,8 @@ def check_score_filter() -> None:
         fail("smallest filter drop %.1f%% no longer supports 'at least two fifths'" % min(drop(e)))
     else:
         ok("filter removes at least two fifths of missed claims in every configuration (min %.1f%%)" % min(drop(e)))
-    pin("E filter claim-first clause", "It removes at least two fifths of every configuration's missed claims")
+    # the claim is scoped to MAESTRO-E: the MAESTRO-EI filter removes as little as 24%
+    pin("E filter claim-first clause", "On MAESTRO-E it removes at least two fifths of each configuration's missed claims")
     pin("E missed F1 before/after", "missed-class $F_1$ from $%.3f/%.3f/%.3f$ to Table~\\ref{tab:main}'s $%.3f/%.3f/%.3f$"
         % (*[r["bs"]["missed"]["f1"] for r in e], *[r["fs"]["missed"]["f1"] for r in e]))
     mb_ = [r["bs"]["_mean_error_f1"] for r in e]
@@ -1840,10 +1841,10 @@ def check_letter_prose() -> None:
     # the realized collapse-free values are Table I's "$\mathrm{HM}_0$" column
     for i, lab in enumerate(("Polytune", "LadderSym unpr.", "LadderSym pr.")):
         cell = _p1[lab]
-        if cell is not None and abs(cell[1] - nc[i]) < 5e-4:
-            ok(f"Table I HM_0 for {lab}: {cell[1]:.3f} == artifact {nc[i]:.4f}")
+        if cell is not None and abs(cell[1] - nc[i]) < 5e-5:
+            ok(f"Table I HM_0 for {lab}: {cell[1]:.4f} == artifact {nc[i]:.5f}")
         else:
-            fail(f"Table I HM_0 for {lab} should be {nc[i]:.3f}, table has {cell}")
+            fail(f"Table I HM_0 for {lab} should be {nc[i]:.4f}, table has {cell}")
     # the two columns that absorbed prose triples: missed-localization share
     # (N's missed row over the post-collapse reference missed total) and the
     # post-filter missed-class F1
@@ -1864,10 +1865,10 @@ def check_letter_prose() -> None:
     if os.path.exists(supp):
         with open(supp, encoding="utf-8") as fh:
             s5 = re.sub(r"\s+", " ", fh.read())
-        if ("the collapse-free run (no merge, two classes) gives Table~I's $\\mathrm{HM}_0$, $%.3f/%.3f/%.3f$." % tuple(nc)) in s5:
+        if ("from the collapse-free run (no merge, two classes): $%.4f/%.4f/%.4f$." % tuple(nc)) in s5:
             ok("supplement states how Table I's HM_0 was computed, values artifact-derived")
         else:
-            fail("supplement HM_0 provenance sentence should read the collapse-free run values %.3f/%.3f/%.3f" % tuple(nc))
+            fail("supplement HM_0 provenance sentence should read the collapse-free run values %.4f/%.4f/%.4f" % tuple(nc))
     # Polytune's N at 50 ms printed as a smallmatrix; error-density ratio EI/E
     cs0 = M0["confusion_sparse"]
     rows = [[cs0[f"{r}->{c}"] for c in ("missed", "extra", "wrong")] for r in ("missed", "extra", "wrong")]

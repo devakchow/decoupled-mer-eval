@@ -171,7 +171,7 @@ def table_main() -> str:
             f"\\,{_f(100*tb['unfounded_ci'][1],1)}] & "
             f"{_f(tb['hm'])}~[{_f(tb['hm_ci'][0])},\\,{_f(tb['hm_ci'][1])}] & "
             f"{hm_s}~[{_f(hm_lo)},\\,{_f(hm_hi)}] & "
-            f"{_f(band_hi)} & {_f(hm_collapse_free(sysname))} & "
+            f"{_f(band_hi)} & {_f(hm_collapse_free(sysname), 4)} & "
             f"{_f(100*missed_localized(sysname),1)} & "
             f"{_f(filter_after(sysname)[0])} \\\\")
     body = "\n".join(rows)
