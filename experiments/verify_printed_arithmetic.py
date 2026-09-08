@@ -126,18 +126,23 @@ def main() -> int:
 
     # ---- Table I (tab_main.tex): Prop. 1's interval width and the realized
     # collapse-free hidden mass are its last two columns.
-    TLABEL = ("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)")
-    widths, hm0 = [], []
+    TLABEL = ("Polytune", "LadderSym unpr.", "LadderSym pr.")
+    widths, hm0, mloc, filt_f1 = [], [], [], []
     for lab in TLABEL:
-        w, h = grab(tabm, re.escape(lab) + r" & .*? & " + F_ + " & " + F_ + r" \\\\",
-                    "Table I row " + lab)
-        widths.append(num(w))
-        hm0.append(num(h))
+        w, h, ml, ff = grab(tabm, re.escape(lab) + r" & .*? & " + F_ + " & " + F_ + " & " + F_
+                            + " & " + F_ + r" \\\\", "Table I row " + lab)
+        widths.append(num(w)); hm0.append(num(h))
+        mloc.append(num(ml)); filt_f1.append(num(ff))
 
     # ---- Polytune's confusion matrix and its margins ----------------------
-    g = grab(tex, r"\\begin\{bmatrix\}" + N_ + "&" + N_ + "&" + N_ + r"\\\\" + N_ + "&" + N_ + "&" + N_
-             + r"\\\\" + N_ + "&" + N_ + "&" + N_ + r"\\end\{bmatrix\}", "bmatrix")
-    N = [[num(g[3 * i + j]) for j in range(3)] for i in range(3)]
+    _row = lambda first: ((r"N: & " if first else r"& ") + N_ + " & " + N_ + " & " + N_
+                          + " & " + N_ + r"\\\\")
+    g = grab(tex, _row(True) + " " + _row(False) + " " + _row(False)
+             + r" \\cline\{2-5\} \\gamma': & " + N_ + " & " + N_ + " & " + N_ + r" & \\\\",
+             "confusion array with row sums and reference totals")
+    N = [[num(g[4 * i + j]) for j in range(3)] for i in range(3)]
+    sums_disp = [num(g[4 * i + 3]) for i in range(3)]      # the printed Sigma column
+    gam_disp = [num(g[12 + j]) for j in range(3)]          # the printed gamma' row
     M = sum(map(sum, N))
     off = M - sum(N[i][i] for i in range(3))
     K_col = sum(N[i][2] for i in range(3))
@@ -188,15 +193,18 @@ def main() -> int:
     check("letter's |U| (Polytune) = Table II's", U[0], num(u_l))
 
     # ---- row localization rates against the post-collapse reference totals -
-    t1, t2, t3, s1, s2, s3, r1, r2, r3 = grab(
-        tex, r"reference totals \(\$" + N_ + r"\$, \$" + N_ + r"\$, \$" + N_ + r"\$\), its row sums \(\$" + N_ + r"\$, \$" + N_ + r"\$, \$" + N_ + r"\$\) show that \$([\d.]+)\\%\$ of missed .*? \$([\d.]+)\\%\$ of extra .*? \$([\d.]+)\\%\$ of wrong", "row rates")
-    ls_m1, ls_m2, ls_e1, ls_e2, ls_w1, ls_w2 = grab(
-        tex, r"\(LadderSym: \$([\d.]+)/([\d.]+)\\%\$, \$([\d.]+)/([\d.]+)\\%\$, and \$([\d.]+)/([\d.]+)\\%\$\)", "LadderSym row rates")
-    for lab, m_, e_, w_ in (("unprompted", ls_m1, ls_e1, ls_w1), ("prompted", ls_m2, ls_e2, ls_w2)):
-        check(f"LadderSym {lab}: omissions are the least-localized class (missed < wrong < extra)", num(m_) < num(w_) < num(e_), True)
+    r1, r2, r3 = grab(
+        tex, r"so \$([\d.]+)\\%\$ of its missed .*? \$([\d.]+)\\%\$ of extra .*? \$([\d.]+)\\%\$ of wrong", "row rates")
+    ml1, ml2, ml3 = grab(tex, r"last column, \$([\d.]+)/([\d.]+)/([\d.]+)\\%\$", "letter's missed-localization triple")
+    le, lw = grab(tex, r"shares stay above \$([\d.]+)\$ and \$([\d.]+)\\%\$ for LadderSym", "LadderSym class lower bounds")
+    check("letter's missed-localization triple = Table I's column", (num(ml1), num(ml2), num(ml3)), tuple(mloc))
+    check("Polytune's missed rate is the triple's first entry", num(r1), num(ml1))
+    for i, lab in enumerate(("unprompted", "prompted")):
+        check(f"LadderSym {lab}: omissions less localized than the stated extra/wrong floors", mloc[i + 1] < num(lw) < num(le), True)
     check("Polytune: omissions are the least-localized class (missed < wrong < extra)", num(r1) < num(r3) < num(r2), True)
-    for i, (t, s, r) in enumerate(((t1, s1, r1), (t2, s2, r2), (t3, s3, r3))):
-        check(f"printed row sum {i} = sum of N's row", sum(N[i]), num(s))
+    t1, t2, t3 = (str(int(x)) for x in gam_disp)
+    for i, (t, s, r) in enumerate(((t1, sums_disp[0], r1), (t2, sums_disp[1], r2), (t3, sums_disp[2], r3))):
+        check(f"displayed row sum {i} = sum of N's row", sum(N[i]), s)
         check(f"row {i} localized share = row sum / post-collapse total", 100 * sum(N[i]) / num(t), num(r), 0.05)
     mu_r, gamma_post = grab(tex, r"\$" + N_ + r"\$ merged pairs among \$" + N_ + r"\$ post-collapse reference errors", "reference merges")
     check("post-collapse reference totals sum to 45,367", num(t1) + num(t2) + num(t3), num(gamma_post))
@@ -295,9 +303,9 @@ def main() -> int:
         check(f"Table II HM_G row = the letter's printed HM_G (configuration {i + 1})", hmg_tab[i], v)
 
     # ---- filter gains and the mean error F1 ---------------------------------
-    b, a = (triple(x) for x in grab(tex, r"under the published protocol from \$([\d./]+)\$ to \$([\d./]+)\$", "missed F1 before/after"))
+    b, a = (triple(x) for x in grab(tex, r"raises missed-class \$F_1\$ from \$([\d./]+)\$ to Table~\\ref\{tab:main\}'s \$([\d./]+)\$", "missed F1 before/after"))
     mb, ma = (triple(x) for x in grab(sup, r"mean error \$F_1\$ from \$([\d./]+)\$ to \$([\d./]+)\$ on MAESTRO-E", "mean F1 before/after (supplement)"))
-    r_lo, r_hi = grab(tex, r"Repl\.\\ \$\\bar F_1\$\) by \$([\d.]+)\$--\$([\d.]+)\$", "mean F1 gain range")
+    r_lo, r_hi = grab(tex, r"the mean error \$F_1\$ by \$([\d.]+)\$--\$([\d.]+)\$", "mean F1 gain range")
     mgains = [ma[i] - mb[i] for i in range(3)]
     check("letter's mean-F1 gain range = outward hull of the supplement's before/after gains",
           hull(mgains, 2), (num(r_lo), num(r_hi)))
@@ -307,6 +315,8 @@ def main() -> int:
     for i, name in enumerate(("Polytune", "unprompted", "prompted")):
         check(f"filter's TP base = published TP_m ({name})", tp_of[i], pub[name][0])
         check(f"TP losses are non-negative ({name})", num(tp_lost[i]) >= 0 and num(tp_lost[4 + i]) >= 0, True)
+    for i in range(3):
+        check(f"post-filter missed F1 in prose = Table I's column (configuration {i + 1})", a[i], filt_f1[i])
     gains = [a[i] - b[i] for i in range(3)]
     check("conclusion gain range = outward hull of the three filter gains", hull(gains, 2), (num(g_lo), num(g_hi)))
     pooled = re.findall(r"([\d.]+)/([\d.]+) \((?:Polytune|LadderSym unprompted|LadderSym prompted)", sup)[:3]

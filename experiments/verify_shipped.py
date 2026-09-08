@@ -721,20 +721,27 @@ def check_score_filter() -> None:
     all_gains = [r["fs"]["missed"]["f1"] - r["bs"]["missed"]["f1"] for r in e + ei]
     pin("abstract gain range (both corpora)", "by %.2f to %.2f. Of merged" % hull(all_gains, 2))
     drop = lambda rs: [100 * r["sf"]["n_dropped"] / r["sf"]["n_missed_before"] for r in rs]
-    pin("E drop shares", "removes $%d/%d/%d\\%%$ of the configurations'" % tuple(round(x) for x in drop(e)))
-    pin("E missed F1 before/after", "protocol from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$"
+    pin("E drop shares", "it removes $%d/%d/%d\\%%$, raises" % tuple(round(x) for x in drop(e)))
+    # the paragraph states the conclusion before the triples; the qualifier must
+    # hold for every configuration (the smallest drop is 42%)
+    if min(drop(e)) < 40:
+        fail("smallest filter drop %.1f%% no longer supports 'at least two fifths'" % min(drop(e)))
+    else:
+        ok("filter removes at least two fifths of missed claims in every configuration (min %.1f%%)" % min(drop(e)))
+    pin("E filter claim-first clause", "It removes at least two fifths of every configuration's missed claims")
+    pin("E missed F1 before/after", "missed-class $F_1$ from $%.3f/%.3f/%.3f$ to Table~\\ref{tab:main}'s $%.3f/%.3f/%.3f$"
         % (*[r["bs"]["missed"]["f1"] for r in e], *[r["fs"]["missed"]["f1"] for r in e]))
     mb_ = [r["bs"]["_mean_error_f1"] for r in e]
     ma_ = [r["fs"]["_mean_error_f1"] for r in e]
     assert_in_supp("E mean error F1 before/after (supplement)",
                    "mean error $F_1$ from $%.3f/%.3f/%.3f$ to $%.3f/%.3f/%.3f$ on MAESTRO-E" % (*mb_, *ma_))
     mg_ = [a - b for a, b in zip(ma_, mb_)]
-    pin("E mean error F1 gain range", "Repl.\\ $\\bar F_1$) by $%.2f$--$%.2f$" % hull(mg_, 2))
+    pin("E mean error F1 gain range", "the mean error $F_1$ by $%.2f$--$%.2f$" % hull(mg_, 2))
     if abs(e[1]["fs"]["_mean_error_f1"] - e[2]["bs"]["_mean_error_f1"]) >= 1e-3:
         fail("filtered unprompted mean error F1 no longer matches the prompted published mean within 0.001")
     else:
         ok("filtered unprompted mean error F1 = prompted published mean within 0.001")
-    pin("E filtered HM", "lowering raw $\\mathrm{HM}$ to $%.3f/%.3f/%.3f$, below Table" % tuple(r["rf"]["hm"] for r in e))
+    pin("E filtered HM", "lowers raw $\\mathrm{HM}$ to $%.3f/%.3f/%.3f$." % tuple(r["rf"]["hm"] for r in e))
     for r in e:
         if r["cf"]["hm_ci95"][1] >= r["cb"]["hm_ci95"][0]:
             fail("filtered HM interval not below the Table I interval")
@@ -1164,7 +1171,7 @@ def check_letter_prose() -> None:
     assert_in_supp("replication agreement",
                    "within $%.3f$ of the printed Polytune and prompted values and $%.3f$ of the printed \\emph{Ladder} values"
                    % (_up(dev), _up(dev_l)))
-    assert_in("letter replication residual bound", "($\\le%.3f$; supplementary)" % _up(max(dev, dev_l)))
+    assert_in("letter replication residual bound", "($\\le%.3f$) lies in the inference runs" % _up(max(dev, dev_l)))
 
     # 9c. supplement's reproducibility counts, derived from results/gilbreth_v110
     supp = os.path.join(os.path.dirname(HERE), "proposal",
@@ -1746,14 +1753,14 @@ def check_letter_prose() -> None:
     # HM_0, checked with the collapse-free arm below)
     def _tab_main_prop1() -> dict:
         out = {}
-        for lab in ("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)"):
-            m = re.search(re.escape(lab) + r" & .*? & ([\d.]+) & ([\d.]+) \\\\",
+        for lab in ("Polytune", "LadderSym unpr.", "LadderSym pr."):
+            m = re.search(re.escape(lab) + r" & .*? & ([\d.]+) & ([\d.]+) & ([\d.]+) & ([\d.]+) \\\\",
                           tab_main_tex, re.S)
-            out[lab] = (float(m.group(1)), float(m.group(2))) if m else None
+            out[lab] = tuple(float(g) for g in m.groups()) if m else None
         return out
 
     _p1 = _tab_main_prop1()
-    for i, lab in enumerate(("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)")):
+    for i, lab in enumerate(("Polytune", "LadderSym unpr.", "LadderSym pr.")):
         cell = _p1[lab]
         if cell is not None and abs(cell[0] - xt[i]) < 5e-4:
             ok(f"Table I X/(T+X) for {lab}: {cell[0]:.3f} == artifact {xt[i]:.4f}")
@@ -1831,12 +1838,25 @@ def check_letter_prose() -> None:
         if not all(x["mass_conserved"] for x in d["decoupled"]["per_tau"]):
             fail(f"collapse-free arm {stem}: mass conservation failed")
     # the realized collapse-free values are Table I's "$\mathrm{HM}_0$" column
-    for i, lab in enumerate(("Polytune", "LadderSym (unprompted)", "LadderSym (prompted)")):
+    for i, lab in enumerate(("Polytune", "LadderSym unpr.", "LadderSym pr.")):
         cell = _p1[lab]
         if cell is not None and abs(cell[1] - nc[i]) < 5e-4:
             ok(f"Table I HM_0 for {lab}: {cell[1]:.3f} == artifact {nc[i]:.4f}")
         else:
             fail(f"Table I HM_0 for {lab} should be {nc[i]:.3f}, table has {cell}")
+    # the two columns that absorbed prose triples: missed-localization share
+    # (N's missed row over the post-collapse reference missed total) and the
+    # post-filter missed-class F1
+    _gam_m = 23087 - 12258
+    for i, (lab, stem) in enumerate(zip(("Polytune", "LadderSym unpr.", "LadderSym pr."), stems)):
+        _cs = [x for x in _load(os.path.join(gil, f"{stem}_shipped.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["confusion_sparse"]
+        _ml = 100 * sum(_cs.get(f"missed->{c}", 0) for c in ("missed", "extra", "wrong")) / _gam_m
+        _ff = _load(os.path.join(gil, f"{stem}_scorefilter50.json"))["shipped_50ms"]["missed"]["f1"]
+        cell = _p1[lab]
+        if cell is not None and abs(cell[2] - _ml) < 0.05 and abs(cell[3] - _ff) < 5e-4:
+            ok(f"Table I missed-loc {cell[2]:.1f}% and post-filter F1 {cell[3]:.3f} for {lab} == artifacts")
+        else:
+            fail(f"Table I missed-loc/post-filter F1 for {lab} should be {_ml:.1f}, {_ff:.3f}; table has {cell}")
     if hw <= 0.007:
         ok(f"collapse-free per-piece intervals within +/-{hw:.4f} <= printed 0.007")
     else:
@@ -1852,7 +1872,20 @@ def check_letter_prose() -> None:
     cs0 = M0["confusion_sparse"]
     rows = [[cs0[f"{r}->{c}"] for c in ("missed", "extra", "wrong")] for r in ("missed", "extra", "wrong")]
     off_all = sum(cs0[f"{r}->{c}"] for r in ("missed", "extra", "wrong") for c in ("missed", "extra", "wrong") if r != c)
-    mat_b = "\\\\".join("&".join("{:,}".format(cs0[f"{r}->{c}"]).replace(",", "{,}") for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong"))
+    _cn2 = lambda n: "{:,}".format(n).replace(",", "{,}")
+    _rowsum = {r: sum(cs0.get(f"{r}->{c}", 0) for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong")}
+    _gamma = (23087 - 12258, 34538 - 12258, 12258)   # post-collapse reference totals
+    # the displayed array carries N, its row sums (Sigma) and the reference
+    # totals (gamma'), so the localization rates are checkable on the page
+    # built as the prose reader sees it after whitespace normalization
+    _mat_lines = []
+    for _r in ("missed", "extra", "wrong"):
+        _pre = "N: & " if _r == "missed" else "& "
+        _mat_lines.append(_pre
+                          + " & ".join(_cn2(cs0[f"{_r}->{_c}"]) for _c in ("missed", "extra", "wrong"))
+                          + " & " + _cn2(_rowsum[_r]) + "\\\\")
+    mat_b = " ".join(_mat_lines)
+    mat_g = "\\gamma': & " + " & ".join(_cn2(x) for x in _gamma) + " & \\\\"
     _bb = _load(os.path.join(HERE, "results", "cluster", "boot_bins.json"))
     _hg = [_bb[k]["point"]["hm_g"] for k in ("A_polytune_maestro", "B_laddersym_maestro_unprompted", "B_laddersym_maestro_prompted")]
     # "at most" is a bound: round up (exact spread 0.01324 -> 0.014, not 0.013)
@@ -1863,8 +1896,9 @@ def check_letter_prose() -> None:
         _h0 = [x for x in _load(os.path.join(gil, f"{_st}_strict_eps0.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"]
         _h5 = [x for x in _load(os.path.join(gil, f"{_st}_strict_eps05.json"))["decoupled"]["per_tau"] if x["tau_ms"] == 50][0]["hm"]
         _e0.append(abs(_h0 - _h5))
-    assert_in("epsilon-zero shift bound", "moves the $\\tau=50$~ms $\\mathrm{HM}$ by at most $%.3f$ (supplementary)" % (math.ceil(max(_e0) * 1000) / 1000))
-    assert_in("Polytune N bmatrix", "\\begin{bmatrix}" + mat_b + "\\end{bmatrix}")
+    assert_in("epsilon-zero shift bound", "moves the $\\tau=50$~ms $\\mathrm{HM}$ by at most $%.3f$." % (math.ceil(max(_e0) * 1000) / 1000))
+    assert_in("Polytune N array (with row sums)", mat_b)
+    assert_in("post-collapse reference totals row", mat_g)
     _rows = {r: sum(cs0.get(f"{r}->{c}", 0) for c in ("missed", "extra", "wrong")) for r in ("missed", "extra", "wrong")}
     _gam = (23087 - 12258, 34538 - 12258, 12258)  # post-collapse reference totals (gamma_m - mu_r, gamma_e - mu_r, mu_r)
     _rec = [100 * _rows["missed"] / _gam[0], 100 * _rows["extra"] / _gam[1], 100 * _rows["wrong"] / _gam[2]]
@@ -1883,9 +1917,19 @@ def check_letter_prose() -> None:
         fail("Polytune: missed-row share is not the least localized class")
     else:
         ok("omissions are the least-localized class in every configuration (missed < wrong < extra row shares)")
+    # one delimiter meaning per slash-run: the LadderSym values are grouped by
+    # configuration (missed/extra/wrong), as every other triple in Sec. IV is
+    # the three missed-localization shares are Table I's column; the letter
+    # states Polytune's three class rates and points at the column for the rest
+    _rec_all = (_rec[0], _ls_rec[0][0], _ls_rec[1][0])
     assert_in("N row localization rates",
-              "show that $%.1f\\%%$ of missed (omitted) notes are localized, compared with $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones (LadderSym: $%.1f/%.1f\\%%$, $%.1f/%.1f\\%%$, and $%.1f/%.1f\\%%$)"
-              % (_rec[0], _rec[1], _rec[2], _ls_rec[0][0], _ls_rec[1][0], _ls_rec[0][1], _ls_rec[1][1], _ls_rec[0][2], _ls_rec[1][2]))
+              "so $%.1f\\%%$ of its missed (omitted) notes are localized, against $%.1f\\%%$ of extra (inserted) and $%.1f\\%%$ of wrong (substituted) ones"
+              % (_rec[0], _rec[1], _rec[2]))
+    assert_in("letter points at Table I's missed-localization column",
+              "the missed share is Table~\\ref{tab:main}'s last column, $%.1f/%.1f/%.1f\\%%$" % tuple(_rec_all))
+    assert_in("LadderSym extra/wrong lower bounds",
+              "the extra and wrong shares stay above $%.1f$ and $%.1f\\%%$ for LadderSym"
+              % (min(_ls_rec[0][1], _ls_rec[1][1]), min(_ls_rec[0][2], _ls_rec[1][2])))
     assert_in("matrix heading (comparative, not absolute)", "\\emph{The systems localize insertions far more than omissions.}")
     assert_in("reference merges clause (matrix paragraph)",
               "(predicted-side merges, Table~II of the supplement) and the $%s$ reference pairs above." % "{:,}".format(_gam[2]).replace(",", "{,}"))
@@ -1957,8 +2001,8 @@ def check_letter_prose() -> None:
     else:
         fail("raw HM ordering disagrees with the published mean error F1 ordering: %s vs %s" % (_hm50, _mef))
     assert_in("conclusion ordering agreement", "though the raw $\\mathrm{HM}$ ordering is stable and agrees with the published protocol's")
-    assert_in("N row sums printed",
-              "its row sums ($%s$, $%s$, $%s$) show that" % tuple("{:,}".format(_rows[r]).replace(",", "{,}") for r in ("missed", "extra", "wrong")))
+    assert_in("row sums and reference totals labelled in the display",
+              "its row sums $\\Sigma$, and the post-collapse reference totals $\\gamma'$ are")
     assert_in_supp("inner-bound example (X = 0, HM_0 = 1)",
                    "pairs each predicted event with the nearer cross-class event $100$~ms away, so $\\mathrm{HM}_0=1$.")
     for bad in ("every missed-class true positive survives", "removes only false positives", "off-distribution",
